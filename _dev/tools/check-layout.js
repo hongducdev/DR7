@@ -33,6 +33,15 @@ window.addEventListener("load", function () {
   var btns = [].slice.call(box.querySelectorAll("button:not([disabled]):not(.reload-panel)"));
   var bad = function (f) { return btns.filter(f).map(function (x) { return x.textContent.trim() || x.id; }); };
   out.push("clip=" + JSON.stringify(bad(function (x) { return x.scrollWidth > x.clientWidth + 1; })));
+  // text-overflow: ellipsis che scrollWidth nên phải đo chữ bằng canvas mới biết nhãn có bị cắt.
+  var cv = document.createElement("canvas").getContext("2d");
+  var tight = btns.filter(function (x) {
+    var cs = getComputedStyle(x);
+    cv.font = cs.fontStyle + " " + cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    var w = cv.measureText(x.textContent.trim()).width + parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    return w > x.clientWidth + 0.5;
+  }).map(function (x) { return x.textContent.trim() + "(" + Math.round(x.clientWidth) + "px)"; });
+  out.push("tight=" + JSON.stringify(tight));
   out.push("wrap=" + JSON.stringify(bad(function (x) { return x.scrollHeight > x.clientHeight + 1; })));
   out.push("loose=" + JSON.stringify(bad(function (x) { return !/row|tools|action-grid/.test(x.parentNode.className || ""); })));
   out.push("ngoai=" + JSON.stringify(bad(function (x) { var q = x.getBoundingClientRect(); return q.left < r.left - 0.5 || q.right > r.right + 0.5; })));
@@ -78,6 +87,7 @@ console.log('đo trong khung 235px: ' + JSON.stringify(res));
 
 const fails = [];
 for (const k of ['clip', 'wrap', 'loose', 'ngoai']) if (res[k] !== '[]') fails.push(k + '=' + res[k]);
+if (res.tight !== '[]') fails.push('nhãn bị cắt bằng ellipsis: ' + res.tight);
 if (res.overflowY !== 'auto') fails.push('overflowY=' + res.overflowY);
 if (+res.last > 800) fails.push('nội dung còn quá dài: ' + res.last + 'px');
 if (+res.center > 1) fails.push('logo/icon lệch tâm: ' + res.center + 'px');

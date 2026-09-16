@@ -31,11 +31,11 @@
 
 - **Giao diện 100% tiếng Việt**: Mọi nút bấm, nhãn và chú thích (tooltip) được bản địa hóa chuẩn xác theo thuật ngữ nhiếp ảnh và đồ họa chuyên nghiệp.
 - **Bố cục Responsive tối ưu**: Chiều rộng chuẩn 235px của panel CEP, lưới nút bấm 3 cột tự động co giãn theo nội dung, cuộn dọc mượt mà, tương thích hoàn hảo với mọi kích thước màn hình.
-- **Hỗ trợ toàn diện chủ đề Photoshop**: Tự động nhận diện và đồng bộ màu sắc theo 4 mức độ giao diện của Photoshop (*Tối nhất, Tối, Sáng, Sáng nhất*), kèm hiệu ứng rê chuột (hover) và tiêu điểm (focus) rõ ràng.
+- **Giao diện gọn, không nút chết**: Chỉ giữ 26 chức năng đang hoạt động; toàn bộ nút mờ và script của chúng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
 - **Xử lý ảnh không phá hủy (Non-destructive)**: Mọi thao tác đều sinh layer, mask hoặc adjustment layer riêng biệt, dễ dàng tinh chỉnh Opacity, Blend Mode hoặc đảo ngược bất cứ lúc nào.
-- **Hỗ trợ ảnh RGB 8-bit và 16-bit**: Thuật toán tách tần số và xử lý màu sắc vận hành chính xác trên cả định dạng ảnh tiêu chuẩn và ảnh chất lượng cao.
+- **Hỗ trợ ảnh RGB 8-bit và 16-bit**: Các thuật toán xử lý màu sắc và kết cấu vận hành chính xác trên cả định dạng ảnh tiêu chuẩn và ảnh chất lượng cao.
 - **Hiệu năng cao & Bảo mật**: Vận hành hoàn toàn cục bộ trên nền tảng chuẩn Adobe CEP + ExtendScript, không phụ thuộc thư viện ngoài nặng nề, không gửi dữ liệu qua mạng.
-- **Bộ hoa văn độc quyền**: Tích hợp sẵn bộ 8 mẫu pattern chất liệu độc quyền phục vụ tạo hạt phim, kết cấu vải, chi tiết hạt da và trang trí nghệ thuật.
+- **Bộ hoa văn kết cấu**: Tích hợp sẵn bộ pattern chất liệu độc quyền (`Hạt phim`, `Hạt thô`, `Chấm`).
 
 ---
 
@@ -109,145 +109,79 @@ Nếu muốn tự triển khai hoặc cài đặt cho toàn bộ người dùng 
 
 ---
 
-## Bảng chức năng & Hệ thống công cụ
+## Bảng chức năng
 
-Bảng điều khiển **MHK DR7** được tổ chức khoa học thành các nhóm tác vụ theo trình tự xử lý ảnh thực tế:
+Bảng điều khiển **MHK DR7** chỉ giữ lại **26 chức năng đang hoạt động** (những nút còn sáng màu).
+Toàn bộ nút mờ (không khả dụng) cùng script, hàm lõi và tài nguyên của chúng đã được gỡ bỏ hoàn toàn,
+nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 
 ```
 ┌────────────────────────────────────────────────────────┐
-│                        MHK DR7                         │
+│                   MHK DR7        [↻ Nạp lại]           │
 ├────────────────────────────────────────────────────────┤
-│ [↻ Nạp lại]                         [Biểu tượng logo] │
-│ ────────────────────────────────────────────────────── │
-│ [Cọ] [Nhặt mụn] [Nhặt mụn] [Nhặt mụn] [Chấm] [Chấm]   │
-│ [Cọ trộn] [Thu Phóng] [So Sánh] [Mặt nạ] [Lùi] [Tiến] │
-│ [Fit gốc] [Làm mờ] [Hóa lỏng] [Tối] [Trung tính] [Sáng]│
-│ ────────────────────────────────────────────────────── │
 │ [ Làm Da V5.0 ]                                        │
-│ [ Hàng loạt ] [ Tự động ]                              │
-│ [ Chữ / Logo ] [ Tần số 8/16 ]                         │
+│ [ Hàng loạt ] [ Tự động ] [ Chữ / Logo ]               │
 │ [ Làm mịn ] [ Lẫn mịn ] [ Tẩy lông ]                   │
-│ [ Tần số ] [ Frequency ] [ Đánh Khối ]                 │
-│ [ Lấy mẫu ] [ Chọn Mắt ]                               │
-│ [ Mặt nạ da ] [ Sửa mắt ]                              │
-│ [ Làm nét ] [ Liquify ] [ Lớp xám ]                    │
-│ [ Highlight ] [ Mặt Nạ ] [ Phủ phấn ]                  │
-│ [ Lông Mi ] [ Bóng Mắt ] [ Bóng Vàng ]                 │
-│ [ Màu tổng ] [ Màu Da ]                                │
-│ [ Giảm Vàng ] [ Trắng Da ]                             │
-│ [ Trắng Răng ] [ Son Môi ] [ Khử Vàng ]                │
-│ [ Phai màu ] [ Hào Quang ] [ Trừ vàng ]                │
-│ [ Hạt phim ] [ Nền trắng ] [ Nền ấm ]                  │
-│ [ Camera Raw ] [ Chi tiết ]                            │
-│ [ Cổ điển ] [ Tranh Vẽ ]                               │
-│ [ Vải dệt ] [ Hạt thô ] [ Ẩn kết cấu ]                 │
-│ [ Sọc ] [ Chấm ] [ Làm mờ ]                            │
-│ [ Hoa mai ] [ Hoa Sen ] [ Trang Trí ]                  │
-│ [ Nét mềm ] [ Đảo vùng ]                               │
-│ [ Gộp lớp ] [ Vật liệu ] [ Lật ngang ]                 │
-│ [ Bột tươi ] [ Phim TL ]                               │
+│ [ Đánh Khối ] [ Làm nét ] [ Liquify ]                  │
+│ [ Highlight ] [ Phủ phấn ] [ Lông Mi ]                 │
+│ [ Bóng Mắt ] [ Màu tổng ] [ Màu Da ]                   │
+│ [ Giảm Vàng ] [ Trắng Da ] [ Trắng Răng ]              │
+│ [ Son Môi ] [ Hào Quang ] [ Hạt phim ]                 │
+│ [ Camera Raw ] [ Chi tiết ] [ Hạt thô ]                │
+│ [ Chấm ]                                               │
 └────────────────────────────────────────────────────────┘
 ```
 
-### 1. Thanh công cụ thao tác nhanh
+### 1. Làm da & làm mịn
 
-Bao gồm các công cụ chọn lọc và điều hướng thường dùng trong quá trình chỉnh sửa:
-
-| Công cụ | Mã lệnh | Tác vụ |
+| Nút bấm | Mã lệnh | Tác vụ |
 |---|---|---|
-| **Cọ (Brush)** | `BR` | Kích hoạt công cụ vẽ cọ tiêu chuẩn với thiết lập phù hợp. |
-| **Nhặt mụn (Spot Healing)** | `SP` / `HB` / `PA` | Nhặt khuyết điểm, xóa hạt bụi, mụn nhỏ tức thì. |
-| **Chấm mụn (Clone Stamp)** | `CL` / `PC` | Lấy mẫu vùng da lân cận để che phủ vết thâm, nốt ruồi. |
-| **Cọ trộn màu (Mixer Brush)** | `MIXER` | Kích hoạt cọ trộn màu đặc biệt hỗ trợ pha màu da mịn màng. |
-| **Thu Phóng (Zoom)** | `ZO` | Phóng to / thu nhỏ khung nhìn tài liệu. |
-| **So Sánh (Before/After)** | `DV` | Bật/tắt hiển thị trạng thái ảnh gốc để đánh giá hiệu quả chỉnh sửa. |
-| **Mặt nạ lớp (Layer Mask)** | `VW` | Tạo hoặc chuyển đổi nhanh chế độ xem mặt nạ lớp. |
-| **Lùi / Tiến (Undo / Redo)** | `BW` / `FW` | Hoàn tác hoặc đi tiếp một bước trong lịch sử thao tác. |
+| **Làm Da V5.0** | `DS` | Quy trình làm mịn da thông minh, làm đều vùng da sần sùi mà không làm mờ lỗ chân lông hay mất kết cấu tự nhiên. |
+| **Hàng loạt** | `BA` | Thiết lập thông số một lần rồi áp dụng cho nhiều ảnh. |
+| **Tự động** | `SE` | Làm đẹp tự động tối ưu hóa nhiều bước chỉ với một cú nhấp chuột. |
+| **Làm mịn / Lẫn mịn** | `LS` / `SS` | Làm mịn da bề mặt nhanh chóng, kết hợp làm mờ quang học tự nhiên. |
+| **Tẩy lông** | `RE` | Xóa sạch lông tơ, sợi tóc con vướng trên trán, má hoặc cằm. |
 
-### 2. Lựa chọn vùng sáng tối (Tone Selection)
+### 2. Đánh khối, độ nét & ánh sáng
 
-| Nút bấm | Mã lệnh | Mô tả |
+| Nút bấm | Mã lệnh | Tác vụ |
 |---|---|---|
-| **Fit gốc** | `BTNFIT` | Đưa khung nhìn tài liệu về kích thước chuẩn vừa vặn màn hình. |
-| **Làm mờ** | `BTNFADE` | Giảm độ gắt của thao tác vừa thực hiện (Fade). |
-| **Hóa lỏng** | `BTNLIQ` | Mở nhanh công cụ Liquify để nắn chỉnh hình thể và khuôn mặt. |
-| **Lựa chọn phần tối** | `BTNDARK` | Tự động tải vùng chọn các vùng tối (Shadows) trên ảnh. |
-| **Lựa chọn trung tính** | `BTNMID` | Tự động tạo vùng chọn vùng sắc độ trung tính (Midtones). |
-| **Chọn ánh sáng cao** | `BTNLIGHT` | Tự động tạo vùng chọn vùng sáng mạnh (Highlights). |
+| **Đánh Khối** | `DB` | Tạo tự động nhóm layer Dodge & Burn kèm đường cong Curves và mặt nạ đen, sẵn sàng quét sáng/tối tạo khối gương mặt. |
+| **Làm nét** | `SH` | Tăng chi tiết tóc và đường viền chân dung. |
+| **Liquify** | `LI` | Mở nhanh công cụ Liquify để nắn chỉnh hình thể và khuôn mặt. |
+| **Phủ phấn** | `TJSH` | Giảm độ bóng nhờn, tạo hiệu ứng da phủ phấn mịn màng như trang điểm thực tế. |
+| **Highlight** | `GGXS` | Tạo điểm nhấn bắt sáng tự nhiên tại sống mũi, gò má, cằm và trán. |
 
-### 3. Xử lý và làm mịn da chuyên sâu
+### 3. Tông màu da & trang điểm
 
-| Chức năng | Mô tả chi tiết |
-|---|---|
-| **Làm Da V5.0** | Quy trình làm mịn da thông minh thế hệ mới, làm đều vùng da sần sùi mà không làm mờ lỗ chân lông hay mất kết cấu tự nhiên. |
-| **Tần số 8/16** | Hộp thoại chọn phương pháp tách tần số (Frequency Separation) tùy chọn theo độ sâu màu 8-bit hoặc 16-bit, hỗ trợ làm mịn bề mặt da và xử lý ánh sáng riêng biệt. |
-| **Tần số / Frequency** | Tạo tự động bộ 2 layer Tần số cao (High Frequency - Kết cấu chi tiết) và Tần số thấp (Low Frequency - Màu sắc và tone màu). |
-| **Làm mịn / Lẫn mịn** | Làm mịn da bề mặt nhanh chóng, kết hợp làm mờ quang học tự nhiên. |
-| **Tẩy lông** | Xóa sạch lông tơ, sợi tóc con vướng trên trán, má hoặc cằm. |
-| **Lấy mẫu & Mặt nạ da** | Lấy mẫu vùng da đại diện (`Lấy mẫu`), sau đó tự động tạo vùng chọn phủ khắp da mặt (`Mặt nạ da`) để tinh chỉnh đồng bộ. |
-| **Tự động / Hàng loạt** | Chế độ làm đẹp tự động tối ưu hóa nhiều bước chỉ với một cú nhấp chuột hoặc xử lý hàng loạt theo thông số lưu trữ. |
+| Nút bấm | Mã lệnh | Tác vụ |
+|---|---|---|
+| **Màu tổng** | `BTNPFSD2` | Cân bằng sắc độ da toàn diện, khắc phục da loang màu hoặc lệch tone. |
+| **Màu Da** | `TC` | Áp dụng bảng màu da chuẩn, tạo vẻ rạng rỡ và hồng hào tự nhiên. |
+| **Giảm Vàng** | `FSJH` | Loại bỏ sắc tố vàng dư thừa do ánh sáng môi trường không chuẩn. |
+| **Trắng Da** | `MBPF` | Nâng tone sáng trong trẻo cho làn da mà vẫn giữ nguyên chi tiết khối. |
+| **Trắng Răng** | `WT` | Loại bỏ ố vàng trên men răng, tăng độ trắng sáng tự nhiên. |
+| **Son Môi** | `ZCZQ` | Tô sắc môi tự nhiên, hỗ trợ tùy biến sắc độ môi. |
+| **Lông Mi** | `JMXS` | Tăng độ dày và độ nét của hàng mi. |
+| **Bóng Mắt** | `TJYY` | Tạo khối mí mắt, giúp ánh mắt sâu và tự nhiên hơn. |
 
-### 4. Đánh khối & Định hình ánh sáng (Dodge & Burn)
+### 4. Hiệu ứng, kết cấu & tiện ích
 
-| Chức năng | Mô tả chi tiết |
-|---|---|
-| **Đánh Khối** | Tạo tự động nhóm layer Dodge & Burn (Sáng / Tối) kèm đường cong Curves và mặt nạ đen, sẵn sàng để quét sáng/tối tạo khối gương mặt. |
-| **Lớp xám** | Tạo layer 50% Neutral Gray hòa trộn Soft Light để chỉnh khối bằng cọ trắng/đen thủ công. |
-| **Highlight** | Tạo điểm nhấn bắt sáng tự nhiên tại sống mũi, gò má, cằm và trán. |
-| **Mặt Nạ** | Tạo và quản lý mặt nạ chỉnh sửa ánh sáng chuyên biệt. |
-| **Phủ phấn** | Giảm độ bóng nhờn, tạo hiệu ứng da phủ phấn mịn màng như trang điểm thực tế. |
+| Nút bấm | Mã lệnh | Tác vụ |
+|---|---|---|
+| **Hào Quang** | `CGYSB` | Tạo lớp hòa trộn Screen phủ ánh sáng mềm. |
+| **Hạt phim** | `MLXG` | Hoa văn hạt phim (Grain). |
+| **Hạt thô** | `mcwl` | Hoa văn hạt thô (Coarse). |
+| **Chấm** | `sfb` | Hoa văn chấm bi (Dots). |
+| **Camera Raw** | `DKACR` | Khởi chạy trực tiếp bộ lọc Adobe Camera Raw. |
+| **Chi tiết** | `PP_DETAIL` | Tách chi tiết High Pass trên layer độc lập để tăng độ trong của ảnh. |
+| **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt. |
 
-### 5. Cân bằng và hiệu chỉnh tông màu da
-
-| Chức năng | Mô tả chi tiết |
-|---|---|
-| **Màu tổng** | Cân bằng sắc độ da toàn diện, khắc phục tình trạng da bị loang màu hoặc lệch tone sáng tối. |
-| **Màu Da** | Áp dụng bảng màu da chuẩn, tạo vẻ rạng rỡ và hồng hào tự nhiên. |
-| **Giảm Vàng / Khử Vàng / Trừ Vàng** | Bộ 3 giải pháp loại bỏ sắc tố vàng dư thừa do ánh đèn sân khấu hoặc ánh sáng môi trường không chuẩn. |
-| **Trắng Da** | Nâng tone sáng trong trẻo cho làn da mà vẫn giữ nguyên chi tiết khối. |
-
-### 6. Chi tiết chân dung & Trang điểm
-
-| Bộ phận | Chức năng có sẵn |
-|---|---|
-| **Mắt & Lông mi** | `Chọn Mắt`, `Sửa mắt` (tăng độ long lanh, làm rõ con ngươi), `Lông Mi` (tăng độ dày và nét của hàng mi), `Bóng Mắt` (tạo khối mí mắt), `Bóng Vàng` (tạo nhũ ánh vàng). |
-| **Nụ cười & Răng** | `Trắng Răng` (loại bỏ ố vàng trên men răng, tăng độ trắng sáng tự nhiên chỉ với vài đường quét cọ). |
-| **Môi** | `Son Môi` (tô sắc môi tự nhiên, hỗ trợ chọn lựa và tùy biến sắc độ môi dễ dàng). |
-| **Độ nét & Tóc** | `Làm nét` (tăng chi tiết tóc và đường viền chân dung), `Nét mềm` (làm nét êm dịu, không bị hạt gai). |
-
-### 7. Hiệu ứng nghệ thuật, Nền & Hoa văn kết cấu (Textures)
-
-Panel tích hợp bộ tạo hiệu ứng hoàn thiện ảnh không phụ thuộc file rời bên ngoài:
-
-- **Bộ lọc màu & Ánh sáng**:
-  - `Phai màu`: Giảm độ bão hòa tinh tế, tạo chất ảnh nghệ thuật nhẹ nhàng.
-  - `Hào Quang`: Tạo lớp hòa trộn Screen phủ ánh sáng huyền ảo ấm áp.
-  - `Cổ điển`: Tông màu phim hoài niệm kết hợp hạt mịn.
-  - `Tranh Vẽ`: Tách nét nghệ thuật phác thảo.
-  - `Bột tươi` / `Phim TL`: Tông màu ảnh tư liệu và màu tươi tắn điện ảnh.
-  - `Chi tiết`: Tách chi tiết High Pass trên layer độc lập để tăng độ trong của bức ảnh.
-- **Lớp nền Studio**:
-  - `Nền trắng`: Thêm lớp nền trắng tinh khiết phía dưới ảnh (hiển thị trên các vùng tách nền trong suốt).
-  - `Nền ấm`: Thêm lớp nền be màu ấm áp sang trọng.
-- **Hệ thống 8 hoa văn kết cấu (MHK Patterns)**:
-  - `Hạt phim` (Grain)
-  - `Vải dệt` (Weave)
-  - `Hạt thô` (Coarse)
-  - `Sọc` (Lines)
-  - `Chấm` (Dots)
-  - `Hoa mai` (Blossom)
-  - `Hoa Sen` (Lotus)
-  - `Trang Trí` (Stars)
-  - `Ẩn kết cấu`: Ẩn/hiện nhanh tất cả các layer kết cấu đã tạo mà không cần xóa layer.
-
-### 8. Tiện ích quy trình làm việc
-
-- **Camera Raw**: Khởi chạy trực tiếp bộ lọc Adobe Camera Raw Filter để chỉnh sửa thông số sâu.
-- **Chữ / Logo**: Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt.
-- **Đảo vùng**: Đảo ngược vùng chọn đang hoạt động (`Inverse Selection`).
-- **Gộp lớp**: Tạo một bản sao gộp tất cả các layer hiển thị lên trên cùng (`Stamp Visible - Ctrl+Alt+Shift+E`).
-- **Vật liệu**: Hộp thoại nạp nhanh tài nguyên họa tiết hoặc ảnh nền từ máy tính.
-- **Lật ngang**: Lật ngang khung hình để kiểm tra tỉ lệ và đối xứng của gương mặt (`Flip Horizontal`).
+> **Ghi chú:** 31 chức năng cũ không còn khả dụng (Tần số 8/16, Tần số, Frequency, Lấy mẫu, Chọn Mắt,
+> Mặt nạ da, Sửa mắt, Lớp xám, Mặt Nạ, Bóng Vàng, Khử Vàng, Phai màu, Trừ vàng, Nền trắng, Nền ấm,
+> Cổ điển, Tranh Vẽ, Vải dệt, Ẩn kết cấu, Sọc, Làm mờ, Hoa mai, Hoa Sen, Trang Trí, Nét mềm, Đảo vùng,
+> Gộp lớp, Vật liệu, Lật ngang, Bột tươi, Phim TL) cùng thanh công cụ icon đã bị **gỡ bỏ hoàn toàn**
+> khỏi giao diện và khỏi mã nguồn.
 
 ---
 
@@ -256,7 +190,7 @@ Panel tích hợp bộ tạo hiệu ứng hoàn thiện ảnh không phụ thu�
 Để tối ưu hóa thời gian tùy biến và phát triển, panel tích hợp sẵn cơ chế làm mới mã nguồn mà không cần khởi động lại Photoshop:
 
 ### 1. Nút nạp lại nhanh (↻)
-Ở góc trên cùng bên trái của giao diện có nút **↻**. Bấm nút này sẽ nạp lại toàn bộ giao diện HTML, định dạng CSS, mã JavaScript điều khiển và các file script ExtendScript (.jsx) từ thư mục cài đặt plugin ngay lập tức. Nút bấm được trang bị cơ chế bảo vệ: không ngắt quãng các lệnh xử lý đang chạy dang dở.
+Ở góc trên bên phải của giao diện có nút **↻**. Bấm nút này sẽ nạp lại toàn bộ giao diện HTML, định dạng CSS, mã JavaScript điều khiển và các file script ExtendScript (.jsx) từ thư mục cài đặt plugin ngay lập tức. Nút bấm được trang bị cơ chế bảo vệ: không ngắt quãng các lệnh xử lý đang chạy dang dở.
 
 ### 2. Chế độ Hot-reload tự động (Dành cho nhà phát triển)
 Khi chỉnh sửa mã nguồn trong thư mục dự án, chạy file:
@@ -284,21 +218,19 @@ DR7/
 ├── style.css                # Định dạng kiểu dáng cơ bản
 ├── loader.jsx               # Trình nạp lõi ExtendScript bảo vệ không gian tên
 ├── css/
-│   ├── layout.css           # Bố cục lưới responsive 3 cột & hệ thống cuộn dọc
-│   ├── icons.css            # Định dạng nền trong suốt và hiệu ứng tương tác của nút icon
-│   └── style.css            # Kiểu dáng màu sắc các nút tác vụ
+│   └── layout.css           # Bố cục lưới 3 cột, màu nút & hệ thống cuộn dọc
 ├── js/
 │   ├── CSInterface.js       # Thư viện giao tiếp Adobe CEP tiêu chuẩn
-│   ├── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop
-│   └── pp.js                # Xử lý các hiệu ứng nền, kết cấu và cọ vẽ đặc biệt
+│   └── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop
 ├── jsx/
-│   ├── main.jsx             # Đăng ký các hàm thực thi cốt lõi của panel
-│   ├── mhk-replacements.jsx # Triển khai các thuật toán hiệu ứng và bộ lọc độc quyền
-│   ├── Photoshop.jsx        # Các hàm tiện ích tương tác với đối tượng Photoshop DOM
-│   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ 8 hoa văn độc quyền (.pat)
-│   └── *.jsx                # Các module xử lý tác vụ chuyên biệt
-├── img/                     # Biểu tượng panel và hình ảnh giao diện theo từng theme
-├── assets/                  # Biểu tượng nút công cụ bổ trợ
+│   ├── 4.jsxbin             # Hộp thoại Chữ / Logo (WM)
+│   ├── main.jsx             # 8 hàm lõi còn dùng: GGXS, TJSH, JMXS, TJYY, FSJH, MBPF, ZCZQ, DKACR
+│   ├── mhk-replacements.jsx # Hào Quang, Hạt phim, Hạt thô, Chấm, Chi tiết
+│   ├── Photoshop.jsx        # Tiện ích Crash Bug Fix (chạy khi mở panel)
+│   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ hoa văn (.pat)
+│   └── *.jsx                # Module chuyên biệt còn dùng: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
+├── img/
+│   └── icon-large.png       # Biểu tượng panel trong menu Window > Extensions
 ├── install/
 │   ├── Cai-dat-DR7.bat      # Script cài đặt tự động vào Photoshop
 │   ├── Fix-CEP-DR7.reg      # File registry kích hoạt chế độ PlayerDebugMode
@@ -322,7 +254,7 @@ DR7/
 - **Cách xử lý**: Đảm bảo bạn đã mở một bức ảnh và ảnh đang ở hệ màu **RGB Color** (Vào menu Photoshop: `Image > Mode > RGB Color`).
 
 ### 3. Vừa chỉnh sửa code nhưng giao diện chưa cập nhật
-- **Cách xử lý**: Nhấp vào nút **↻** ở góc trên cùng bên trái của panel để tải lại toàn bộ tài nguyên tức thì.
+- **Cách xử lý**: Nhấp vào nút **↻** ở góc trên bên phải của panel để tải lại toàn bộ tài nguyên tức thì.
 
 ---
 

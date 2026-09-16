@@ -48,23 +48,13 @@
     // --- API cho index.html ---
     window.doa = function (name) { run('doa', name); };
     window.onClickButton = function (name) { run('ext', name); };
-    window.onClickButtzon = window.onClickButton;   // bản gốc gõ sai chính tả ở nút "Thu Phóng"
     window.onLoaded = function () {
-        var rows = document.querySelectorAll('.row');
-        if (!rows.length) return;
-        var grid = document.createElement('div');
-        grid.className = 'action-grid';
-        rows[0].parentNode.insertBefore(grid, rows[0]);
-        for (var i = 0; i < rows.length; i += 1) {
-            var buttons = rows[i].querySelectorAll('button');
-            for (var j = 0; j < buttons.length; j += 1) grid.appendChild(buttons[j]);
-            if (rows[i].parentNode) rows[i].parentNode.removeChild(rows[i]);
-        }
         // Manifest size is only a default; Photoshop may remember an older, taller panel.
-        if (window.__adobe_cep__) {
-            var height = Math.ceil(grid.getBoundingClientRect().bottom + window.pageYOffset + 6);
-            cs.resizeContent(document.documentElement.clientWidth, height);
-        }
+        if (!window.__adobe_cep__) return;
+        var grid = document.querySelector('.action-grid');
+        if (!grid) return;
+        var height = Math.ceil(grid.getBoundingClientRect().bottom + window.pageYOffset + 6);
+        cs.resizeContent(document.documentElement.clientWidth, height);
     };
 
     // ------------------------------------------------------------

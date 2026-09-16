@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-09-16 — Keep only working functions (26 buttons)
+
+- Remove every unavailable (dimmed) action button and the whole icon toolbar + logo from index.html.
+  Panel now has exactly 26 action buttons plus the ↻ reload button; content height shrinks to fit.
+- Delete the scripts that only served removed features: js/pp.js, css/icons.css, css/style.css,
+  jsx/5.jsxbin (Tần số 8/16), jsx/{002,004,007,014,015,017,br,cr,dark,dv,ee,fade,fit,fs,light,liq,mid,sm,st,vw}.jsx.
+- Trim jsx/main.jsx from 21,511 to 2,432 lines: keep only GGXS, TJSH, JMXS, TJYY, FSJH, MBPF, ZCZQ, DKACR
+  (reachability from those roots, including string-form calls, removes 72 top-level blocks: other commands,
+  panel_* wrapper dialogs and the leftover stigmata/DRM code).
+- Trim jsx/mhk-replacements.jsx to CGYSB, MLXG, mcwl, sfb and PP_DETAIL; drop backgrounds, hide-texture,
+  mixer-brush and the unused pattern helpers.
+- Trim jsx/Photoshop.jsx to the BUGFIX startup helper (ZO/SP/HB/PA/CL/PC/SA/MA/BW/FW/LA tools removed).
+- Remove unused resources: assets/ and every img/ theme folder; only img/icon-large.png (panel icon) remains.
+- Loader no longer evaluates jsx/5.jsxbin; verify_plugin.js accepts commands defined in $.mhkReplacements.
+- Checks: _dev/tools/check_syntax.js (15/15 files), _dev/tools/check-autorun.js (16 core files, 0 side effects),
+  _dev/tools/verify_plugin.js (12 doa + 15 onClickButton commands, bridge payloads valid), verify_assets.js.
+
 ## 2026-09-16 — Original MHK resources and hot reload
 
 - Add eight original PAT tiles (100,654 bytes) with stable UUIDs and a dependency-free generator.

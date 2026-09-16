@@ -1,7 +1,7 @@
 #target photoshop
 /*
  * Retouch Panel — nạp lõi ExtendScript.
- * Cùng thứ tự như bản gốc: 4.jsxbin + 5.jsxbin (helper), rồi toàn bộ *.jsx trong jsx/.
+ * Thứ tự: 4.jsxbin (helper + hộp thoại Chữ/Logo), rồi toàn bộ *.jsx trong jsx/.
  * (main.jsx được nạp trong vòng lặp *.jsx nên thứ tự không phụ thuộc tên file.)
  *
  * LƯU Ý về đường dẫn: CEP có thể đưa $.fileName ở dạng URI
@@ -61,7 +61,6 @@ $._ext.evalFiles = function (jsxFolderPath) {
     var here = dr7Here();
     $.dr7Base = here;                                    // lưu lại để lần sau/tiện debug
     $._ext.evalFile(here + '/jsx/4.jsxbin');
-    $._ext.evalFile(here + '/jsx/5.jsxbin');
     $._ext.evalFiles(here + '/jsx');
     for (var name in $.mhkReplacements) {
         if ($.mhkReplacements.hasOwnProperty(name)) $.dr7Commands[name] = $.mhkReplacements[name];

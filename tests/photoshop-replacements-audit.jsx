@@ -12,8 +12,7 @@
         if (!$.dr7Ready) throw new Error($.dr7LoadErrors.join('\n'));
         app.load(new File($.dr7Base+'/jsx/pj/mhk-patterns.pat'));
         report.push('PASS: Photoshop imported mhk-patterns.pat');
-        var commands = ['CGYSA','CGYSB','MLXG','zyb','ybgb','wlzq','mcwl','sf','sfb','hs','mh','als','zw',
-            'PP_WHITE','PP_WARM','PP_DETAIL','PP_HIDE','PP_MIXER'];
+        var commands = ['CGYSB','MLXG','mcwl','sfb','PP_DETAIL'];
         for (var depth = 0; depth < 2; depth++) for (var i = 0; i < commands.length; i++) {
             scratch = app.documents.add(128,128,72,'MHK audit '+commands[i]+' '+(depth ? 16 : 8),NewDocumentMode.RGB);
             scratch.bitsPerChannel = depth ? BitsPerChannelType.SIXTEEN : BitsPerChannelType.EIGHT;
@@ -23,19 +22,12 @@
             scratch.selection.fill(color); scratch.selection.deselect();
             var name = commands[i], before = scratch.layers.length;
             try {
-                if (name === 'PP_HIDE') $.dr7Commands.wlzq();
                 if (name.indexOf('PP_') === 0) $['_ext_'+name].run();
                 else $.dr7Commands[name]();
-                if (name === 'PP_HIDE') {
-                    if (scratch.activeLayer.visible) throw new Error('Texture was not hidden');
-                } else if (name === 'PP_MIXER') {
-                    if (app.currentTool !== 'wetBrushTool') throw new Error('Mixer brush not selected');
-                } else {
-                    if (scratch.layers.length <= before) throw new Error('No output layer');
-                    if (scratch.activeLayer.name.indexOf('MHK') !== 0) throw new Error('Wrong output layer');
-                    var bounds = scratch.activeLayer.bounds;
-                    if (bounds[2].as('px') <= bounds[0].as('px')) throw new Error('Empty output layer');
-                }
+                if (scratch.layers.length <= before) throw new Error('No output layer');
+                if (scratch.activeLayer.name.indexOf('MHK') !== 0) throw new Error('Wrong output layer');
+                var bounds = scratch.activeLayer.bounds;
+                if (bounds[2].as('px') <= bounds[0].as('px')) throw new Error('Empty output layer');
                 report.push('PASS: '+name+' RGB/'+(depth ? 16 : 8));
             } catch (error) { report.push('FAIL: '+name+' RGB/'+(depth ? 16 : 8)+': '+error+' line='+error.line); }
             finally { scratch.close(SaveOptions.DONOTSAVECHANGES); scratch = null; }

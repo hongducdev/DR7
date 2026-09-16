@@ -13,11 +13,12 @@ assert.equal((manifest.match(/\.\/img\/icon-large\.png/g) || []).length, 2);
 const names = [...new Set([...html.matchAll(/doa\('([^']+)'\)/g)].map(m => m[1]))];
 const main = read('jsx/main.jsx');
 const registered = main.slice(main.lastIndexOf('$.dr7Commands ='));
-for (const name of names) assert.match(registered, new RegExp('\\b' + name + ': ' + name + '\\b'));
+const replacements = read('jsx/mhk-replacements.jsx');
+for (const name of names) {
+    assert.ok(new RegExp('\\b' + name + ': ' + name + '\\b').test(registered) ||
+        new RegExp('\\b' + name + ': function').test(replacements), name + ' must be registered');
+}
 assert.doesNotMatch(main, /\$\._ext\s*=/, 'main must not overwrite loader error handling');
-const materialSource = main.slice(main.indexOf('function zrsc()'), main.indexOf('function act_alx()'));
-assert.doesNotMatch(materialSource, /~\/Desktop\//, 'material picker must not use author desktop path');
-vm.runInNewContext(materialSource + '\nzrsc();', { File: { openDialog: () => null } });
 for (const entry of fs.readdirSync(path.join(root, 'jsx'), { withFileTypes: true })) {
     if (!entry.isFile()) continue;
     const source = read('jsx/' + entry.name);
@@ -34,7 +35,7 @@ for (const [name, expected] of [['DnB_Brush.tpl', 'DR7 Dodge & Burn'], ['DS4_Sof
     const binary = fs.readFileSync(path.join(root, 'jsx/pj', name));
     assert.ok(binary.swap16().toString('utf16le').includes(expected), 'preset name must match script');
 }
-for (const name of ['CGYSA', 'CGYSB', 'MLXG', 'zyb', 'ybgb', 'wlzq', 'mcwl', 'sf', 'sfb', 'hs', 'mh', 'als', 'zw']) {
+for (const name of ['CGYSB', 'MLXG', 'mcwl', 'sfb']) {
     assert.match(read('jsx/mhk-replacements.jsx'), new RegExp('\\b' + name + ': function'));
 }
 // Catch incomplete/wrong native exports, and validate each generated RGB tile record.
@@ -67,19 +68,19 @@ panel.CSInterface = function () {
     this.evalScript = (code, callback) => calls.push({ code, callback });
 };
 vm.runInNewContext(read('js/panel.js'), panel);
-panel.doa('GDP');
+panel.doa('GGXS');
 assert.equal(calls.length, 1, 'must wait for loader callback');
 calls[0].callback('DR7_READY');
 let ran = 0;
 const host = { app: { documents: [{}], displayDialogs: 1, preferences: { rulerUnits: 2 } }, $: { dr7Commands: {} } };
-host.$.dr7Commands.GDP = () => {
+host.$.dr7Commands.GGXS = () => {
     ran++;
     host.app.displayDialogs = 9;
     host.app.preferences.rulerUnits = 8;
     throw Object.assign(new Error('test failure'), { line: 42, fileName: 'main.jsx' });
 };
-panel.doa('GDP');
-panel.doa('GDP');
+panel.doa('GGXS');
+panel.doa('GGXS');
 assert.equal(calls.length, 2, 'must not queue double clicks');
 assert.equal(panel.dr7Reload(), false, 'reload must not interrupt a command');
 assert.equal(reloads, 0);
@@ -91,9 +92,9 @@ assert.equal(host.app.preferences.rulerUnits, 2);
 calls[1].callback(result);
 assert.equal(panel.dr7Reload(), true);
 assert.equal(reloads, 1);
-panel.doa('GDP');
+panel.doa('GGXS');
 assert.equal(calls.length, 3, 'failure must release busy state');
 host.app.documents = [];
 assert.equal(vm.runInNewContext(calls[2].code, host), 'DR7_NO_DOCUMENT');
 assert.equal(ran, 1, 'no document must not invoke handler');
-console.log('PASS: 33 exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks');
+console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks');

@@ -35,10 +35,9 @@
         report.push('PASS: ' + count + ' callable legacy panel commands; loader ready');
         scratch.close(SaveOptions.DONOTSAVECHANGES);
         scratch = null;
-        // Explicit dialogs (GDP, DKACR, act_alx, zrsc) need manual interaction.
+        // Explicit dialogs (DKACR) need manual interaction.
         report.push('INFO: new MHK effects tested separately in photoshop-replacements-audit.jsx');
-        var commands = ['ZXHC', 'GGXS', 'TJSH', 'JMXS', 'TJYY', 'JSYY', 'FSJH', 'MBPF',
-            'ZCZQ', 'HSXZ', 'JSXZ', 'xqfx', 'hbtc', 'act_spfz', 'QXFD', 'QXJS'];
+        var commands = ['GGXS', 'TJSH', 'JMXS', 'TJYY', 'FSJH', 'MBPF', 'ZCZQ', 'DKACR'];
         for (var n = 0; n < commands.length; n++) {
             scratch = app.documents.add(128, 128, 72, 'DR7 audit ' + commands[n], NewDocumentMode.RGB);
             scratch.activeLayer = scratch.activeLayer.duplicate();
@@ -55,17 +54,16 @@
                 scratch = null;
             }
         }
-        scratch = app.documents.add(128, 128, 72, 'DR7 audit tools', NewDocumentMode.RGB);
-        var tools = ['BR', 'SP', 'HB', 'PA', 'CL', 'PC', 'ZO', 'SA', 'MA', 'LA', 'BTNFIT',
-            'BTNDARK', 'BTNMID', 'BTNLIGHT', 'BTNPFSD2'];
-        for (var t = 0; t < tools.length; t++) {
-            try {
-                notices = [];
-                $['_ext_' + tools[t]].run();
-                if (notices.length) throw new Error(notices.join('; '));
-                report.push('PASS: tool ' + tools[t]);
-            } catch (error) {
-                report.push('FAIL: tool ' + tools[t] + ': ' + error + ' line=' + error.line);
+        // Panel buttons whose handler opens its own dialog are only checked for presence here;
+        // running them would block the audit. See photoshop-replacements-audit.jsx for effects.
+        var actions = ['DS', 'BA', 'SE', 'WM', 'LS', 'SS', 'RE', 'DB', 'SH', 'LI', 'BTNPFSD2',
+            'TC', 'WT', 'PP_DETAIL', 'BUGFIX'];
+        for (var t = 0; t < actions.length; t++) {
+            var handler = $['_ext_' + actions[t]];
+            if (!handler || typeof handler.run !== 'function') {
+                report.push('FAIL: missing handler ' + actions[t]);
+            } else {
+                report.push('PASS: handler ' + actions[t]);
             }
         }
     } catch (error) {
