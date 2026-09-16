@@ -1,0 +1,52 @@
+.login-page {
+	width: 100%;
+	margin-left: 20px;
+	margin-right: 20px;
+	height: 100%
+	
+}
+
+
+.login-page input {
+	width: 100%;
+	height: 30px
+}
+
+.login-page .account-input {
+	width: 200px;
+	margin-top: 50px
+}
+
+.login-page .password-input {
+	margin-top: 20px
+}
+
+
+
+
+
+.login-page .login-btn {
+	height: 31px;
+	margin-top: 12px;
+	line-height: 31px
+}
+
+.login-page .register-container {
+	font-size: 12px;
+	margin-top: 11px
+}
+
+.login-page .register {
+	color: #479df2;
+	text-decoration: none
+}
+
+
+
+/*.login-page {
+	display: none
+}*/
+
+.login-page.visible {
+	display: block
+}

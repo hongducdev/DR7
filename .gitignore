@@ -1,0 +1,56 @@
+# Tài liệu + công cụ dịch ngược (nguồn gốc, đầu vào của build) — không đưa lên git
+_dev/
+
+# Rác hệ điều hành / OS metadata
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editor & IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+
+# Node / Package managers / Temp
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+temp/
+tmp/
+
+# Adobe CEP / Photoshop artifacts
+*.zxp
+*.dmp
+CrashReporter/
+.adobe-temp/
+
+# AI Agent & local tooling scratch
+.omp/
+.claude/
+.gemini/
+
+# Plans & design artifacts
+plans/

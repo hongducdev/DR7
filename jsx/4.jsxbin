@@ -1,0 +1,1122 @@
+/*
+ * Decompiled with Jsxer
+ * Version: 1.7.4
+ * JSXBIN 2.0
+ */
+
+function panelColour(HexValue, Panel) {
+var col = new SolidColor();
+col.rgb.hexValue = HexValue;
+var r = col.rgb.red / 255;
+var g = col.rgb.green / 255;
+var b = col.rgb.blue / 255;
+switch (Panel) {
+case 1:
+C = win.grp20.p1.graphics;
+var myBrush = C.newBrush(C.BrushType.SOLID_COLOR, [r, g, b, 1]);
+C.backgroundColor = myBrush;
+break;
+case 2:
+C = win.grp22.p1.graphics;
+var myBrush = C.newBrush(C.BrushType.SOLID_COLOR, [r, g, b, 1]);
+C.backgroundColor = myBrush;
+break;
+default:
+break;
+}
+}
+
+function process() {
+var fileList = topLevelFolder.getFiles();
+for (var i = 0; i < fileList.length; i += 1) {
+if ((fileList[i] instanceof File) && (fileList[i].hidden == false)) {
+var doc = app.open(fileList[i]);
+pictureProcess();
+var file = new File(outputFolder + "Watermark h\u00e0ng lo\u1ea1t " + i + ".jpg");
+var jpgSaveOptions = new JPEGSaveOptions();
+jpgSaveOptions.embedColorProfile = true;
+jpgSaveOptions.formatOptions = FormatOptions.STANDARDBASELINE;
+jpgSaveOptions.matte = MatteType.NONE;
+jpgSaveOptions.quality = 9;
+doc.saveAs(file, jpgSaveOptions, true, Extension.LOWERCASE);
+doc.close(SaveOptions.DONOTSAVECHANGES);
+}
+}
+}
+
+function process2() {
+var docRef = app.documents;
+var activeDocs = [];
+for (var docIndex = 0; docIndex < app.documents.length; docIndex += 1) {
+activeDocs.push(app.documents[docIndex]);
+}
+for (var docIndex = 0; docIndex < activeDocs.length; docIndex += 1) {
+activeDocument = activeDocs[docIndex];
+app.activeDocument.suspendHistory("Th\u00eam watermark/LOGO h\u00e0ng lo\u1ea1t", "pictureProcess()");
+}
+}
+
+function pictureProcess() {
+app.displayDialogs = DialogModes.NO;
+var strtRulerUnits = app.preferences.rulerUnits;
+var strtTypeUnits = app.preferences.typeUnits;
+app.preferences.rulerUnits = Units.PIXELS;
+app.preferences.typeUnits = TypeUnits.PIXELS;
+var useLogo = win.grp5.rb1.value;
+var Percent = Number(win.grp5.dd2.selection.index) + 1;
+var Position = Number(win.grp5a.dd1.selection.index) + 1;
+var OffsetX = Number(win.grp6.dd1.selection.index);
+var OffsetY = Number(win.grp6.dd2.selection.index);
+var Emboss = win.grp19.cb2.value;
+var Colour = new SolidColor();
+Colour.rgb.hexValue = win.grp20.et1.text;
+var Font = app.fonts[Number(win.grp18.dd1.selection.index)].postScriptName;
+var myDoc = activeDocument;
+var docWidth = myDoc.width.value;
+var docHeight = myDoc.height.value;
+var Name = decodeURI(activeDocument.name).replace(/\.[^\.]+$/, "");
+var TextInfo = "";
+if (win.grp19.cb1.value) {
+TextInfo += Name;
+}
+if (win.grp19a.cb1.value) {
+TextInfo += " " + Seq3;
+}
+if (win.grp15.et1.text != "") {
+TextInfo += " " + win.grp15.et1.text;
+}
+if (win.grp30.cb1.value) {
+activeDocument.info.copyrighted = CopyrightedType.COPYRIGHTEDWORK;
+activeDocument.info.copyrightNotice = win.grp30.et1.text;
+}
+if (win.grp25.cb1.value) {
+switch (Number(win.grp25.dd1.selection.index)) {
+case 0:
+if (activeDocument.info.title != "") {
+TextInfo += " " + activeDocument.info.title;
+break;
+} else {
+TextInfo += " " + Name;
+break;
+}
+case 1:
+if (activeDocument.info.caption != "") {
+TextInfo += " " + activeDocument.info.caption;
+break;
+} else {
+TextInfo += " " + Name;
+break;
+}
+case 2:
+if (activeDocument.info.headline != "") {
+TextInfo += " " + activeDocument.info.headline;
+break;
+} else {
+TextInfo += " " + Name;
+break;
+}
+case 3:
+var CpyInfo = getCopyRightNotice();
+if (CpyInfo != "") {
+TextInfo += " " + CpyInfo;
+break;
+} else {
+TextInfo += " " + Name;
+break;
+}
+default:
+break;
+}
+}
+if (!useLogo) {
+var newTextLayer = activeDocument.artLayers.add();
+newTextLayer.kind = LayerKind.TEXT;
+newTextLayer.textItem.kind = TextType.POINTTEXT;
+newTextLayer.textItem.color = Colour;
+newTextLayer.textItem.font = Font;
+newTextLayer.textItem.size = 10;
+newTextLayer.textItem.contents = TextInfo;
+if (slider.value) {
+var idsetd = charIDToTypeID("setd");
+var desc16 = new ActionDescriptor();
+var idnull = charIDToTypeID("null");
+var ref11 = new ActionReference();
+var idLyr = charIDToTypeID("Lyr ");
+var idOrdn = charIDToTypeID("Ordn");
+var idTrgt = charIDToTypeID("Trgt");
+ref11.putEnumerated(idLyr, idOrdn, idTrgt);
+desc16.putReference(idnull, ref11);
+var idT = charIDToTypeID("T   ");
+var desc17 = new ActionDescriptor();
+var idOpct = charIDToTypeID("Opct");
+var idPrc = charIDToTypeID("#Prc");
+desc17.putUnitDouble(idOpct, idPrc, Number(slider.value));
+var idLyr = charIDToTypeID("Lyr ");
+desc16.putObject(idT, idLyr, desc17);
+executeAction(idsetd, desc16, DialogModes.NO);
+}
+} else {
+placeLogo(logoFile);
+activeDocument.activeLayer.rasterize(RasterizeType.ENTIRELAYER);
+if (slider.value) {
+var idsetd = charIDToTypeID("setd");
+var desc16 = new ActionDescriptor();
+var idnull = charIDToTypeID("null");
+var ref11 = new ActionReference();
+var idLyr = charIDToTypeID("Lyr ");
+var idOrdn = charIDToTypeID("Ordn");
+var idTrgt = charIDToTypeID("Trgt");
+ref11.putEnumerated(idLyr, idOrdn, idTrgt);
+desc16.putReference(idnull, ref11);
+var idT = charIDToTypeID("T   ");
+var desc17 = new ActionDescriptor();
+var idOpct = charIDToTypeID("Opct");
+var idPrc = charIDToTypeID("#Prc");
+desc17.putUnitDouble(idOpct, idPrc, Number(slider.value));
+var idLyr = charIDToTypeID("Lyr ");
+desc16.putObject(idT, idLyr, desc17);
+executeAction(idsetd, desc16, DialogModes.NO);
+}
+}
+var LB = myDoc.activeLayer.bounds;
+var LHeight = Math.abs(LB[3].value) - Math.abs(LB[1].value);
+var LWidth = Math.abs(LB[2].value) - Math.abs(LB[0].value);
+var percentageHeight = (docHeight / LWidth) * Percent;
+var percentageWidth = (docWidth / LWidth) * Percent;
+if (docWidth < docHeight) {
+myDoc.activeLayer.resize(percentageWidth, percentageWidth, AnchorPosition.MIDDLECENTER);
+} else {
+myDoc.activeLayer.resize(percentageHeight, percentageHeight, AnchorPosition.MIDDLECENTER);
+}
+if (!useLogo) {
+activeDocument.activeLayer.rasterize(RasterizeType.TEXTCONTENTS);
+var strokeWth = win.grp19.dd3.selection.index + 1;
+if (!Emboss) {
+if (win.grp19.cb3.value) {
+StrokeText(win.grp19.dd2.selection.text, strokeWth);
+}
+}
+if (Emboss) {
+emboss(Number(win.grp19.dd1.selection.index), win.grp19.cb3.value, win.grp19.dd2.selection.text, strokeWth);
+}
+}
+switch (Position) {
+case 1:
+align("AdLf");
+align("AdTp");
+activeDocument.activeLayer.translate(OffsetX, OffsetY);
+break;
+case 2:
+align("AdCH");
+align("AdTp");
+activeDocument.activeLayer.translate(OffsetX, OffsetY);
+break;
+case 3:
+align("AdRg");
+align("AdTp");
+activeDocument.activeLayer.translate(-OffsetX, OffsetY);
+break;
+case 4:
+align("AdLf");
+align("AdCV");
+activeDocument.activeLayer.translate(OffsetX, 0);
+break;
+case 5:
+align("AdCH");
+align("AdCV");
+if (win.grp5a.cb1.value) {
+activeDocument.activeLayer.rotate(-45);
+}
+break;
+case 6:
+align("AdRg");
+align("AdCV");
+activeDocument.activeLayer.translate(-OffsetX, 0);
+break;
+case 7:
+align("AdLf");
+align("AdBt");
+activeDocument.activeLayer.translate(OffsetX, -OffsetY);
+break;
+case 8:
+align("AdCH");
+align("AdBt");
+activeDocument.activeLayer.translate(OffsetX, -OffsetY);
+break;
+case 9:
+align("AdRg");
+align("AdBt");
+activeDocument.activeLayer.translate(-OffsetX, -OffsetY);
+break;
+default:
+break;
+}
+if (win.grp22.cb1.value) {
+var LB = activeDocument.activeLayer.bounds;
+var OPACITY = Number(win.grp22.dd1.selection.index) + 1;
+if (OPACITY > 100) {
+Op = 100;
+}
+var ColourBar = new SolidColor();
+ColourBar.rgb.hexValue = win.grp22.et1.text;
+var end = activeDocument.width;
+var logoLayer = activeDocument.activeLayer;
+activeDocument.selection.select([
+[0, LB[1]],
+[end, LB[1]],
+[end, LB[3]],
+[0, LB[3]]
+], SelectionType.REPLACE, 0, false);
+var CbLayer = activeDocument.artLayers.add();
+activeDocument.selection.fill(ColourBar, ColorBlendMode.NORMAL, OPACITY, false);
+activeDocument.selection.deselect();
+logoLayer.move(activeDocument.activeLayer, ElementPlacement.PLACEBEFORE);
+}
+}
+
+function align(method) {
+activeDocument.selection.selectAll();
+var desc = new ActionDescriptor();
+var ref = new ActionReference();
+ref.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+desc.putReference(charIDToTypeID("null"), ref);
+desc.putEnumerated(charIDToTypeID("Usng"), charIDToTypeID("ADSt"), charIDToTypeID(method));
+try {
+executeAction(charIDToTypeID("Algn"), desc, DialogModes.NO);
+} catch (e) {}
+activeDocument.selection.deselect();
+}
+
+function emboss(Opacity, Stroke, Colour, strokeWth) {
+if (Colour == undefined) {
+Colour = "Black";
+}
+if (Stroke == undefined) {
+Stroke = false;
+}
+if (Opacity == undefined) {
+Opacity = 100;
+}
+var desc32 = new ActionDescriptor();
+var ref5 = new ActionReference();
+ref5.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+desc32.putReference(charIDToTypeID("null"), ref5);
+var desc33 = new ActionDescriptor();
+desc33.putUnitDouble(stringIDToTypeID("fillOpacity"), charIDToTypeID("#Prc"), Opacity);
+var desc34 = new ActionDescriptor();
+desc34.putUnitDouble(charIDToTypeID("Scl "), charIDToTypeID("#Prc"), 416.666667);
+var desc35 = new ActionDescriptor();
+desc35.putBoolean(charIDToTypeID("enab"), true);
+desc35.putEnumerated(charIDToTypeID("hglM"), charIDToTypeID("BlnM"), charIDToTypeID("Scrn"));
+var desc36 = new ActionDescriptor();
+desc36.putDouble(charIDToTypeID("Rd  "), 255);
+desc36.putDouble(charIDToTypeID("Grn "), 255);
+desc36.putDouble(charIDToTypeID("Bl  "), 255);
+desc35.putObject(charIDToTypeID("hglC"), charIDToTypeID("RGBC"), desc36);
+desc35.putUnitDouble(charIDToTypeID("hglO"), charIDToTypeID("#Prc"), 75);
+desc35.putEnumerated(charIDToTypeID("sdwM"), charIDToTypeID("BlnM"), charIDToTypeID("Mltp"));
+var desc37 = new ActionDescriptor();
+desc37.putDouble(charIDToTypeID("Rd  "), 35.04262);
+desc37.putDouble(charIDToTypeID("Grn "), 31.313698);
+desc37.putDouble(charIDToTypeID("Bl  "), 32.150531);
+desc35.putObject(charIDToTypeID("sdwC"), charIDToTypeID("RGBC"), desc37);
+desc35.putUnitDouble(charIDToTypeID("sdwO"), charIDToTypeID("#Prc"), 75);
+desc35.putEnumerated(charIDToTypeID("bvlT"), charIDToTypeID("bvlT"), charIDToTypeID("PrBL"));
+desc35.putEnumerated(charIDToTypeID("bvlS"), charIDToTypeID("BESl"), charIDToTypeID("InrB"));
+desc35.putBoolean(charIDToTypeID("uglg"), true);
+desc35.putUnitDouble(charIDToTypeID("lagl"), charIDToTypeID("#Ang"), 120);
+desc35.putUnitDouble(charIDToTypeID("Lald"), charIDToTypeID("#Ang"), 30);
+desc35.putUnitDouble(charIDToTypeID("srgR"), charIDToTypeID("#Prc"), 100);
+desc35.putUnitDouble(charIDToTypeID("blur"), charIDToTypeID("#Pxl"), 20);
+desc35.putEnumerated(charIDToTypeID("bvlD"), charIDToTypeID("BESs"), charIDToTypeID("In  "));
+var desc38 = new ActionDescriptor();
+desc38.putString(charIDToTypeID("Nm  "), "Linear");
+desc35.putObject(charIDToTypeID("TrnS"), charIDToTypeID("ShpC"), desc38);
+desc35.putBoolean(stringIDToTypeID("antialiasGloss"), false);
+desc35.putUnitDouble(charIDToTypeID("Sftn"), charIDToTypeID("#Pxl"), 0);
+desc35.putBoolean(stringIDToTypeID("useShape"), false);
+desc35.putBoolean(stringIDToTypeID("useTexture"), false);
+desc34.putObject(charIDToTypeID("ebbl"), charIDToTypeID("ebbl"), desc35);
+var desc39 = new ActionDescriptor();
+desc39.putBoolean(charIDToTypeID("enab"), Stroke);
+desc39.putEnumerated(charIDToTypeID("Styl"), charIDToTypeID("FStl"), charIDToTypeID("OutF"));
+desc39.putEnumerated(charIDToTypeID("PntT"), charIDToTypeID("FrFl"), charIDToTypeID("SClr"));
+desc39.putEnumerated(charIDToTypeID("Md  "), charIDToTypeID("BlnM"), charIDToTypeID("Nrml"));
+desc39.putUnitDouble(charIDToTypeID("Opct"), charIDToTypeID("#Prc"), 100);
+desc39.putUnitDouble(charIDToTypeID("Sz  "), charIDToTypeID("#Pxl"), strokeWth);
+var desc40 = new ActionDescriptor();
+switch (Colour) {
+case "Black":
+RED = 0;
+GREEN = 0;
+BLUE = 0;
+break;
+case "White":
+RED = 255;
+GREEN = 255;
+BLUE = 255;
+break;
+case "Red":
+RED = 255;
+GREEN = 0;
+BLUE = 0;
+break;
+case "Green":
+RED = 0;
+GREEN = 255;
+BLUE = 0;
+break;
+case "Blue":
+RED = 0;
+GREEN = 0;
+BLUE = 255;
+break;
+default:
+RED = 0;
+GREEN = 0;
+BLUE = 0;
+break;
+}
+desc40.putDouble(charIDToTypeID("Rd  "), RED);
+desc40.putDouble(charIDToTypeID("Grn "), GREEN);
+desc40.putDouble(charIDToTypeID("Bl  "), BLUE);
+desc39.putObject(charIDToTypeID("Clr "), charIDToTypeID("RGBC"), desc40);
+desc34.putObject(charIDToTypeID("FrFX"), charIDToTypeID("FrFX"), desc39);
+desc33.putObject(charIDToTypeID("Lefx"), charIDToTypeID("Lefx"), desc34);
+desc32.putObject(charIDToTypeID("T   "), charIDToTypeID("Lyr "), desc33);
+executeAction(charIDToTypeID("setd"), desc32, DialogModes.NO);
+}
+
+function StrokeText(Colour, strokeWth) {
+switch (Colour) {
+case "Black":
+RED = 0;
+GREEN = 0;
+BLUE = 0;
+break;
+case "White":
+RED = 255;
+GREEN = 255;
+BLUE = 255;
+break;
+case "Red":
+RED = 255;
+GREEN = 0;
+BLUE = 0;
+break;
+case "Green":
+RED = 0;
+GREEN = 255;
+BLUE = 0;
+break;
+case "Blue":
+RED = 0;
+GREEN = 0;
+BLUE = 255;
+break;
+default:
+RED = 0;
+GREEN = 0;
+BLUE = 0;
+break;
+}
+var desc205 = new ActionDescriptor();
+var ref149 = new ActionReference();
+ref149.putProperty(charIDToTypeID("Prpr"), charIDToTypeID("Lefx"));
+ref149.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+desc205.putReference(charIDToTypeID("null"), ref149);
+var desc206 = new ActionDescriptor();
+desc206.putUnitDouble(charIDToTypeID("Scl "), charIDToTypeID("#Prc"), 416.666667);
+var desc207 = new ActionDescriptor();
+desc207.putBoolean(charIDToTypeID("enab"), true);
+desc207.putEnumerated(charIDToTypeID("Styl"), charIDToTypeID("FStl"), charIDToTypeID("InsF"));
+desc207.putEnumerated(charIDToTypeID("PntT"), charIDToTypeID("FrFl"), charIDToTypeID("SClr"));
+desc207.putEnumerated(charIDToTypeID("Md  "), charIDToTypeID("BlnM"), charIDToTypeID("Nrml"));
+desc207.putUnitDouble(charIDToTypeID("Opct"), charIDToTypeID("#Prc"), 100);
+desc207.putUnitDouble(charIDToTypeID("Sz  "), charIDToTypeID("#Pxl"), strokeWth);
+var desc208 = new ActionDescriptor();
+desc208.putDouble(charIDToTypeID("Rd  "), RED);
+desc208.putDouble(charIDToTypeID("Grn "), GREEN);
+desc208.putDouble(charIDToTypeID("Bl  "), BLUE);
+desc207.putObject(charIDToTypeID("Clr "), charIDToTypeID("RGBC"), desc208);
+desc206.putObject(charIDToTypeID("FrFX"), charIDToTypeID("FrFX"), desc207);
+desc205.putObject(charIDToTypeID("T   "), charIDToTypeID("Lefx"), desc206);
+executeAction(charIDToTypeID("setd"), desc205, DialogModes.NO);
+}
+
+function placeLogo(file) {
+var desc124 = new ActionDescriptor();
+desc124.putPath(charIDToTypeID("null"), new File(file));
+desc124.putEnumerated(charIDToTypeID("FTcs"), charIDToTypeID("QCSt"), charIDToTypeID("Qcsa"));
+var desc125 = new ActionDescriptor();
+desc125.putUnitDouble(charIDToTypeID("Hrzn"), charIDToTypeID("#Pxl"), 0);
+desc125.putUnitDouble(charIDToTypeID("Vrtc"), charIDToTypeID("#Pxl"), 0);
+desc124.putObject(charIDToTypeID("Ofst"), charIDToTypeID("Ofst"), desc125);
+desc124.putBoolean(charIDToTypeID("AntA"), true);
+executeAction(charIDToTypeID("Plc "), desc124, DialogModes.NO);
+}
+
+function colourPicker(HEXvalue) {
+var startColor = new SolidColor();
+startColor.rgb.hexValue = HEXvalue;
+var originalUnits = app.preferences.rulerUnits;
+app.preferences.rulerUnits = Units.PIXELS;
+var colourDoc = app.documents.add(10, 10, 72, null, NewDocumentMode.RGB, DocumentFill.WHITE);
+app.activeDocument.selection.select([
+[0, 0],
+[1, 0],
+[1, 1],
+[0, 1]
+]);
+app.preferences.rulerUnits = originalUnits;
+CreateSolidLayer();
+var desc = new ActionDescriptor();
+var ref = new ActionReference();
+ref.putEnumerated(stringIDToTypeID("contentLayer"), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+desc.putReference(charIDToTypeID("null"), ref);
+var modeDesc = new ActionDescriptor();
+var colorDesc = new ActionDescriptor();
+colorDesc.putDouble(charIDToTypeID("Rd  "), startColor.rgb.red);
+colorDesc.putDouble(charIDToTypeID("Grn "), startColor.rgb.green);
+colorDesc.putDouble(charIDToTypeID("Bl  "), startColor.rgb.blue);
+modeDesc.putObject(charIDToTypeID("Clr "), charIDToTypeID("RGBC"), colorDesc);
+desc.putObject(charIDToTypeID("T   "), stringIDToTypeID("solidColorLayer"), modeDesc);
+try {
+executeAction(charIDToTypeID("setd"), desc, DialogModes.ALL);
+} catch (e) {
+colourDoc.close(SaveOptions.DONOTSAVECHANGES);
+return;
+}
+var ref = new ActionReference();
+ref.putEnumerated(charIDToTypeID("Lyr "), charIDToTypeID("Ordn"), charIDToTypeID("Trgt"));
+var desc = executeActionGet(ref);
+var adjList = desc.getList(stringIDToTypeID("adjustment"));
+var adjDesc = adjList.getObjectValue(0);
+var colorDesc = adjDesc.getObjectValue(stringIDToTypeID("color"));
+var Colour = new SolidColor();
+Colour.rgb.red = colorDesc.getDouble(charIDToTypeID("Rd  "));
+Colour.rgb.green = colorDesc.getDouble(charIDToTypeID("Grn "));
+Colour.rgb.blue = colorDesc.getDouble(charIDToTypeID("Bl  "));
+colourDoc.close(SaveOptions.DONOTSAVECHANGES);
+return Colour.rgb.hexValue;
+}
+
+function getCopyRightNotice() {
+if (ExternalObject.AdobeXMPScript == undefined) {
+ExternalObject.AdobeXMPScript = new ExternalObject("lib:AdobeXMPScript");
+}
+xmp = new XMPMeta(app.activeDocument.xmpMetadata.rawData);
+var CopyRightNotice = xmp.getLocalizedText(XMPConst.NS_DC, "rights", null, "x-default");
+return CopyRightNotice;
+}
+
+function CreateSolidLayer() {
+var startColor = app.foregroundColor;
+var desc = new ActionDescriptor();
+var ref = new ActionReference();
+ref.putClass(stringIDToTypeID("contentLayer"));
+desc.putReference(charIDToTypeID("null"), ref);
+var desc1 = new ActionDescriptor();
+var desc2 = new ActionDescriptor();
+var desc3 = new ActionDescriptor();
+desc3.putDouble(charIDToTypeID("Rd  "), startColor.rgb.red);
+desc3.putDouble(charIDToTypeID("Grn "), startColor.rgb.green);
+desc3.putDouble(charIDToTypeID("Bl  "), startColor.rgb.blue);
+desc2.putObject(charIDToTypeID("Clr "), charIDToTypeID("RGBC"), desc3);
+desc1.putObject(charIDToTypeID("Type"), stringIDToTypeID("solidColorLayer"), desc2);
+desc.putObject(charIDToTypeID("Usng"), stringIDToTypeID("contentLayer"), desc1);
+executeAction(charIDToTypeID("Mk  "), desc, DialogModes.NO);
+}
+var Prefs = {};
+try {
+var desc1 = app.getCustomOptions("30082bf0-700a-11df-be2b-0800200c9a66");
+Prefs = eval(desc1.getString(0));
+} catch (e) {}
+var win = new Window("dialog", "Th\u00eam ch\u1eef/LOGO h\u00e0ng lo\u1ea1t");
+win.p1 = win.add("panel", undefined, undefined, {
+borderStyle: "white"
+});
+win.g1 = win.p1.add("group");
+win.g1.orientation = "row";
+win.title = win.g1.add("statictext", undefined, "Th\u00eam ch\u1eef/LOGO h\u00e0ng lo\u1ea1t");
+win.title.helpTip = "Th\u00eam watermark ho\u1eb7c logo h\u00e0ng lo\u1ea1t";
+win.title.alignment = "fill";
+var g = win.title.graphics;
+g.font = ScriptUI.newFont("Segoe UI", "BOLD", 22);
+win.p1 = win.add("panel");
+win.g15 = win.p1.add("group");
+win.g15.spacing = 10;
+win.g15.orientation = "row";
+win.g15.alignment = "left";
+win.g15.st1 = win.g15.add("statictext", undefined, "Ch\u1ecdn th\u01b0 m\u1ee5c ngu\u1ed3n:");
+win.g15.et1 = win.g15.add("edittext", undefined, "");
+win.g15.et1.preferredSize = [300, 20];
+win.g15.et1.enabled = false;
+win.g15.bu1 = win.g15.add("button", undefined, "Duy\u1ec7t...");
+win.g15.bu1.helpTip = "Ch\u1ecdn th\u01b0 m\u1ee5c ngu\u1ed3n";
+win.g15.bu1.onClick = function() {
+try {
+if (Prefs.folder2 != undefined) {
+var Folder2 = Folder(Prefs.folder2);
+topLevelFolder = Folder(Prefs.folder2);
+} else {
+var Folder2 = "";
+}
+} catch (e) {}
+topLevelFolder = Folder.selectDialog("Th\u00f4ng b\u00e1o: h\u00e3y ch\u1ecdn th\u01b0 m\u1ee5c ch\u1ee9a \u1ea3nh c\u1ea7n l\u00e0m da", Folder2);
+if (topLevelFolder != null) {
+win.g15.et1.text = decodeURI(topLevelFolder.fsName);
+Prefs.folder2 = decodeURI(topLevelFolder.fsName);
+}
+};
+if (Prefs.folder2 != undefined) {
+win.g15.et1.text = Prefs.folder2;
+topLevelFolder = Folder(Prefs.folder2);
+}
+win.g25 = win.p1.add("group");
+win.g25.spacing = 10;
+win.g25.orientation = "row";
+win.g25.alignment = "left";
+win.g25.st1 = win.g25.add("statictext", undefined, "Ch\u1ecdn th\u01b0 m\u1ee5c xu\u1ea5t:");
+win.g25.et1 = win.g25.add("edittext", undefined, "");
+win.g25.et1.preferredSize = [300, 20];
+win.g25.et1.enabled = false;
+win.g25.bu1 = win.g25.add("button", undefined, "Duy\u1ec7t...");
+win.g25.bu1.helpTip = "Ch\u1ecdn th\u01b0 m\u1ee5c xu\u1ea5t";
+win.g25.bu1.onClick = function() {
+try {
+if (Prefs.folder != undefined) {
+var Folder1 = Folder(Prefs.folder);
+outputFolder = Folder(Prefs.folder);
+} else {
+var Folder1 = "";
+}
+} catch (e) {}
+outputFolder = Folder.selectDialog("Th\u00f4ng b\u00e1o: h\u00e3y ch\u1ecdn th\u01b0 m\u1ee5c \u0111\u1ec3 l\u01b0u \u1ea3nh:", Folder1);
+if (outputFolder != null) {
+win.g25.et1.text = decodeURI(outputFolder.fsName);
+Prefs.folder = decodeURI(outputFolder.fsName);
+}
+};
+try {
+if (Prefs.folder != undefined) {
+win.g25.et1.text = Prefs.folder;
+outputFolder = Folder(Prefs.folder);
+}
+} catch (e) {}
+win.p2 = win.add("panel");
+win.p2.orientation = "column";
+win.p2.alignment = "fill";
+win.grp5 = win.add("group");
+win.grp5.orientation = "row";
+win.grp5.alignment = "fill";
+win.grp5.spacing = 10;
+win.grp5.rb1 = win.grp5.add("radiobutton", undefined, "D\u00f9ng \u1ea3nh");
+win.grp5.rb2 = win.grp5.add("radiobutton", undefined, "D\u00f9ng ch\u1eef");
+win.grp5.rb2.value = true;
+win.grp5.st2 = win.grp5.add("statictext", undefined, "Thu ph\u00f3ng theo c\u1ea1nh ng\u1eafn");
+win.grp5.dd2 = win.grp5.add("dropdownlist");
+win.grp5.st10 = win.grp5.add("statictext", undefined, "\u0110\u1ed9 m\u1edd:");
+var slider = win.grp5.add("slider", undefined, 100, 30, 100);
+for (var a = 1; a < 151; a += 1) {
+win.grp5.dd2.add("item", a + " %");
+}
+win.grp5.dd2.selection = 49;
+try {
+if (Prefs.Percent != undefined) {
+win.grp5.dd2.selection = Number(Prefs.Percent);
+}
+} catch (e) {}
+win.grp5a = win.add("group");
+win.grp5a.orientation = "row";
+win.grp5a.alignment = "fill";
+win.grp5a.st1 = win.grp5a.add("statictext", undefined, "V\u1ecb tr\u00ed \u1ea3nh / ch\u1eef LOGO");
+var position = ["Tr\u00ean tr\u00e1i", "Ch\u00ednh gi\u1eefa tr\u00ean", "Tr\u00ean ph\u1ea3i", "Ch\u00ednh gi\u1eefa tr\u00e1i", "Ch\u00ednh gi\u1eefa", "Ch\u00ednh gi\u1eefa ph\u1ea3i", "D\u01b0\u1edbi tr\u00e1i", "Ch\u00ednh gi\u1eefa d\u01b0\u1edbi", "D\u01b0\u1edbi ph\u1ea3i"];
+win.grp5a.dd1 = win.grp5a.add("dropdownlist", undefined, position);
+win.grp5a.cb1 = win.grp5a.add("checkbox", undefined, "Xoay -45 \u0111\u1ed9");
+win.grp5a.dd1.selection = 0;
+win.grp5a.cb1.visible = false;
+win.grp5a.cb1.value = false;
+try {
+if (Prefs.Position != undefined) {
+win.grp5a.dd1.selection = Number(Prefs.Position);
+if (Number(Prefs.Position) == 4) {
+win.grp5a.cb1.visible = true;
+}
+} else {
+win.grp5a.cb1.visible = false;
+win.grp5a.cb1.value = false;
+}
+} catch (e) {}
+win.grp5a.dd1.onChange = function() {
+if (win.grp5a.dd1.selection.index == 4) {
+win.grp5a.cb1.visible = true;
+} else {
+win.grp5a.cb1.visible = false;
+win.grp5a.cb1.value = false;
+}
+};
+win.grp6 = win.add("group");
+win.grp6.orientation = "row";
+win.grp6.alignment = "fill";
+win.grp6.st1 = win.grp6.add("statictext", undefined, "\u0110\u1eb7t \u0111\u1ed9 l\u1ec7ch (pixel)");
+win.grp6.dd1 = win.grp6.add("dropdownlist");
+win.grp6.st2 = win.grp6.add("statictext", undefined, "Ngang");
+win.grp6.dd2 = win.grp6.add("dropdownlist");
+win.grp6.st3 = win.grp6.add("statictext", undefined, "D\u1ecdc");
+for (var a = 0; a < 150; a += 1) {
+win.grp6.dd1.add("item", a);
+win.grp6.dd2.add("item", a);
+}
+win.grp6.dd1.selection = 10;
+win.grp6.dd2.selection = 10;
+try {
+if (Prefs.offSetX != undefined) {
+win.grp6.dd1.selection = Prefs.offSetX;
+}
+if (Prefs.offSetY != undefined) {
+win.grp6.dd2.selection = Prefs.offSetY;
+}
+} catch (e) {}
+win.grp7 = win.add("group");
+win.grp7.orientation = "row";
+win.grp7.st1 = win.grp7.add("statictext", undefined, "Ch\u1ecdn \u1ea3nh LOGO:");
+win.grp7.alignment = "fill";
+win.grp10 = win.add("group");
+win.grp10.orientation = "row";
+win.grp10.spacing = 10;
+win.grp10.alignment = "fill";
+win.grp10.et1 = win.grp10.add("edittext");
+win.grp10.et1.preferredSize = [300, 20];
+win.grp10.et1.enabled = false;
+win.grp10.bu1 = win.grp10.add("button", undefined, "Duy\u1ec7t \u1ea3nh LOGO");
+var logoFile = "";
+win.grp10.bu1.onClick = function() {
+logoFile = File.openDialog("Ch\u1ecdn file LOGO", "\u0110\u1ecbnh d\u1ea1ng \u1ea3nh:*.png;*.tif;*.psd;*.jpg");
+if (logoFile != null) {
+win.grp10.et1.text = decodeURI(logoFile.fsName);
+}
+};
+try {
+logoFile = File(Prefs.LogoFile);
+if (logoFile.exists) {
+win.grp10.et1.text = decodeURI(logoFile.fsName);
+} else {
+win.grp10.et1.text = "";
+logoFile = "";
+}
+} catch (e) {}
+win.grp13 = win.add("group");
+win.grp13.orientation = "row";
+win.grp13.alignment = "fill";
+win.grp13.st1 = win.grp13.add("statictext", undefined, "Ch\u1eef");
+win.grp13.bu1 = win.grp13.add("button", undefined, "D\u00f9ng \u00a9");
+win.grp13.bu2 = win.grp13.add("button", undefined, "Xo\u00e1 ch\u1eef");
+win.grp15 = win.add("group");
+win.grp15.orientation = "row";
+win.grp15.alignment = "fill";
+win.grp15.spacing = 10;
+win.grp15.et1 = win.grp15.add("edittext");
+win.grp15.et1.preferredSize = [300, 20];
+win.grp13.bu2.onClick = function() {
+win.grp15.et1.text = "";
+};
+try {
+if (Prefs.WaterMarkText != undefined) {
+win.grp15.et1.text = Prefs.WaterMarkText;
+}
+} catch (e) {}
+win.grp13.bu1.onClick = function() {
+win.grp15.et1.text += "\xa9";
+};
+win.grp5.rb2.onClick = function() {
+win.grp5.rb1.onClick();
+};
+win.grp25 = win.add("group");
+win.grp25.orientation = "row";
+win.grp25.alignment = "fill";
+win.grp25.spacing = 10;
+win.grp25.cb1 = win.grp25.add("checkbox", undefined, "D\u00f9ng d\u1eef li\u1ec7u \u1ea3nh");
+win.grp25.cb1.helpTip = "N\u1ebfu kh\u00f4ng t\u00ecm th\u1ea5y, d\u00f9ng t\u00ean file";
+if (Prefs.MetaData != undefined) {
+win.grp25.cb1.value = Prefs.MetaData;
+}
+var Meta = ["Ti\u00eau \u0111\u1ec1 t\u00e0i li\u1ec7u", "Ch\u00fa th\u00edch", "Ti\u00eau \u0111\u1ec1", "Th\u00f4ng tin b\u1ea3n quy\u1ec1n"];
+if (app.version.match(/\d+/) == 10) {
+Meta.splice(3, 1);
+}
+win.grp25.dd1 = win.grp25.add("dropdownlist", undefined, Meta);
+win.grp25.dd1.enabled = false;
+win.grp25.dd1.selection = 0;
+win.grp19 = win.add("group");
+win.grp19.orientation = "row";
+win.grp19.alignment = "fill";
+win.grp19.spacing = 3;
+win.grp19.cb1 = win.grp19.add("checkbox", undefined, "D\u00f9ng t\u00ean file");
+win.grp19.cb2 = win.grp19.add("checkbox", undefined, "Hi\u1ec7u \u1ee9ng n\u1ed5i");
+win.grp19.st1 = win.grp19.add("statictext", undefined, "  T\u00f4 m\u00e0u:");
+win.grp19.dd1 = win.grp19.add("dropdownlist");
+win.grp19.cb3 = win.grp19.add("checkbox", undefined, "Vi\u1ec1n");
+var StrokeWidth = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+win.grp19.dd3 = win.grp19.add("dropdownlist", undefined, StrokeWidth);
+win.grp19.dd3.selection = 0;
+var Colours = ["\u0110en", "Tr\u1eafng", "\u0110\u1ecf", "Xanh l\u00e1", "Xanh d\u01b0\u01a1ng"];
+win.grp19.dd2 = win.grp19.add("dropdownlist", undefined, Colours);
+win.grp19.dd2.selection = 0;
+if (Prefs.SW != undefined) {
+win.grp19.dd3.selection = Number(Prefs.SW);
+}
+if (Prefs.SC != undefined) {
+win.grp19.dd2.selection = Number(Prefs.SC);
+}
+for (var a = 0; a < 101; a += 1) {
+win.grp19.dd1.add("item", a);
+}
+win.grp19.dd1.selection = 0;
+try {
+if (Prefs.Opacity != undefined) {
+win.grp19.dd1.selection = Number(Prefs.Opacity);
+}
+} catch (e) {}
+win.grp19a = win.add("group");
+win.grp19a.orientation = "row";
+win.grp19a.alignment = "fill";
+win.grp19a.spacing = 10;
+win.grp19a.cb1 = win.grp19a.add("checkbox", undefined, "Th\u00eam s\u1ed1 th\u1ee9 t\u1ef1");
+win.grp19a.et1 = win.grp19a.add("edittext", undefined, "1");
+win.grp19a.et1.preferredSize = [50, 20];
+var SIX = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+win.grp19a.st1 = win.grp19a.add("statictext", undefined, "\u0110\u1ed9 d\u00e0i");
+win.grp19a.dd1 = win.grp19a.add("dropdownlist", undefined, SIX);
+win.grp19a.dd1.selection = 3;
+win.grp19a.cb1.onClick = function() {
+if (win.grp19a.cb1.value) {
+win.grp19a.et1.enabled = true;
+win.grp19a.dd1.enabled = true;
+} else {
+win.grp19a.et1.enabled = false;
+win.grp19a.dd1.enabled = false;
+}
+};
+win.grp19a.cb1.onClick();
+win.grp18 = win.add("group");
+win.grp18.orientation = "row";
+win.grp18.alignment = "fill";
+win.grp18.spacing = 10;
+win.grp18.st1 = win.grp18.add("statictext", undefined, "Ch\u1ecdn font");
+win.grp18.dd1 = win.grp18.add("dropdownlist");
+win.grp18.dd1.preferredSize = [250, 20];
+for (var i = 0, len = app.fonts.length; i < len; i++) {
+win.grp18.dd1.add("item", app.fonts[i].name);
+}
+win.grp18.dd1.selection = 0;
+try {
+win.grp18.dd1.selection = Prefs.Font;
+} catch (e) {}
+win.grp20 = win.add("group");
+win.grp20.orientation = "row";
+win.grp20.alignment = "fill";
+win.grp20.spacing = 10;
+win.grp20.st1 = win.grp20.add("statictext", undefined, "M\u00e0u ch\u1eef");
+win.grp20.st1.helpTip = "Not used if Emboss is selected";
+win.grp20.et1 = win.grp20.add("edittext", undefined, "000000");
+win.grp20.et1.enabled = false;
+if (Prefs.Colour1 != undefined) {
+win.grp20.et1.text = Prefs.Colour1;
+}
+win.grp20.et1.preferredSize = [58, 20];
+win.grp20.p1 = win.grp20.add("panel");
+win.grp20.p1.preferredSize = [20, 20];
+win.grp20.bu1 = win.grp20.add("button", undefined, "Ch\u1ecdn m\u00e0u");
+panelColour(win.grp20.et1.text, 1);
+win.grp20.bu1.onClick = function() {
+var myColour = colourPicker(win.grp20.et1.text);
+if (myColour != undefined) {
+win.grp20.et1.text = myColour.toString();
+panelColour(myColour, 1);
+}
+};
+win.grp22 = win.add("group");
+win.grp22.orientation = "row";
+win.grp22.alignment = "fill";
+win.grp22.spacing = 10;
+win.grp22.cb1 = win.grp22.add("checkbox", undefined, "Th\u00eam d\u1ea3i n\u1ec1n  ");
+win.grp22.cb1.helpTip = "\u00c1p d\u1ee5ng cho \u1ea3nh LOGO ho\u1eb7c ch\u1eef";
+win.grp22.et1 = win.grp22.add("edittext", undefined, "000000");
+win.grp22.et1.enabled = false;
+if (Prefs.Colour2 != undefined) {
+win.grp22.et1.text = Prefs.Colour2;
+}
+win.grp22.et1.preferredSize = [58, 20];
+win.grp22.p1 = win.grp22.add("panel");
+win.grp22.p1.preferredSize = [20, 20];
+win.grp22.bu1 = win.grp22.add("button", undefined, "Ch\u1ecdn m\u00e0u");
+win.grp22.bu1.enabled = false;
+win.grp22.st1 = win.grp22.add("statictext", undefined, "\u0110\u1ed9 m\u1edd");
+win.grp22.dd1 = win.grp22.add("dropdownlist");
+win.grp22.dd1.enabled = false;
+panelColour(win.grp22.et1.text, 2);
+for (var a = 0; a < 101; a += 1) {
+win.grp22.dd1.add("item", a);
+}
+win.grp22.dd1.selection = 0;
+if (Prefs.Opacity2 != undefined) {
+win.grp22.dd1.selection = Number(Prefs.Opacity2);
+}
+win.grp22.cb1.onClick = function() {
+if (win.grp22.cb1.value) {
+win.grp22.bu1.enabled = true;
+win.grp22.dd1.enabled = true;
+} else {
+win.grp22.bu1.enabled = false;
+win.grp22.dd1.enabled = false;
+}
+};
+win.grp22.cb1.onClick();
+win.grp22.bu1.onClick = function() {
+var myColour = colourPicker(win.grp22.et1.text);
+if (myColour != undefined) {
+win.grp22.et1.text = myColour.toString();
+panelColour(myColour, 2);
+}
+};
+try {
+if (Prefs.FileName != undefined) {
+win.grp19.cb1.value = Prefs.FileName;
+}
+if (Prefs.Emboss != undefined) {
+win.grp19.cb2.value = Prefs.Emboss;
+}
+} catch (e) {}
+try {
+if (Prefs.HexColour != undefined) {
+win.grp20.et1.text = Prefs.HexColour;
+}
+} catch (e) {}
+panelColour(win.grp20.et1.text);
+try {
+if (Prefs.MetaSelection != undefined) {
+win.grp25.dd1.selection = Number(Prefs.MetaSelection);
+}
+} catch (e) {}
+win.grp25.cb1.onClick = function() {
+if (win.grp25.cb1.value) {
+win.grp25.dd1.enabled = true;
+} else {
+win.grp25.dd1.enabled = false;
+}
+};
+win.grp5.rb1.onClick = function() {
+if (win.grp5.rb1.value) {
+win.grp10.bu1.enabled = true;
+win.grp15.et1.enabled = false;
+win.grp19.cb1.value = false;
+win.grp19.cb1.enabled = false;
+win.grp19.cb2.value = false;
+win.grp19.cb2.enabled = false;
+win.grp19.cb2.enabled = false;
+win.grp19.cb3.enabled = false;
+win.grp19.cb3.value = false;
+win.grp19.dd1.enabled = false;
+win.grp19.dd2.enabled = false;
+win.grp25.cb1.value = false;
+win.grp25.cb1.enabled = false;
+win.grp18.dd1.enabled = false;
+win.grp19.dd3.enabled = false;
+win.grp25.cb1.onClick();
+} else {
+win.grp10.bu1.enabled = false;
+win.grp15.et1.enabled = true;
+win.grp19.cb1.enabled = true;
+win.grp19.cb2.enabled = true;
+win.grp19.cb3.enabled = true;
+win.grp25.cb1.enabled = true;
+win.grp18.dd1.enabled = true;
+win.grp19.dd1.enabled = true;
+win.grp19.dd2.enabled = true;
+win.grp19.dd3.enabled = true;
+win.grp25.cb1.onClick();
+}
+};
+try {
+if (Prefs.Image != undefined) {
+win.grp5.rb1.value = Prefs.Image;
+win.grp5.rb1.onClick();
+}
+} catch (e) {}
+win.grp5.rb1.onClick();
+win.grp30 = win.add("group");
+win.grp30.orientation = "row";
+win.grp30.alignment = "fill";
+win.grp30.spacing = 10;
+win.grp30.cb1 = win.grp30.add("checkbox", undefined, "Th\u00eam ghi ch\u00fa b\u1ea3n quy\u1ec1n");
+win.grp30.et1 = win.grp30.add("edittext");
+win.grp30.et1.enabled = false;
+win.grp30.et1.preferredSize = [250, 20];
+win.grp30.cb1.onClick = function() {
+if (win.grp30.cb1.value) {
+win.grp30.et1.enabled = true;
+} else {
+win.grp30.et1.enabled = false;
+}
+};
+try {
+if (Prefs.AddCopy != undefined) {
+win.grp30.cb1.value = Prefs.AddCopy;
+if (win.grp30.cb1.value) {
+win.grp30.et1.enabled = true;
+}
+}
+if (Prefs.CopyNotice != undefined) {
+win.grp30.et1.text = Prefs.CopyNotice;
+}
+} catch (e) {}
+win.grp100 = win.add("group");
+win.grp100.orientation = "row";
+win.grp100.spacing = 20;
+win.grp100.bu1 = win.grp100.add("button", undefined, "H\u00e0ng lo\u1ea1t theo th\u01b0 m\u1ee5c");
+win.grp100.bu2 = win.grp100.add("button", undefined, "H\u00e0ng lo\u1ea1t cho t\u00e0i li\u1ec7u \u0111ang m\u1edf");
+win.grp100.bu1.preferredSize = [150, 30];
+win.grp100.bu2.preferredSize = [150, 30];
+win.p2 = win.add("panel");
+win.p2.preferredSize = [500, 2];
+win.grp100.bu1.onClick = function() {
+if (win.grp5.rb1.value) {
+if (logoFile == null) {
+alert("File LOGO kh\u00f4ng t\u1ed3n t\u1ea1i, h\u00e3y ch\u1ecdn LOGO!");
+win.grp10.et1.text = "";
+return;
+}
+if (!logoFile.exists) {
+alert("File LOGO kh\u00f4ng t\u1ed3n t\u1ea1i, h\u00e3y ch\u1ecdn LOGO!");
+win.grp10.et1.text = "";
+return;
+}
+}
+if (win.grp5.rb2.value) {
+var txtSelected = false;
+if (win.grp15.et1.text != "") {
+txtSelected = true;
+}
+if (win.grp19.cb1.value) {
+txtSelected = true;
+}
+if (win.grp19a.cb1.value) {
+txtSelected = true;
+}
+if (win.grp25.cb1.value) {
+txtSelected = true;
+}
+if (!txtSelected) {
+alert("Ch\u01b0a ch\u1ecdn ch\u1eef, t\u00ean file hay th\u00f4ng tin \u1ea3nh!");
+return;
+}
+if (win.g15.et1.text == "") {
+alert("Ch\u01b0a ch\u1ecdn th\u01b0 m\u1ee5c ngu\u1ed3n!");
+return;
+}
+if (win.g25.et1.text == "") {
+alert("Ch\u01b0a ch\u1ecdn th\u01b0 m\u1ee5c xu\u1ea5t!");
+return;
+}
+try {
+Prefs.Font = Number(win.grp18.dd1.selection.index);
+Prefs.Percent = Number(win.grp5.dd2.selection.index);
+Prefs.Position = Number(win.grp5a.dd1.selection.index);
+Prefs.offSetX = Number(win.grp6.dd1.selection.index);
+Prefs.offSetY = Number(win.grp6.dd2.selection.index);
+Prefs.MetaSelection = Number(win.grp25.dd1.selection.index);
+Prefs.Opacity = Number(win.grp19.dd1.selection.index);
+Prefs.WaterMarkText = win.grp15.et1.text;
+Prefs.HexColour = win.grp20.et1.text;
+Prefs.FileName = win.grp19.cb1.value;
+Prefs.Emboss = win.grp19.cb2.value;
+Prefs.Image = win.grp5.rb1.value;
+Prefs.MetaData = win.grp25.cb1.value;
+Prefs.AddCopy = win.grp30.cb1.value;
+Prefs.CopyNotice = win.grp30.et1.text;
+Prefs.LogoFile = logoFile;
+Prefs.Opacity2 = win.grp22.dd1.selection.index;
+Prefs.Colour1 = win.grp20.et1.text;
+Prefs.Colour2 = win.grp22.et1.text;
+Prefs.SW = win.grp19.dd3.selection.index;
+Prefs.SC = win.grp19.dd2.selection.index;
+var desc2 = new ActionDescriptor();
+desc2.putString(0, Prefs.toSource());
+app.putCustomOptions("30082bf0-700a-11df-be2b-0800200c9a66", desc2, true);
+} catch (e) {
+alert(e.line);
+}
+}
+win.close(1);
+process();
+};
+win.grp100.bu2.onClick = function() {
+if (win.grp5.rb1.value) {
+if (logoFile == null) {
+alert("File LOGO kh\u00f4ng t\u1ed3n t\u1ea1i, h\u00e3y ch\u1ecdn LOGO!");
+win.grp10.et1.text = "";
+return;
+}
+if (!logoFile.exists) {
+alert("File LOGO kh\u00f4ng t\u1ed3n t\u1ea1i, h\u00e3y ch\u1ecdn LOGO!");
+win.grp10.et1.text = "";
+return;
+}
+}
+if (win.grp5.rb2.value) {
+var txtSelected = false;
+if (win.grp15.et1.text != "") {
+txtSelected = true;
+}
+if (win.grp19.cb1.value) {
+txtSelected = true;
+}
+if (win.grp19a.cb1.value) {
+txtSelected = true;
+}
+if (win.grp25.cb1.value) {
+txtSelected = true;
+}
+if (!txtSelected) {
+alert("Ch\u01b0a ch\u1ecdn ch\u1eef, t\u00ean file hay th\u00f4ng tin \u1ea3nh!");
+return;
+}
+try {
+Prefs.Font = Number(win.grp18.dd1.selection.index);
+Prefs.Percent = Number(win.grp5.dd2.selection.index);
+Prefs.Position = Number(win.grp5a.dd1.selection.index);
+Prefs.offSetX = Number(win.grp6.dd1.selection.index);
+Prefs.offSetY = Number(win.grp6.dd2.selection.index);
+Prefs.MetaSelection = Number(win.grp25.dd1.selection.index);
+Prefs.Opacity = Number(win.grp19.dd1.selection.index);
+Prefs.WaterMarkText = win.grp15.et1.text;
+Prefs.HexColour = win.grp20.et1.text;
+Prefs.FileName = win.grp19.cb1.value;
+Prefs.Emboss = win.grp19.cb2.value;
+Prefs.Image = win.grp5.rb1.value;
+Prefs.MetaData = win.grp25.cb1.value;
+Prefs.AddCopy = win.grp30.cb1.value;
+Prefs.CopyNotice = win.grp30.et1.text;
+Prefs.LogoFile = logoFile;
+Prefs.Opacity2 = win.grp22.dd1.selection.index;
+Prefs.Colour1 = win.grp20.et1.text;
+Prefs.Colour2 = win.grp22.et1.text;
+Prefs.SW = win.grp19.dd3.selection.index;
+Prefs.SC = win.grp19.dd2.selection.index;
+var desc2 = new ActionDescriptor();
+desc2.putString(0, Prefs.toSource());
+app.putCustomOptions("30082bf0-700a-11df-be2b-0800200c9a66", desc2, true);
+} catch (e) {
+alert(e.line);
+}
+}
+win.close(1);
+process2();
+};
+var __dr7WmWin = win;
+$._ext_WM = {
+    run: function () {
+        __dr7WmWin.show();
+    }
+};

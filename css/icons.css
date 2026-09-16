@@ -1,0 +1,146 @@
+/* ============================================================
+   DR7 — style nút icon (SINH TỰ ĐỘNG bởi _dev/tools/build_icons.js, đừng sửa tay)
+   Theme ảnh: light  |  nút icon: 17 (không có ảnh: hhhb)
+
+   Xử lý 3 vấn đề của style.css gốc:
+     1. button { background:#8B7E66 }   -> nút icon bị "dính nền" beige      => nền trong suốt
+     2. button:hover { border:1px ... } -> nhảy layout 2px                    => dùng box-shadow
+     3. button:focus { outline:0 }      -> không thấy dấu focus               => viền focus rõ ràng
+   Ảnh icon là glyph sáng (đo TB~212) nên hợp nền tối, giữ nguyên màu.
+   ============================================================ */
+
+/* --- nút chỉ có icon: bỏ nền, chỉ còn glyph --- */
+.tool {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+/* Nút icon dùng ảnh assets/ (rule <style> inline trong index.html) cũng bỏ nền:
+   selector "body #id" có độ ưu tiên cao hơn "#id" của <style> inline. */
+body #ytfd, body #yh, body #tool-yh, body #ab, body #zjd, body #gg {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* --- ảnh icon cho từng nút --- */
+body #br {
+    background-image: url(../img/light/br.png);
+}
+body #br:hover {
+    background-image: url(../img/light_hover/br.png);
+}
+body #sp {
+    background-image: url(../img/light/sp.png);
+}
+body #sp:hover {
+    background-image: url(../img/light_hover/sp.png);
+}
+body #he {
+    background-image: url(../img/light/he.png);
+}
+body #he:hover {
+    background-image: url(../img/light_hover/he.png);
+}
+body #pa {
+    background-image: url(../img/light/pa.png);
+}
+body #pa:hover {
+    background-image: url(../img/light_hover/pa.png);
+}
+body #cl {
+    background-image: url(../img/light/cl.png);
+}
+body #cl:hover {
+    background-image: url(../img/light_hover/cl.png);
+}
+body #pc {
+    background-image: url(../img/light/pc.png);
+}
+body #pc:hover {
+    background-image: url(../img/light_hover/pc.png);
+}
+body #lu {
+    background-image: url(../img/light/lu.png);
+}
+body #lu:hover {
+    background-image: url(../img/light_hover/lu.png);
+}
+body #dv {
+    background-image: url(../img/light/dv.png);
+}
+body #dv:hover {
+    background-image: url(../img/light_hover/dv.png);
+}
+body #vm {
+    background-image: url(../img/light/vm.png);
+}
+body #vm:hover {
+    background-image: url(../img/light_hover/vm.png);
+}
+body #un {
+    background-image: url(../img/light/un.png);
+}
+body #un:hover {
+    background-image: url(../img/light_hover/un.png);
+}
+body #fo {
+    background-image: url(../img/light/fo.png);
+}
+body #fo:hover {
+    background-image: url(../img/light_hover/fo.png);
+}
+body #ytfd {
+    background-image: url(../assets/tool-fit-hover.png);
+}
+body #yh {
+    background-image: url(../assets/yh.png);
+}
+body #tool-yh {
+    background-image: url(../assets/tool-yh.png);
+}
+body #ab {
+    background-image: url(../assets/ab.png);
+}
+body #zjd {
+    background-image: url(../assets/zjd.png);
+}
+body #gg {
+    background-image: url(../assets/gg.png);
+}
+
+/* --- trạng thái: hover / active / focus (không nhảy layout) --- */
+.tool:hover, body #ytfd:hover, body #yh:hover, body #tool-yh:hover,
+body #ab:hover, body #zjd:hover, body #gg:hover {
+    background-color: rgba(255, 255, 255, 0.16);
+    border-radius: 3px;
+}
+.tool:active, body #ytfd:active, body #yh:active, body #tool-yh:active,
+body #ab:active, body #zjd:active, body #gg:active {
+    background-color: rgba(0, 0, 0, 0.30);
+    border-radius: 3px;
+}
+.tool:focus, body #ytfd:focus, body #yh:focus, body #tool-yh:focus,
+body #ab:focus, body #zjd:focus, body #gg:focus {
+    outline: 2px solid #4a9eff;
+    outline-offset: -2px;
+    border-radius: 3px;
+}
+
+/* --- nút có chữ: bỏ border 1px gây nhảy layout khi hover, giữ nền gốc --- */
+button:hover {
+    border: 0;
+    box-shadow: inset 0 0 0 1px #0f607b;
+}
+button:focus {
+    outline: 2px solid #4a9eff;
+    outline-offset: -2px;
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    ExtensionBundleId="com.retouchpanel.bundle" ExtensionBundleVersion="1.0.0" Version="6.0">
+    <ExtensionList>
+        <Extension Id="com.retouchpanel.panel" Version="1.0.0" />
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <Host Name="PHXS" Version="14.0" />
+            <Host Name="PHSP" Version="14.0" />
+        </HostList>
+        <LocaleList>
+            <Locale Code="All" />
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="6.0" />
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="com.retouchpanel.panel">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./index.html</MainPath>
+                    <!-- Không khai báo ScriptPath: lõi ExtendScript do js/panel.js nạp
+                         với đường dẫn lấy từ CEP (getSystemPath). Tránh trường hợp CEP trả
+                         $.fileName dạng "/e/...%20..." hoặc chỉ "loader.jsx" -> IOError. -->
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>
+                    <Menu>MHK DR7</Menu>
+                    <Geometry>
+                        <Size><Height>580</Height><Width>235</Width></Size>
+                        <MaxSize><Height>2000</Height><Width>600</Width></MaxSize>
+                        <MinSize><Height>300</Height><Width>235</Width></MinSize>
+                    </Geometry>
+                    <Icons>
+                        <Icon Type="Normal">./img/icon-large.png</Icon>
+                        <Icon Type="DarkNormal">./img/icon-large.png</Icon>
+                    </Icons>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+    <Author>local build</Author>
+    <Abstract>MHK DR7 - panel retouch cho Photoshop.</Abstract>
+    <HostList />
+</ExtensionManifest>

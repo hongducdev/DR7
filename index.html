@@ -1,0 +1,439 @@
+<html><head>
+
+    <meta http-equiv="content-type" content="text/html" charset="UTF-8">
+    <title>MHK DR7</title>
+
+	<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/icons.css" type="text/css">
+    <link rel="stylesheet" href="css/layout.css" type="text/css">
+    <script type="text/javascript" src="./js/CSInterface.js"></script>
+
+    <!-- JavaScript của panel -->
+<style>
+	#ytfd{
+		width:25px;
+		height: 24px;
+		background:url(assets/tool-fit-hover.png)no-repeat;
+	}
+	#ab{
+		width:25px;
+		height: 24px;
+		background:url(assets/ab.png)no-repeat;
+	}
+	#zjd{
+		width:25px;
+		height: 24px;
+		background:url(assets/zjd.png)no-repeat;
+	}
+	#gg{
+		width:25px;
+		height: 24px;
+		background:url(assets/gg.png)no-repeat;
+	}
+	#tool-yh{
+		width:25px;
+		height:24px;
+		background:url(assets/tool-yh.png)no-repeat;
+	}
+	#yh{
+		width:25px;
+		height:24px;
+		background:url(assets/yh.png)no-repeat;
+	}
+	#hhhb{
+		width:25px;
+		height: 24px;
+		background:url(img/dark/hhhb.png)no-repeat;
+	}
+	
+	.ba1{
+		border:1px solid #29c95e;
+		border-radius:25px;
+		text-align: center;
+		width:74px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#29c95e;
+		font-size: 12px;
+	}
+	.ba1:hover{
+		align-content: center;
+		background:#ffffff;
+	}
+	.ba7{
+		border:1px solid #ff3e58;
+		border-radius:25px;
+		text-align: center;
+		width:74px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#ff3e58;
+		font-size: 12px;
+	}
+	.ba7:hover{
+		align-content: center;
+		background:#ffffff;
+	}
+	.ba8{
+		border:1px solid #01aef6;
+		border-radius:25px;
+		text-align: center;
+		width:148px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#01aef6;
+		font-size: 12px;
+	}
+	.ba8:hover{
+		align-content: center;
+		background:#ffffff;
+	}
+	.ba2{
+		
+		border-radius:25px;
+		text-align: center;
+		width:111px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#01aef6;
+		font-size: 12px;
+	}
+	.ba2:hover{
+		align-content: center;
+		background:#ffc23e;
+	}
+	.ba9{
+		
+		border-radius:25px;
+		text-align: center;
+		width:111px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#ffc23e;
+		font-size: 12px;
+	}
+	.ba9:hover{
+		align-content: center;
+		background:#fffff;
+	}
+	.ba3{
+			border:1px solid #ff3e58;
+		border-radius:25px;
+		text-align: center;
+		width:74px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#ff3e58;
+		font-size: 12px;
+	}
+	.ba3:hover{
+		align-content: center;
+		background:#fffff;
+	}
+	
+	.ba8{
+			border:1px solid #01aef6;
+		border-radius:25px;
+		text-align: center;
+		width:148px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#01aef6;
+		font-size: 12px;
+	}
+	.ba8:hover{
+		align-content: center;
+		background:#fffff;
+		}
+	.ba11{
+			border:1px solid #ffc23e;
+		border-radius:25px;
+		text-align: center;
+		width:222px;
+		height:25px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		color:aliceblue;
+		background:#ffc23e;
+		font-size: 12px;
+	}
+	.ba11:hover{
+		align-content: center;
+		background:#fffff;
+		}
+	#logo1{
+		border:2px solid #29c95e;
+		border-radius:25px;
+		width:220px;
+		height: 32px;
+		font:35px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		background:#29c95e;
+		color:aliceblue;
+	}
+	#logo1:hover{
+		border:2px solid #29c95e;
+		border-radius:25px;
+		width:220px;
+		height: 32px;
+		font:35px;
+		font-family: "Segoe UI", "Microsoft YaHei", Tahoma, sans-serif;
+		background:#29c95e;
+		color:aliceblue;
+	}
+	.tt{
+		text-align: center;
+	}
+	.yun{
+		
+		border-radius: 25px;
+		width:220px;
+		height:32px;
+	}
+	
+	.vsco{
+		
+	/*width: 18.5%; */
+	height: 32px;
+   
+    box-shadow: none;
+    outline-style: none;
+    /*padding-top: 4.5px;*/
+    border:none;
+    background:none;
+}
+/*input {
+	height: 26px;
+	border-radius: 2px;
+	border: 1px solid #666!important;
+	transition: all .1s ease-out;
+	padding-left: 8px;
+	padding-right: 8px;
+	font-size: 12px;
+	box-sizing: border-box
+}*/
+#zed {
+    margin-top: 200px
+}
+.login_xlh {
+	display: block;
+	text-align: center;
+	 width: 200px;
+	 margin-left: 15px;
+}
+.full-width {
+    display: block;
+    width: 100%
+}
+.topcoat-button--large--cta {
+	width: 200px;
+    height: 25px;
+    margin-left: 15px;
+}
+.topcoat-button--large--cta:hover {
+    background-color: #785f59
+}
+.topcoat-button--large--cta:active {
+    background-color: #787674;
+    box-shadow: inset 0 1px rgba(222, 222, 222, 0.12)
+}
+
+	</style>
+    <!-- JavaScript của panel -->
+
+
+</head>
+<body onload="onLoaded();onClickButton('BUGFIX')">
+<button class="reload-panel" onclick="dr7Reload()" title="Nạp lại code plugin (không cần tắt Photoshop)" aria-label="Nạp lại plugin">↻</button>
+<div class="panel">
+<div>
+
+
+  <center><div class="panel">
+    <div class="brand">
+      <div class="logo">
+        <img src="img/icon-large.png" alt="MHK DR7">
+     </div> </center>
+	
+
+	     <div class="tools">
+<button class="tool" id="br" onclick="onClickButton('BR')" title="Công cụ cọ"></button>
+<button class="tool" id="sp" onclick="onClickButton('SP')" title="Nhặt mụn"></button>
+<button class="tool" id="he" onclick="onClickButton('HB')" title="Nhặt mụn"></button>
+<button class="tool" id="pa" onclick="onClickButton('PA')" title="Nhặt mụn"></button>
+<button class="tool" id="cl" onclick="onClickButton('CL')" title="Chấm mụn"></button>
+<button class="tool" id="pc" onclick="onClickButton('PC')" title="Chấm mụn"></button>
+</div>
+<div class="tools">
+<button class="tool" id="hhhb" onclick="mhkPP('MIXER')" title="MHK: Cọ trộn màu (Mixer Brush)"></button>
+<button class="tool" id="lu" onclick="onClickButton('ZO')" title="Thu Phóng"></button>
+<button class="tool" id="dv" onclick="onClickButton('DV')" title="So Sánh"></button>
+<button class="tool" id="vm" onclick="onClickButton('VW')" title="Mặt nạ lớp"></button>
+
+<button class="tool" id="un" onclick="onClickButton('BW')" title="Lùi lại một bước"></button>
+<button class="tool" id="fo" onclick="onClickButton('FW')" title="Tiến lên một nước"></button>
+</div>
+<div class="tools">
+<button class="tool" id="ytfd" onclick="onClickButton('BTNFIT')" title="Khôi phục kích thước hình ảnh gốc"></button> 
+<button class="tool" id="yh" onclick="onClickButton('BTNFADE')" title="Làm mờ"></button>
+<button class="tool" id="tool-yh" onclick="onClickButton('BTNLIQ')" title="Hóa lỏng"></button>
+<button class="tool" id="ab" onclick="onClickButton('BTNDARK')" title="Lựa chọn phần tối"></button> 
+<button class="tool" id="zjd" onclick="onClickButton('BTNMID')" title="Lựa chọn trung tính"></button>
+<button class="tool" id="gg" onclick="onClickButton('BTNLIGHT')" title="Chọn ánh sáng cao"></button>
+</div>
+<div class="row">
+	<!--button  class="btnT" id="la" onClick="onClickButton('LA')"></button-->
+	<button class="ba11" id00="ds" onclick="onClickButton('DS')" title="Làm Da">Làm Da V5.0</button>
+	
+	</div>
+	<!--button  class="btnT" id="la" onClick="onClickButton('LA')"></button-->
+<div class="row">
+    <button class="ba1" id00="ba" onclick="onClickButton('BA')" title="Thiết lập thông số để lưu và sử dụng">Hàng loạt</button>
+	<button class="ba8" id00="se" onclick="onClickButton('SE')" title="Tự động">Tự động</button>
+</div>
+</div>
+<div class="row">
+	<button class="ba1" onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
+	<button class="ba1" onclick="onClickButton('FRQ')" title="Tần số cao/thấp — bản cũ: 8/16 bit, Gaussian Blur hoặc Surface Blur">Tần số 8/16</button>
+</div>
+<div class="row">
+	<!--button  class="btnT" id="la" onClick="onClickButton('LA')"></button-->
+	<button class="ba1" id00="ls" onclick="onClickButton('LS')">Làm mịn</button>
+	<button class="ba1" id00="ss" onclick="onClickButton('SS')">Lẫn mịn</button>
+	<button class="ba1" id0="re" onclick="onClickButton('RE')">Tẩy lông</button>
+	
+	
+</div>
+<div class="row">
+	<!--button  class="btnT" id="la" onClick="onClickButton('LA')"></button-->
+	<button class="ba1" id0="GDP" onclick="doa('GDP')">Tần số</button>
+	<button class="ba1" id0="fs" onclick="onClickButton('FS')">Frequency</button>
+	<button class="ba1" id0="db" onclick="onClickButton('DB')">Đánh Khối</button>
+</div>
+
+<div class="row">
+	<button class="ba2" id0="sa" onclick="onClickButton('SA')" title="Lấy mẫu màu trước khi chạy mặt nạ da">Lấy mẫu</button>
+	<button class="ba2" id0="ma" onclick="onClickButton('MA')" title="
+Sử dụng công cụ chọn để chọn mắt trước khi chạy chỉnh sửa mắt">Chọn Mắt</button>
+	</div>
+	<div class="row">
+	<button class="ba2" id0="sm" onclick="onClickButton('SM')" title="Mặt nạ màu da — lấy mẫu màu trước">Mặt nạ da</button>
+	<button class="ba2" id0="ee" onclick="onClickButton('EE')" title="Chọn vùng mắt">Sửa mắt</button>
+</div>
+<div class="row">
+    
+	<button class="ba7" id0="sh" onclick="onClickButton('SH')">Làm nét</button>
+	<button class="ba7" id0="li" onclick="onClickButton('LI')">Liquity</button>
+   <button class="ba7" id0="ZXHC" onclick="doa('ZXHC')">Lớp xám</button>
+</div>
+<div class="row">
+ <button class="ba7" id0="GGXS" onclick="doa('GGXS')">Highlight</button>
+	<button class="ba7" id0="rm" onclick="onClickButton('CR')">Mặt Nạ</button>
+	<button class="ba7" id0="TJSH" onclick="doa('TJSH')">Phủ phấn</button>
+	
+</div>
+
+<div class="row">
+ <button class="ba7" id0="JMXS" onclick="doa('JMXS')">Lông Mi</button>
+ <button class="ba7" id0="TJYY" onclick="doa('TJYY')">Bóng Mắt</button>
+ <button class="ba7" id0="JSYY" onclick="doa('JSYY')">Bóng Vàng</button>
+ 
+ </div>
+<div class="row">
+<button class="ba9" onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
+ <button class="ba9" id00="tc" onclick="onClickButton('TC')">Màu Da</button>
+ 
+ 
+ 
+ </div>
+<div class="row">
+ 
+ 
+ <button class="ba9" id0="FSJH" onclick="doa('FSJH')">Giảm Vàng</button>
+ <button class="ba9" id0="MBPF" onclick="doa('MBPF')">Trắng Da</button>
+ </div>
+<div class="row">
+ 
+ 
+ <button class="ba1" id0="wt" onclick="onClickButton('WT')">Trắng Răng</button>
+ <button class="ba1" id0="ZCZQ" onclick="doa('ZCZQ')">Son Môi</button>
+  <button class="ba1" id0="HSXZ" onclick="doa('HSXZ')">Khử Vàng</button>
+ </div>
+<div class="row">
+<button class="ba1" id0="CGYSA" title="MHK mới: giảm bão hòa trên lớp riêng" onclick="doa('CGYSA')">Phai màu</button>
+<button class="ba1" id0="CGYSB" title="MHK mới: lớp hào quang Screen" onclick="doa('CGYSB')">Hào Quang</button>
+<button class="ba1" id0="JSXS" onclick="doa('JSXZ')">Trừ vàng</button>
+ 
+ 
+ </div>
+<div class="row">
+ <button class="ba1" id0="MLXG" title="MHK mới: hoa văn hạt phim" onclick="doa('MLXG')">Hạt phim</button>
+ <button class="ba1" onclick="mhkPP('WHITE')" title="MHK mới: lớp nền trắng phía dưới ảnh">Nền trắng</button>
+ <button class="ba1" onclick="mhkPP('WARM')" title="MHK mới: lớp nền be phía dưới ảnh">Nền ấm</button>
+ 
+ 
+ </div>
+<div class="row">
+  <button class="ba2" id0="DKACR" onclick="doa('DKACR')">Camera Raw</button>
+ <button class="ba2" id0="HDRZQ" onclick="mhkPP('DETAIL')" title="MHK mới: High Pass trên lớp riêng">Chi tiết</button>
+ 
+ </div>
+
+<div class="row">
+ 
+  <button class="ba2" id0="GBHZYB" title="MHK mới: giảm màu và thêm hạt" onclick="doa('zyb')">Cổ điển</button>
+        <button class="ba2" title="MHK mới: Find Edges trên lớp riêng" onclick="doa('ybgb')">Tranh Vẽ</button>
+ 
+ 
+ </div>
+<div class="row">
+   <button class="ba1" title="MHK mới: hoa văn vải dệt" onclick="doa('wlzq')">Vải dệt</button>
+        <button class="ba1" title="MHK mới: hoa văn hạt thô" onclick="doa('mcwl')">Hạt thô</button>
+ <button class="ba1" onclick="mhkPP('HIDE')" title="MHK mới: ẩn các lớp MHK Texture, không xóa ảnh">Ẩn kết cấu</button>
+ 
+ 
+ 
+ </div>
+<div class="row">
+ <button class="ba1" title="MHK mới: hoa văn sọc" onclick="doa('sf')">Sọc</button>
+        <button class="ba1" title="MHK mới: hoa văn chấm" onclick="doa('sfb')">Chấm</button>
+  <button class="ba1" title="MHK mới: Gaussian Blur trên lớp riêng" onclick="doa('hs')">Làm mờ</button>
+  
+   
+  </div>
+  <div class="row">
+  <button class="ba1" title="MHK mới: hoa văn hoa năm cánh" onclick="doa('mh')">Hoa mai</button>
+  <button class="ba1" title="MHK mới: hoa văn hoa tám cánh" onclick="doa('als')">Hoa Sen</button>
+  <button class="ba1" title="MHK mới: hoa văn ngôi sao" onclick="doa('zw')">Trang Trí</button>
+  
+  </div>
+  
+<div class="row">
+<button class="ba2" onclick="doa('act_alx')" title="Lấy nét mềm">Nét mềm</button>
+<button class="ba2" onclick="doa('xqfx')" title="Đảo vùng chọn (Select inverse)">Đảo vùng</button>
+</div>         
+      <div class="row">   
+        <button class="ba1" onclick="doa('hbtc')">Gộp lớp</button>  
+        <button class="ba1" onclick="doa('zrsc')">Vật liệu</button>
+        <button class="ba1" onclick="doa('act_spfz')">Lật ngang</button>
+   </div>
+      <div class="row">
+ <button class="ba2" id0="QXFD" onclick="doa('QXFD')">Bột tươi</button>
+ <button class="ba2" id0="QXJS" onclick="doa('QXJS')" title="Phim tài liệu mới">Phim TL</button>
+ </div>
+
+ 
+</div>
+<script type="text/javascript" src="./js/panel.js"></script>
+<script type="text/javascript" src="./js/pp.js"></script>
+
+
+
+<!--details>summary class="topcoat-tab-bar__button meta-navigation inline">Công cụ</summary>--></body></html>
