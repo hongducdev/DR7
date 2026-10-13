@@ -16,7 +16,7 @@ const registered = main.slice(main.lastIndexOf('$.dr7Commands ='));
 const replacements = read('jsx/mhk-replacements.jsx');
 const presetLut = read('jsx/preset-lut.jsx');
 for (const name of names) {
-    assert.ok(new RegExp('\\b' + name + ': ' + name + '\\b').test(registered) ||
+    assert.ok(new RegExp('\\b' + name + ': (\\$\\.dr7SkinStep\\("[^"]+", )?' + name + '\\b').test(registered) ||
         new RegExp('\\b' + name + ': function').test(replacements) ||
         new RegExp('\\b' + name + ': ' + name + '\\b').test(presetLut), name + ' must be registered');
 }
@@ -51,10 +51,10 @@ for (const entry of fs.readdirSync(path.join(root, 'jsx'), { withFileTypes: true
     assert.doesNotMatch(source, /typeof\$|new File\(\$\.fileName\)/);
     assert.doesNotMatch(source, /[^\x00-\x7f]/, 'ExtendScript source must remain ASCII');
 }
-// Workflow skin scripts: a real failure must reach the panel bridge (message/line, silent cancel),
+// Workflow and Da dialog scripts: a real failure must reach the panel bridge (message/line, silent cancel),
 // not be reported as "no file open". Executes each file's actual wrapper statement.
-for (const file of ['ds', 'se', 'ba']) {
-    const line = read('jsx/' + file + '.jsx').split('\n').find(l => l.includes('suspendHistory("Delicious'));
+for (const file of ['ds', 'se', 'ba', 'ls', 'ss', 're', 'db', 'tc']) {
+    const line = read('jsx/' + file + '.jsx').split('\n').find(l => l.includes('try{app.activeDocument.suspendHistory('));
     const wrapper = line && [line.slice(line.indexOf('try{app.activeDocument.suspendHistory')).trim()];
     assert.ok(wrapper, file + ' wrapper must exist');
     const notices = [];
@@ -67,6 +67,28 @@ for (const file of ['ds', 'se', 'ba']) {
     vm.runInNewContext(wrapper[0], stub([]));
     assert.equal(notices.length, 1, file + ' must still explain a missing document');
 }
+// Every Da dialog script must refuse non-RGB documents before opening its dialog.
+for (const file of ['ls', 'ss', 're', 'db', 'tc']) {
+    assert.match(read('jsx/' + file + '.jsx'), /mode!==DocumentMode\.RGB/, file + ' must guard RGB mode');
+}
+// Clear History wiped the user's undo stack (was the tail of MBPF).
+assert.doesNotMatch(main, /clearEvent/, 'no command may clear the document history');
+// Da commands without a dialog: run the real $.dr7SkinStep from main.jsx against a stub host.
+const skinSource = main.slice(main.indexOf('$.dr7SkinStep = function'), main.indexOf('// evalFile declarations'));
+const skinNotices = [], steps = [];
+const skinDoc = { mode: 'RGB', suspendHistory(title, code) { steps.push(title); vm.runInNewContext(code, skinHost); } };
+const skinHost = { $: {}, DocumentMode: { RGB: 'RGB' }, alert: m => skinNotices.push(m), app: { activeDocument: skinDoc } };
+vm.runInNewContext(skinSource, skinHost);
+let skinRan = 0;
+skinHost.$.dr7SkinStep('DR7 test', () => { skinRan++; })();
+assert.deepEqual([skinRan, steps, skinNotices.length], [1, ['DR7 test'], 0], 'RGB must run as one history step');
+assert.throws(() => skinHost.$.dr7SkinStep('DR7 test', () => { throw new Error('host failure'); })(), /host failure/,
+    'a failure must reach the panel bridge');
+assert.equal(skinHost.$.dr7SkinStepBody, null, 'the step body must not leak after a failure');
+skinDoc.mode = 'CMYK';
+skinHost.$.dr7SkinStep('DR7 test', () => { skinRan++; })();
+assert.deepEqual([skinRan, skinNotices.length], [1, 1], 'non-RGB must explain and not run');
+assert.match(read('jsx/pfsd2.jsx'), /\$\.dr7SkinStep\("[^"]+", SkinColor\)\(\)/, 'Mau tong must use the skin step');
 for (const name of ['DnB_Brush.tpl', 'DS4_Soft_Brush.tpl', 'dsPickColor.png',
     'dsSelection.png', 'dsTransform.png', 'eyesSelection.png', 'localSmoother.png',
     'maskSamplers.png', 'removerDialog.png', 'removerSelection.png']) {

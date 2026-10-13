@@ -549,11 +549,8 @@ return app.charIDToTypeID(s);
 sTID = function(s) {
 return app.stringIDToTypeID(s);
 };
-SkinColor.main = function() {
-SkinColor();
-};
-SkinColor.main();
-"SkinColor.jsx";
+// One undo step and RGB guard, see $.dr7SkinStep in main.jsx.
+$.dr7SkinStep("DR7 M\u00e0u t\u1ed5ng", SkinColor)();
 
     }
 };

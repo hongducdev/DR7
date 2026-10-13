@@ -1098,31 +1098,8 @@ desc1.putString(cTID("Upri"), "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"A
 desc1.putString(cTID("GuUr"), "<x:xmpmeta xmlns:x=\"adobe:ns:meta/\" x:xmptk=\"Adobe XMP Core 5.6-c128 79.159124, 2016/03/18-14:01:55        \">\n <rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n  <rdf:Description rdf:about=\"\"\n    xmlns:crs=\"http://ns.adobe.com/camera-raw-settings/1.0/\"\n   crs:UprightFourSegmentsCount=\"0\"/>\n </rdf:RDF>\n</x:xmpmeta>\n");
 executeAction(sTID("Adobe Camera Raw Filter"), desc1, dialogMode);
 }
-
-function step10(enabled, withDialog) {
-if ((enabled != undefined) && (!enabled)) {
-return;
-}
-var dialogMode = withDialog ? DialogModes.ALL : DialogModes.NO;
-var desc1 = new ActionDescriptor();
-var ref1 = new ActionReference();
-ref1.putProperty(cTID("HstS"), cTID("CrnH"));
-desc1.putReference(cTID("null"), ref1);
-executeAction(sTID("select"), desc1, dialogMode);
-}
-
-function step11(enabled, withDialog) {
-if ((enabled != undefined) && (!enabled)) {
-return;
-}
-var dialogMode = withDialog ? DialogModes.ALL : DialogModes.NO;
-var desc1 = new ActionDescriptor();
-var ref1 = new ActionReference();
-ref1.putProperty(cTID("Prpr"), cTID("HsSt"));
-ref1.putEnumerated(cTID("Dcmn"), cTID("Ordn"), cTID("Trgt"));
-desc1.putReference(cTID("null"), ref1);
-executeAction(sTID("clearEvent"), desc1, dialogMode);
-}
+// The recorded action ended with "select current state" + "Clear History",
+// which wiped the user's whole undo history; those two steps were removed.
 step1();
 step2();
 step3();
@@ -1132,8 +1109,6 @@ step6();
 step7();
 step8();
 step9();
-step10();
-step11();
 }
 
 
@@ -2425,7 +2400,28 @@ sTID = function(s) {
 return app.stringIDToTypeID(s);
 };
 
+// Da card commands without a dialog: one undo step per click, and RGB only, because in
+// Gray/Lab/CMYK they stop halfway with a raw Photoshop error and leave half-built layers.
+// Errors still reach the panel bridge (message + line) after suspendHistory.
+$.dr7SkinStep = function (title, fn) {
+    return function () {
+        var doc = app.activeDocument;
+        if (doc.mode !== DocumentMode.RGB) {
+            alert("Xin l\u1ed7i, script ch\u1ec9 ch\u1ea1y \u1edf ch\u1ebf \u0111\u1ed9 m\u00e0u RGB. Mu\u1ed1n \u0111\u1ed5i ch\u1ebf \u0111\u1ed9 m\u00e0u, v\u00e0o Image/Mode/RGB Color.", "Th\u00f4ng b\u00e1o");
+            return;
+        }
+        $.dr7SkinStepBody = fn;
+        try {
+            doc.suspendHistory(title, "$.dr7SkinStepBody()");
+        } finally {
+            $.dr7SkinStepBody = null;
+        }
+    };
+};
+
 // evalFile declarations live in the loader caller scope; retain their closures.
 $.dr7Commands = {
-    GGXS: GGXS, TJSH: TJSH, JMXS: JMXS, TJYY: TJYY, FSJH: FSJH, MBPF: MBPF, ZCZQ: ZCZQ, DKACR: DKACR
+    GGXS: $.dr7SkinStep("DR7 Highlight", GGXS), TJSH: TJSH, JMXS: JMXS, TJYY: TJYY,
+    FSJH: $.dr7SkinStep("DR7 Gi\u1ea3m v\u00e0ng", FSJH), MBPF: $.dr7SkinStep("DR7 Tr\u1eafng da", MBPF),
+    ZCZQ: ZCZQ, DKACR: DKACR
 };

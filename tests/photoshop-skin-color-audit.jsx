@@ -6,7 +6,9 @@
     var dialogs = app.displayDialogs, units = app.preferences.rulerUnits;
     try {
         $.dr7Base = File($.fileName).parent.parent.fsName.replace(/\\/g, '/');
-        $.evalFile($.dr7Base + '/jsx/pfsd2.jsx');
+        // Full loader: pfsd2 relies on $.dr7SkinStep from main.jsx.
+        $.evalFile($.dr7Base + '/loader.jsx');
+        if (!$.dr7Ready) throw new Error($.dr7LoadErrors.join('\n'));
         var colors = ['FFFFFF', '000000', 'CC9977'];
         var depths = [BitsPerChannelType.EIGHT, BitsPerChannelType.SIXTEEN];
         for (var d = 0; d < depths.length; d++) {

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-13 — Sửa nhóm Da
+
+- `MBPF` (Trắng Da) **không còn xoá History**: action gốc kết thúc bằng "chọn state hiện tại" + "Clear History",
+  làm mất toàn bộ Undo của người dùng. Đã bỏ 2 bước đó trong `jsx/main.jsx`.
+- Highlight / Giảm Vàng / Trắng Da / Màu tổng chạy qua `$.dr7SkinStep` (`jsx/main.jsx`): mỗi lần bấm là **1 bước
+  History** (trước đây 8–17 bước, Ctrl+Z không hoàn tác được 1 lần bấm), và chỉ chạy ở RGB — ảnh Gray/Lab/CMYK
+  trước đây chết giữa chừng, để lại layer dở. Lỗi thật vẫn lên bridge kèm file/dòng.
+- `db.jsx` (Đánh Khối) thêm kiểm tra chế độ RGB trước khi mở hộp thoại, như các script Da khác.
+- `ls/ss/re/db/tc.jsx`: lỗi thật không còn bị báo nhầm "Bạn chưa mở file nào cả" (giống bản sửa nhóm Quy trình).
+- `tests/check-script-stability.js` kiểm tra thêm: không lệnh nào `clearEvent` History, guard RGB của 5 script
+  hộp thoại, wrapper rethrow của LS/SS/RE/DB/TC, và chạy thật `$.dr7SkinStep` (RGB / lỗi / non-RGB).
+  `tests/photoshop-skin-color-audit.jsx` nạp `loader.jsx` vì `pfsd2.jsx` cần `$.dr7SkinStep`.
+
 ## 2026-10-13 — Sửa nhóm Quy trình
 
 - `BUGFIX` (workaround treo Photoshop khi mở hộp thoại ScriptUI từ panel CEP) trước đây gọi từ `body onload`,
