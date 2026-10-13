@@ -10,6 +10,10 @@ const manifest = read('CSXS/manifest.xml');
 assert.match(manifest, /<Menu>MHK DR7<\/Menu>/);
 assert.match(manifest, /<Size><Height>580<\/Height><Width>235<\/Width><\/Size>/);
 assert.equal((manifest.match(/\.\/img\/icon-large\.png/g) || []).length, 2);
+// The GitHub updater compares release tags with the panel Version; bundle and panel must agree.
+const bundleVersion = /ExtensionBundleVersion="(\d+\.\d+\.\d+)"/.exec(manifest);
+const panelVersion = /<Extension Id="com\.retouchpanel\.panel" Version="(\d+\.\d+\.\d+)"/.exec(manifest);
+assert.ok(bundleVersion && panelVersion && bundleVersion[1] === panelVersion[1], 'manifest versions must match (x.y.z)');
 const names = [...new Set([...html.matchAll(/doa\('([^']+)'\)/g)].map(m => m[1]))];
 const main = read('jsx/main.jsx');
 const registered = main.slice(main.lastIndexOf('$.dr7Commands ='));

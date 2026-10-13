@@ -75,14 +75,76 @@
         });
     }
 
-    window.onLoaded = function () {
-        renderPresets();
-        // Manifest size is only a default; Photoshop may remember an older, taller panel.
+    // Manifest size is only a default; Photoshop may remember an older, taller panel.
+    function fitHeight() {
         if (!window.__adobe_cep__) return;
         var panel = document.querySelector('.panel');
         if (!panel) return;
         var height = Math.ceil(panel.getBoundingClientRect().bottom + window.pageYOffset);
         cs.resizeContent(document.documentElement.clientWidth, height);
+    }
+
+    // --- Cập nhật từ GitHub Release (logic trong js/github-updater.js) ---
+    var release = null;
+    function status(text, isError) {
+        var box = document.querySelector('.panel-status');
+        if (!box) return;
+        box.textContent = text || '';
+        box.hidden = !text;
+        box.className = 'panel-status' + (isError ? ' is-error' : '');
+        fitHeight();
+    }
+    function showRelease(result) {
+        release = result;
+        var label = document.querySelector('.panel-version');
+        var button = document.querySelector('.update-button');
+        if (label) label.textContent = result.current ? 'v' + result.current.replace(/^v/, '') : '';
+        if (!button) return;
+        button.classList.toggle('has-update', result.available);
+        button.title = result.available ? 'Có bản mới ' + result.latest.tag + ' — bấm để cập nhật' :
+            'Kiểm tra cập nhật từ GitHub';
+    }
+    function checkRelease() {
+        return window.dr7Updater.check(base).then(function (result) { showRelease(result); return result; });
+    }
+    window.dr7Update = function () {
+        var button = document.querySelector('.update-button');
+        if (busy || !window.dr7Updater || !base) return;
+        busy = true;
+        if (button) { button.disabled = true; button.classList.add('working'); }
+        status('Đang kiểm tra bản mới...');
+        function finish() { busy = false; if (button) { button.disabled = false; button.classList.remove('working'); } }
+        checkRelease().then(function (result) {
+            if (!result.latest) { status('Chưa có bản phát hành nào trên GitHub.'); return null; }
+            if (!result.available) { status('Đang dùng bản mới nhất (' + result.latest.tag + ').'); return null; }
+            var notes = result.latest.notes ? '\n\n' + result.latest.notes.slice(0, 600) : '';
+            if (!window.confirm('Cập nhật MHK DR7 lên ' + result.latest.tag + '?' + notes)) { status(''); return null; }
+            return window.dr7Updater.update(base, result.latest.tag, function (done, total) {
+                status('Đang tải ' + done + '/' + total + ' file...');
+            }).then(function (installed) {
+                if (installed.restart) {
+                    status('Đã cập nhật ' + result.latest.tag + '. Hãy khởi động lại Photoshop để áp dụng.');
+                    return 'restart';
+                }
+                return 'reload';
+            });
+        }).then(function (next) {
+            finish();
+            if (next === 'reload') window.dr7Reload();
+        }, function (error) {
+            finish();
+            status('Cập nhật thất bại: ' + (error && error.message || error), true);
+        });
+    };
+
+    window.onLoaded = function () {
+        renderPresets();
+        fitHeight();
+        // Silent check: an offline panel simply shows no badge.
+        if (window.dr7Updater && base && window.cep) {
+            showRelease({ current: window.dr7Updater.installedVersion(base), latest: null, available: false });
+            checkRelease().catch(function (error) { window.console.warn('DR7 update check:', error); });
+        }
     };
 
     // ------------------------------------------------------------

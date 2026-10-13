@@ -12,21 +12,85 @@ body {
     overflow-y: auto;
 }
 
-.reload-panel {
-    position: absolute;
-    top: 5px;
-    right: 7px;
-    z-index: 2;
-    width: 25px;
-    height: 25px;
-    border: 0;
-    outline: none;
-    color: #aaa;
-    background: transparent;
-    font: 20px/25px "Segoe UI", sans-serif;
-    cursor: pointer;
+/* --- Header: tên + phiên bản, nút Cập nhật và Nạp lại --- */
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 1px 0 3px;
 }
-.reload-panel:hover, .reload-panel:focus { color: #fff; background: #414141; outline: none; }
+.panel-brand {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: #cfcfcf;
+    font: 700 11px/22px "Segoe UI", Tahoma, sans-serif;
+    letter-spacing: .4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.panel-version {
+    margin-left: 3px;
+    color: #7d7d7d;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0;
+}
+.icon-button {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 22px;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #3c3c3c;
+    border-radius: 6px;
+    background: #2a2a2a;
+    color: #a8a8a8;
+    cursor: pointer;
+    transition: color 120ms, background 120ms, border-color 120ms;
+}
+.icon-button svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.icon-button:hover { color: #fff; background: #383838; border-color: #555; }
+.icon-button:active { transform: translateY(1px); }
+.icon-button[disabled] { opacity: .45; cursor: default; }
+/* Có bản phát hành mới: viền + chấm xanh lá */
+.update-button.has-update { color: var(--green); border-color: rgba(39, 185, 106, .6); }
+.update-button.has-update::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 7px;
+    height: 7px;
+    border: 1px solid #262626;
+    border-radius: 50%;
+    background: var(--green);
+}
+.update-button.working svg { animation: dr7-pulse 1s ease-in-out infinite; }
+@keyframes dr7-pulse { 50% { opacity: .3; } }
+.panel-status {
+    margin: 5px 1px 0;
+    padding: 4px 6px;
+    border-radius: 6px;
+    background: #2f2f2f;
+    color: #bdbdbd;
+    font: 10.5px/14px "Segoe UI", Tahoma, sans-serif;
+    white-space: pre-line;
+}
+.panel-status[hidden] { display: none; }
+.panel-status.is-error { color: #ffb3bf; background: rgba(232, 78, 104, .14); }
 
 .panel {
     display: block;
@@ -156,8 +220,7 @@ button:focus-visible {
     border-radius: 8px;
     background: #2a2a2a;
 }
-/* chừa chỗ cho nút nạp lại ↻ ở góc trên phải */
-.group:first-child { margin-top: 30px; }
+.panel-header + .panel-status + .group { margin-top: 6px; }
 
 .group-workflow { --accent: var(--amber);  --accent-soft: rgba(232, 167, 45, .14);  --accent-line: rgba(232, 167, 45, .45); }
 .group-portrait { --accent: var(--rose);   --accent-soft: rgba(232, 78, 104, .14);  --accent-line: rgba(232, 78, 104, .45); }

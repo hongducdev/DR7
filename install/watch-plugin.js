@@ -71,6 +71,8 @@ async function sync() {
     }
     // Only files tracked from this source session are removed; no broad mirror/delete.
     for (const name of removed) fs.rmSync(path.join(target,name), { force: true });
+    // The GitHub updater's record no longer matches the copied files; a later update re-checks all.
+    fs.rmSync(path.join(target, '.dr7-version.json'), { force: true });
     previous = next; reloadPending = true;
     const reloaded = await evaluate('dr7Reload()');
     if (!reloaded) { status('Changes copied; waiting to reload after the current command.'); return; }

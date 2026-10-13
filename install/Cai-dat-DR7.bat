@@ -61,6 +61,8 @@ if not exist "%DR7_TARGET%\CSXS\manifest.xml" (
     pause
     exit /b 1
 )
+rem Ban ghi cua trinh cap nhat GitHub khong con khop file vua copy -> xoa de lan sau tai lai du.
+if exist "%DR7_TARGET%\.dr7-version.json" del /q "%DR7_TARGET%\.dr7-version.json" >nul 2>&1
 echo       [ok] Da copy vao %DR7_TARGET%
 
 rem ---------- 3. Ban cu con cai se xung dot ----------

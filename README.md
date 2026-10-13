@@ -208,7 +208,7 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 Để tối ưu hóa thời gian tùy biến và phát triển, panel tích hợp sẵn cơ chế làm mới mã nguồn mà không cần khởi động lại Photoshop:
 
 ### 1. Nút nạp lại nhanh (↻)
-Ở góc trên bên phải của giao diện có nút **↻**. Bấm nút này sẽ nạp lại toàn bộ giao diện HTML, định dạng CSS, mã JavaScript điều khiển và các file script ExtendScript (.jsx) từ thư mục cài đặt plugin ngay lập tức. Nút bấm được trang bị cơ chế bảo vệ: không ngắt quãng các lệnh xử lý đang chạy dang dở.
+Trên thanh tiêu đề panel (cạnh tên và phiên bản) có nút **↻**. Bấm nút này sẽ nạp lại toàn bộ giao diện HTML, định dạng CSS, mã JavaScript điều khiển và các file script ExtendScript (.jsx) từ thư mục cài đặt plugin ngay lập tức. Nút bấm được trang bị cơ chế bảo vệ: không ngắt quãng các lệnh xử lý đang chạy dang dở.
 
 ### 2. Chế độ Hot-reload tự động (Dành cho nhà phát triển)
 Khi chỉnh sửa mã nguồn trong thư mục dự án, chạy file:
@@ -222,6 +222,20 @@ Trình theo dõi sẽ tự động:
 - Chờ file ghi ổn định và kiểm tra trạng thái bận của Photoshop.
 - Đồng bộ tự động các file thay đổi vào thư mục `%APPDATA%\Adobe\CEP\extensions\DR7`.
 - Gửi tín hiệu kích hoạt panel tự động làm mới giao diện ngay lập tức.
+
+### 3. Cập nhật plugin từ GitHub
+Nút **⤓** trên thanh tiêu đề lấy bản phát hành (GitHub Release) mới nhất của `hongducdev/DR7`:
+- Mỗi lần mở panel tự kiểm tra im lặng; có bản mới thì nút hiện **chấm xanh**.
+- Bấm nút → xác nhận → chỉ tải các file runtime đã thay đổi (`index.html`, `style.css`, `loader.jsx`,
+  `CSXS/manifest.xml`, `js/ css/ jsx/ img/ presets/`), tải xong hết mới ghi đè, rồi tự nạp lại panel.
+  Lỗi mạng giữa chừng không làm hỏng bản đang cài.
+- Nếu `manifest.xml` đổi cấu trúc (không chỉ số phiên bản) → panel báo khởi động lại Photoshop.
+- Bản ghi file đã cài: `.dr7-version.json` trong thư mục cài (bị xoá khi cài lại bằng `.bat` / watcher).
+
+**Phát hành bản mới** (người phát triển):
+1. Tăng `ExtensionBundleVersion` và `Version` của panel trong `CSXS/manifest.xml` (phải trùng nhau, dạng `x.y.z`).
+2. Commit, push lên `main`.
+3. `gh release create v0.2.0 --title "DR7 0.2.0" --notes "Nội dung thay đổi"` — tag phải là `v` + đúng số phiên bản.
 
 ---
 
@@ -239,7 +253,8 @@ DR7/
 │   └── layout.css           # Bố cục lưới 3 cột, màu nút & hệ thống cuộn dọc
 ├── js/
 │   ├── CSInterface.js       # Thư viện giao tiếp Adobe CEP tiêu chuẩn
-│   └── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop
+│   ├── github-updater.js    # Kiểm tra & cài GitHub Release mới nhất (cep.fs, không cần Node)
+│   └── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop, header Nạp lại/Cập nhật
 ├── jsx/
 │   ├── 4.jsxbin             # Hộp thoại Chữ / Logo (WM)
 │   ├── main.jsx             # 8 hàm lõi còn dùng: GGXS, TJSH, JMXS, TJYY, FSJH, MBPF, ZCZQ, DKACR

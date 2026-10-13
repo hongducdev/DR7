@@ -33,8 +33,17 @@
 
 </head>
 <body onload="onLoaded()">
-<button class="reload-panel" onclick="dr7Reload()" title="Nạp lại code plugin (không cần tắt Photoshop)" aria-label="Nạp lại plugin">↻</button>
 <div class="panel">
+	<header class="panel-header">
+		<div class="panel-brand">MHK DR7 <span class="panel-version"></span></div>
+		<button class="icon-button update-button" onclick="dr7Update()" title="Kiểm tra cập nhật từ GitHub" aria-label="Cập nhật plugin">
+			<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.8 6.8M8 10l3.2-3.2M3 13h10"/></svg>
+		</button>
+		<button class="icon-button reload-panel" onclick="dr7Reload()" title="Nạp lại code plugin (không cần tắt Photoshop)" aria-label="Nạp lại plugin">
+			<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5v2.4h-2.4"/></svg>
+		</button>
+	</header>
+	<div class="panel-status" role="status" hidden></div>
 	<section class="group group-workflow" aria-label="Quy trình">
 		<div class="section-title">Quy trình</div>
 		<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu">Làm Da V5.0</button>
@@ -90,6 +99,7 @@
 		<div class="action-grid two-col preset-grid"></div>
 	</section>
 </div>
+<script type="text/javascript" src="./js/github-updater.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 
 

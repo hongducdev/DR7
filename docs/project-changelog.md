@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-13 — Header panel, cập nhật từ GitHub Release
+
+- Nút nạp lại `↻` nổi đè card được thay bằng thanh tiêu đề: "MHK DR7 v<phiên bản>" + nút icon SVG Cập nhật
+  và Nạp lại cùng phong cách card; dòng trạng thái nhỏ bên dưới (tự giãn chiều cao panel).
+- `js/github-updater.js` (mới): đọc `releases/latest` của `hongducdev/DR7`, so tag `vX.Y.Z` với `Version`
+  trong `CSXS/manifest.xml`; cập nhật bằng cây file của tag, chỉ tải file runtime có blob sha khác
+  `.dr7-version.json`, tải hết rồi mới ghi (`cep.fs`, Base64), xoá đúng file của bản trước đã bị gỡ,
+  chặn path ngoài whitelist / `..`, báo khởi động lại khi manifest đổi cấu trúc.
+- Panel tự kiểm tra khi mở (im lặng nếu offline), chấm xanh khi có bản mới; cập nhật cần xác nhận và
+  khoá các nút lệnh trong lúc tải.
+- `Cai-dat-DR7.bat` và `watch-plugin.js` xoá `.dr7-version.json` sau khi chép file.
+- Test: `tests/check-github-updater.js` (GitHub + cep.fs giả, chạy module thật); `check-script-stability.js`
+  kiểm tra 2 số phiên bản trong manifest trùng nhau.
+
 ## 2026-10-13 — Sửa nhóm Da
 
 - `MBPF` (Trắng Da) **không còn xoá History**: action gốc kết thúc bằng "chọn state hiện tại" + "Clear History",
