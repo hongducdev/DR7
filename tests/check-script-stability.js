@@ -122,4 +122,17 @@ assert.equal(calls.length, 3, 'failure must release busy state');
 host.app.documents = [];
 assert.equal(vm.runInNewContext(calls[2].code, host), 'DR7_NO_DOCUMENT');
 assert.equal(ran, 1, 'no document must not invoke handler');
-console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks');
+calls[2].callback('DR7_NO_DOCUMENT');
+// Preset buttons pass the bundled file name as a JS string literal; unsafe names never reach Photoshop.
+for (const bad of ['../evil.xmp', 'a"b.xmp', 'a\b.xmp', 'notes.txt', '.xmp']) panel.dr7ApplyPreset(bad);
+assert.equal(calls.length, 3, 'unsafe preset names must be rejected by the bridge');
+panel.dr7ApplyPreset('MHK05451.xmp');
+assert.equal(calls.length, 4, 'a valid bundled preset must be sent');
+host.app.documents = [{}];
+const applied = [];
+host.$.dr7ApplyBundledXmp = name => { applied.push(name); };
+assert.equal(vm.runInNewContext(calls[3].code, host), 'DR7_OK');
+assert.deepEqual(applied, ['MHK05451.xmp']);
+assert.throws(() => acrHost.$.dr7ApplyBundledXmp('../../secret.xmp'), /Invalid preset name/,
+    'the host must re-check preset names before touching the file system');
+console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks/preset names');

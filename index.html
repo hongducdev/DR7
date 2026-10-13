@@ -35,47 +35,60 @@
 <body onload="onLoaded();onClickButton('BUGFIX')">
 <button class="reload-panel" onclick="dr7Reload()" title="Nạp lại code plugin (không cần tắt Photoshop)" aria-label="Nạp lại plugin">↻</button>
 <div class="panel">
-	<div class="action-grid">
-		<button class="ba11" onclick="onClickButton('DS')" title="Làm da tự động">Làm Da V5.0</button>
-
-		<button class="ba1" onclick="onClickButton('BA')" title="Thiết lập thông số để lưu và sử dụng">Hàng loạt</button>
-		<button class="ba8" onclick="onClickButton('SE')" title="Tự động">Tự động</button>
-		<button class="ba1" onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
-
-		<button class="ba1" onclick="onClickButton('LS')" title="Làm mịn da">Làm mịn</button>
-		<button class="ba1" onclick="onClickButton('SS')" title="Lẫn mịn">Lẫn mịn</button>
-		<button class="ba1" onclick="onClickButton('RE')" title="Tẩy lông">Tẩy lông</button>
-
-		<button class="ba1" onclick="onClickButton('DB')" title="Đánh khối">Đánh Khối</button>
-		<button class="ba7" onclick="onClickButton('SH')" title="Làm nét">Làm nét</button>
-		<button class="ba7" onclick="onClickButton('LI')" title="Liquify">Liquify</button>
-
-		<button class="ba7" onclick="doa('GGXS')" title="Làm sáng vùng highlight">Highlight</button>
-		<button class="ba7" onclick="doa('TJSH')" title="Phủ phấn">Phủ phấn</button>
-		<button class="ba7" onclick="doa('JMXS')" title="Lông mi">Lông Mi</button>
-
-		<button class="ba7" onclick="doa('TJYY')" title="Bóng mắt">Bóng Mắt</button>
-		<button class="ba9" onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
-		<button class="ba9" onclick="onClickButton('TC')" title="Màu da">Màu Da</button>
-
-		<button class="ba9" onclick="doa('FSJH')" title="Giảm vàng">Giảm Vàng</button>
-		<button class="ba9" onclick="doa('MBPF')" title="Trắng da">Trắng Da</button>
-		<button class="ba1" onclick="onClickButton('WT')" title="Trắng răng">Trắng Răng</button>
-
-		<button class="ba1" onclick="doa('ZCZQ')" title="Son môi">Son Môi</button>
-		<button class="ba1" onclick="doa('CGYSB')" title="Lớp hào quang Screen">Hào Quang</button>
-		<button class="ba1" onclick="doa('MLXG')" title="Hoa văn hạt phim">Hạt phim</button>
-
-		<button class="ba2" onclick="doa('DKACR')" title="Camera Raw">Camera Raw</button>
-		<button class="ba2" onclick="onClickButton('PP_DETAIL')" title="High Pass trên lớp riêng">Chi tiết</button>
-		<button class="ba1" onclick="doa('mcwl')" title="Hoa văn hạt thô">Hạt thô</button>
-
-		<button class="ba1" onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
-		<button class="ba2" onclick="doa('APPLY_PRESET_XMP')" title="Áp dụng Preset Camera Raw (.xmp)">Preset XMP</button>
-		<button class="ba2" onclick="doa('APPLY_LUT')" title="Áp dụng 3D LUT (.cube)">3D LUT</button>
-
-		<button class="ba2" onclick="doa('XMP_MHK05451')" title="Áp nhanh màu MHK05451 (Classic Chrome)">MHK05451</button>
-	</div>
+	<section class="group group-workflow" aria-label="Quy trình">
+		<div class="section-title">Quy trình</div>
+		<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động">Làm Da V5.0</button>
+		<div class="action-grid">
+			<button onclick="onClickButton('BA')" title="Thiết lập thông số để lưu và sử dụng">Hàng loạt</button>
+			<button onclick="onClickButton('SE')" title="Tự động">Tự động</button>
+			<button onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
+		</div>
+	</section>
+	<section class="group group-skin" aria-label="Da">
+		<div class="section-title">Da</div>
+		<div class="action-grid">
+			<button onclick="onClickButton('LS')" title="Làm mịn da">Làm mịn</button>
+			<button onclick="onClickButton('SS')" title="Lẫn mịn">Lẫn mịn</button>
+			<button onclick="onClickButton('RE')" title="Tẩy lông">Tẩy lông</button>
+			<button onclick="onClickButton('DB')" title="Đánh khối">Đánh Khối</button>
+			<button onclick="doa('GGXS')" title="Làm sáng vùng highlight">Highlight</button>
+			<button onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
+			<button onclick="onClickButton('TC')" title="Màu da">Màu Da</button>
+			<button onclick="doa('FSJH')" title="Giảm vàng">Giảm Vàng</button>
+			<button onclick="doa('MBPF')" title="Trắng da">Trắng Da</button>
+		</div>
+	</section>
+	<section class="group group-portrait" aria-label="Chân dung">
+		<div class="section-title">Chân dung</div>
+		<div class="action-grid">
+			<button onclick="doa('TJSH')" title="Phủ phấn">Phủ phấn</button>
+			<button onclick="doa('JMXS')" title="Lông mi">Lông Mi</button>
+			<button onclick="doa('TJYY')" title="Bóng mắt">Bóng Mắt</button>
+			<button onclick="doa('ZCZQ')" title="Son môi">Son Môi</button>
+			<button onclick="onClickButton('WT')" title="Trắng răng">Trắng Răng</button>
+			<button onclick="doa('CGYSB')" title="Lớp hào quang Screen">Hào Quang</button>
+			<button onclick="onClickButton('SH')" title="Làm nét">Làm nét</button>
+			<button onclick="onClickButton('PP_DETAIL')" title="High Pass trên lớp riêng">Chi tiết</button>
+			<button onclick="onClickButton('LI')" title="Liquify">Liquify</button>
+		</div>
+	</section>
+	<section class="group group-texture" aria-label="Hoa văn">
+		<div class="section-title">Hoa văn</div>
+		<div class="action-grid">
+			<button onclick="doa('MLXG')" title="Hoa văn hạt phim">Hạt phim</button>
+			<button onclick="doa('mcwl')" title="Hoa văn hạt thô">Hạt thô</button>
+			<button onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
+		</div>
+	</section>
+	<section class="group group-color" aria-label="Màu và Preset">
+		<div class="section-title">Màu &amp; Preset</div>
+		<div class="action-grid two-col">
+			<button onclick="doa('DKACR')" title="Mở bộ lọc Camera Raw">Camera Raw</button>
+			<button onclick="doa('APPLY_PRESET_XMP')" title="Chọn file Preset Camera Raw (.xmp) bất kỳ">Preset XMP…</button>
+		</div>
+		<!-- panel.js thêm 1 nút cho mỗi file .xmp trong thư mục presets/ -->
+		<div class="action-grid two-col preset-grid"></div>
+	</section>
 </div>
 <script type="text/javascript" src="./js/panel.js"></script>
 

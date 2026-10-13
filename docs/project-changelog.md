@@ -1,16 +1,46 @@
 # Changelog
 
+## 2026-10-13 — Nút preset tự sinh từ thư mục, gỡ 3D LUT
+
+- Mỗi file `.xmp` trong `presets/` thành một nút trên card "Màu & Preset" (`renderPresets()` trong
+  `js/panel.js`, dùng `cep.fs.readdir`). Thêm/xoá màu chỉ cần chép file, không sửa code.
+- Bridge có thêm `dr7ApplyPreset(file)` → `$.dr7ApplyBundledXmp(file)`. Tên file kiểm tra bằng regex
+  ở cả panel lẫn ExtendScript (chỉ chữ không dấu, số, khoảng trắng, `-_()`, đuôi `.xmp`), nên không thể
+  thoát khỏi `presets/` hay chèn mã vào chuỗi lệnh.
+- Gỡ nút 3D LUT và `applyLUT`: Photoshop không render LUT nạp qua script (cần ICC device-link tự sinh).
+- Gỡ lệnh cố định `XMP_MHK05451` (nay là nút tự sinh) và `presets/Fuji_ceremony.xmp` (trùng màu MHK05451).
+- Audit live đổi tên `tests/photoshop-preset-audit.jsx`: kiểm tra chọn file, nút tự sinh, và chặn tên ngoài `presets/`.
+
+## 2026-10-13 — Panel chia nhóm dạng card
+
+- Toàn bộ nút chia thành 5 card có tiêu đề: Quy trình (vàng), Da (xanh lá), Chân dung (hồng),
+  Hoa văn (xanh dương), Màu & Preset (tím). Mỗi nhóm đủ hàng 3 cột, không còn ô trống.
+- Nút trong card: nền mờ cùng tông + viền màu nhấn, đổ đầy khi rê chuột; `Làm Da V5.0` là nút chính
+  đổ đầy rộng cả hàng; preset áp nhanh tím có chấm màu, lưới 2 cột cho tên dài.
+- Màu nhấn khai báo một chỗ qua biến `--accent` trên từng `.group-*` trong `css/layout.css`.
+- `panel.js` tính chiều cao panel theo `.panel` thay vì `.action-grid` đầu tiên, để các card không bị cắt.
+
+## 2026-10-13 — Dọn module preset, gỡ bản vá biến `C` sai chẩn đoán
+
+- Gỡ bản vá xoá biến toàn cục `C` trong `loader.jsx` (commit `89c2cba`). Kiểm chứng lại: Camera Raw Filter
+  chạy bình thường dù `4.jsxbin` để lại `C`; lỗi `Panel() is not a function` lúc trước do script thử nghiệm
+  tự khai báo `C` rồi bị `4.jsxbin` ghi đè. Nguyên nhân thật khiến preset không đổi màu là key `LCs ` sai.
+- `jsx/preset-lut.jsx`: gộp phần chọn file (`resolveFile`, `cancelled`), bỏ đường dẫn cá nhân viết cứng,
+  bỏ đăng ký lệnh trùng (loader đã chép `$.presetLutCommands`), chỉ copy preset vào Camera Raw khi người dùng
+  tự chọn file và ghi log thay vì nuốt lỗi, `decodeURI` an toàn với tên file có `%`.
+- `applyLUT`: dựng đủ descriptor + `setd` + dọn layer khi lỗi. Vẫn chưa render màu — xem "Còn tồn đọng".
+
+**Còn tồn đọng:** nút 3D LUT tạo layer Color Lookup nhưng ảnh không đổi. Photoshop render LUT từ ICC
+device-link (key `profile`) tự sinh khi nạp qua giao diện; script chưa tạo được dữ liệu này.
+
 ## 2026-10-13 — Nút màu nhanh MHK05451 + sửa Camera Raw Filter
 
 - Thêm nút `MHK05451` (`XMP_MHK05451`): áp preset đóng gói `presets/MHK05451.xmp` bằng 1 click,
   không hỏi file, không mở hộp thoại. Helper `quickPreset()` trong `jsx/preset-lut.jsx` dùng lại cho nút sau.
-- Sửa lỗi nghiêm trọng: `jsx/4.jsxbin` rò rỉ biến toàn cục `C` (ScriptUI graphics) khiến mọi lệnh
-  Camera Raw Filter (Preset XMP, Camera Raw) lỗi `Panel() is not a function`. `loader.jsx` xoá `C`
-  sau khi nạp và sau mỗi lần chạy Chữ / Logo.
 - Preset XMP truyền thiết lập qua key `XMPp` (XMPParameters) thay cho `LCs ` (LocalAdjustments — sai key)
   + `Previous.xmp`. Trước đây preset không đổi màu ảnh; nay áp đúng. Không còn ghi đè `Previous.xmp` của người dùng.
 - `sanitizeAcrXmp()` bỏ `crs:Temperature/Tint` dạng Kelvin (chỉ có nghĩa với RAW) khi áp lên ảnh đã render.
-- Test: unit test sanitizer cho sidecar RAW; audit live kiểm tra không rò `C` và nút MHK05451 đổi màu điểm ảnh.
+- Test: unit test sanitizer cho sidecar RAW; audit live kiểm tra nút MHK05451 đổi màu điểm ảnh.
 
 ## 2026-09-16 — Preset XMP áp dụng tự động (không cần thao tác)
 

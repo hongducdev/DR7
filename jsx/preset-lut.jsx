@@ -1,4 +1,4 @@
-// DR7: Apply Camera Raw Preset (.xmp) and 3D LUT (.cube, .3dl, .look)
+// DR7: Apply Camera Raw Presets (.xmp) - picked by the user or bundled in /presets
 (function () {
     var C = charIDToTypeID, S = stringIDToTypeID;
 
@@ -6,9 +6,40 @@
         if (!app.documents.length) throw new Error('Open an image first');
         var doc = app.activeDocument;
         if (doc.mode !== DocumentMode.RGB || doc.bitsPerChannel === BitsPerChannelType.THIRTYTWO) {
-            throw new Error('Preset/LUT requires RGB 8-bit or 16-bit');
+            throw new Error('Presets require RGB 8-bit or 16-bit');
         }
         return doc;
+    }
+
+    // Error number 8007 is how the panel bridge recognises a user cancel.
+    function cancelled() {
+        var error = new Error('User cancelled');
+        error.number = 8007;
+        return error;
+    }
+
+    // Accept a File or path; otherwise ask the user. Returns [file, pickedByUser].
+    function resolveFile(fileOrPath, title, filter, startFolder) {
+        var file = fileOrPath instanceof File ? fileOrPath :
+            (typeof fileOrPath === 'string' && fileOrPath.length > 0 ? new File(fileOrPath) : null);
+        if (file && file.exists) return [file, false];
+        if (startFolder && startFolder.exists) Folder.current = startFolder;
+        file = File.openDialog(title, filter);
+        if (!file) throw cancelled();
+        if (!file.exists) throw new Error('File not found: ' + file.fsName);
+        return [file, true];
+    }
+
+    function displayName(file, extPattern) {
+        var name = file.name;
+        try { name = decodeURI(name); } catch (eUri) { /* keep the raw name when it has a stray % */ }
+        return name.replace(extPattern, '');
+    }
+
+    function readText(file) {
+        file.encoding = 'UTF-8';
+        if (!file.open('r')) throw new Error('Cannot open file: ' + file.fsName);
+        try { return file.read(); } finally { file.close(); }
     }
 
     // Duplicate or Stamp Visible layer to keep original image non-destructive
@@ -34,19 +65,17 @@
         }
     }
 
-    // Copy .xmp preset to Camera Raw Settings directory for native ACR access
+    // Keep a copy of a hand-picked preset in Camera Raw's own preset list.
+    // Failure only loses that convenience, so it is logged instead of thrown.
     function installXmpToCameraRaw(file) {
         try {
             var targetFolder = new Folder(Folder.userData.fsName + '/Adobe/CameraRaw/Settings/DR7 Presets');
-            if (!targetFolder.exists) {
-                targetFolder.create();
-            }
-            if (targetFolder.exists && file.exists) {
-                var targetFile = new File(targetFolder.fsName + '/' + file.name);
-                file.copy(targetFile);
+            if (!targetFolder.exists) targetFolder.create();
+            if (!file.copy(new File(targetFolder.fsName + '/' + file.name))) {
+                $.writeln('DR7: could not copy preset to Camera Raw: ' + file.error);
             }
         } catch (e) {
-            // Non-critical if permissions restricted
+            $.writeln('DR7: could not copy preset to Camera Raw: ' + e);
         }
     }
 
@@ -70,65 +99,21 @@
 
     // Apply Camera Raw Preset (.xmp)
     function applyPresetXMP(fileOrPath, withDialog) {
-        var doc = document();
-        var file = null;
+        document();
+        var picked = resolveFile(fileOrPath, 'Chon Preset Camera Raw (.xmp)',
+            'Camera Raw Preset:*.xmp,All Files:*.*', new Folder($.dr7Base + '/presets'));
+        var file = picked[0];
+        var xmpPayload = readText(file);
+        if (!xmpPayload) throw new Error('Preset file is empty: ' + file.fsName);
+        if (picked[1]) installXmpToCameraRaw(file);
 
-        if (fileOrPath instanceof File) {
-            file = fileOrPath;
-        } else if (typeof fileOrPath === 'string' && fileOrPath.length > 0) {
-            file = new File(fileOrPath);
-        }
-
-        // Prompt user if no file provided, defaulting to preset directory
-        if (!file || !file.exists) {
-            var initialFolders = [
-                'C:/Users/hongducdev/Downloads/Telegram Desktop',
-                $.dr7Base + '/presets',
-                Folder.userData.fsName + '/Adobe/CameraRaw/Settings/DR7 Presets',
-                '~/Downloads'
-            ];
-            for (var k = 0; k < initialFolders.length; k++) {
-                var folderCheck = new Folder(initialFolders[k]);
-                if (folderCheck.exists) {
-                    Folder.current = folderCheck;
-                    break;
-                }
-            }
-            file = File.openDialog('Chon Preset Camera Raw (.xmp)', 'Camera Raw Preset:*.xmp,All Files:*.*');
-            if (!file) {
-                var cancelError = new Error('User cancelled');
-                cancelError.number = 8007;
-                throw cancelError;
-            }
-        }
-
-        if (!file.exists) {
-            throw new Error('Preset file not found: ' + file.fsName);
-        }
-
-        var presetName = decodeURI(file.name).replace(/\.xmp$/i, '');
-
-        file.open('r');
-        file.encoding = 'UTF-8';
-        var xmpPayload = file.read();
-        file.close();
-
-        if (!xmpPayload || xmpPayload.length === 0) {
-            throw new Error('Preset file is empty: ' + file.fsName);
-        }
-
-        // 1. Install preset to Camera Raw Settings for native access
-        installXmpToCameraRaw(file);
-
-        // 2. The version claim is dropped so a preset exported by a newer Camera
-        //    Raw never triggers the Unsupported Edits prompt on a local build.
+        // The version claim is dropped so a preset exported by a newer Camera
+        // Raw never triggers the Unsupported Edits prompt on a local build.
         var acrPayload = sanitizeAcrXmp(xmpPayload);
+        var layer = stamp('Preset - ' + displayName(file, /\.xmp$/i));
 
-        // 3. Stamp visible to a dedicated preset layer (non-destructive)
-        var layer = stamp('Preset - ' + presetName);
-
-        // 4. XMPp ("XMPParameters" in Camera Raw's scripting dictionary) carries
-        //    the whole settings block, so the filter renders it without a dialog.
+        // XMPp ("XMPParameters" in Camera Raw's scripting dictionary) carries
+        // the whole settings block, so the filter renders it without a dialog.
         function runAcr(mode) {
             var desc = new ActionDescriptor();
             desc.putString(C('CMod'), 'Filter');
@@ -141,128 +126,40 @@
             return 'DR7_OK';
         } catch (errSilent) {
             if (withDialog === false) {
-                try { layer.remove(); } catch (eClean) { }
+                try { layer.remove(); } catch (eClean) { $.writeln('DR7: preset layer cleanup failed: ' + eClean); }
                 throw errSilent;
             }
             try {
                 runAcr(DialogModes.ALL);
                 return 'DR7_OK';
             } catch (errDialog) {
-                try { layer.remove(); } catch (eRem) { }
-                if (errDialog && (errDialog.number === 8007 ||
-                    String(errDialog).toLowerCase().indexOf('cancel') !== -1)) {
-                    var cErr = new Error('User cancelled');
-                    cErr.number = 8007;
-                    throw cErr;
+                try { layer.remove(); } catch (eRem) { $.writeln('DR7: preset layer cleanup failed: ' + eRem); }
+                if (errDialog.number === 8007 || String(errDialog).toLowerCase().indexOf('cancel') !== -1) {
+                    throw cancelled();
                 }
                 throw errSilent;
             }
         }
     }
 
-    // Apply 3D LUT (.cube, .3dl, .look, .csp) via Color Lookup Adjustment Layer
-    function applyLUT(fileOrPath) {
-        var doc = document();
-        var file = null;
-
-        if (fileOrPath instanceof File) {
-            file = fileOrPath;
-        } else if (typeof fileOrPath === 'string' && fileOrPath.length > 0) {
-            file = new File(fileOrPath);
-        }
-
-        if (!file || !file.exists) {
-            file = File.openDialog('Chon file 3D LUT (.cube, .3dl, .look)', '3D LUT:*.cube;*.3dl;*.look;*.csp,All Files:*.*');
-            if (!file) {
-                var cancelError = new Error('User cancelled');
-                cancelError.number = 8007;
-                throw cancelError;
-            }
-        }
-
-        if (!file.exists) {
-            throw new Error('LUT file not found: ' + file.fsName);
-        }
-
-        var lutName = decodeURI(file.name).replace(/\.(cube|3dl|look|csp)$/i, '');
-
-        file.open('r');
-        file.encoding = 'BINARY';
-        var lutData = file.read();
-        file.close();
-
-        if (!lutData || lutData.length === 0) {
-            throw new Error('LUT file is empty: ' + file.fsName);
-        }
-
-        // Create Color Lookup Adjustment Layer
-        var descMake = new ActionDescriptor();
-        var refMake = new ActionReference();
-        refMake.putClass(C('AdjL'));
-        descMake.putReference(C('null'), refMake);
-
-        var descType = new ActionDescriptor();
-        descType.putClass(C('Type'), S('colorLookup'));
-        descMake.putObject(C('Usng'), C('AdjL'), descType);
-        executeAction(C('Mk  '), descMake, DialogModes.NO);
-
-        try {
-            var descSet = new ActionDescriptor();
-            var refSet = new ActionReference();
-            refSet.putEnumerated(C('AdjL'), C('Ordn'), C('Trgt'));
-            descSet.putReference(C('null'), refSet);
-
-            var descLUT = new ActionDescriptor();
-            descLUT.putEnumerated(S('lookupType'), S('colorLookupType'), S('3DLUT'));
-            descLUT.putString(C('Nm  '), lutName);
-            descLUT.putData(S('LUT3DFileData'), lutData);
-            descLUT.putString(S('LUT3DFileName'), file.fsName);
-
-            var ext = file.name.split('.').pop().toLowerCase();
-            if (ext === 'cube') {
-                descLUT.putEnumerated(S('LUTFormat'), S('LUTFormatType'), S('LUTFormatCUBE'));
-            } else if (ext === '3dl') {
-                descLUT.putEnumerated(S('LUTFormat'), S('LUTFormatType'), S('LUTFormat3DL'));
-            } else if (ext === 'look') {
-                descLUT.putEnumerated(S('LUTFormat'), S('LUTFormatType'), S('LUTFormatLOOK'));
-            } else if (ext === 'csp') {
-                descLUT.putEnumerated(S('LUTFormat'), S('LUTFormatType'), S('LUTFormatCSP'));
-            }
-        } catch (error) {
-            try { doc.activeLayer.remove(); } catch (e) { }
-            throw error;
-        }
+    // Panel buttons are generated from the files in /presets (see js/panel.js);
+    // the name is re-checked here so no caller can reach outside that folder.
+    var BUNDLED_PRESET = /^[A-Za-z0-9 _()-]+(\.[A-Za-z0-9 _()-]+)*\.xmp$/i;
+    function applyBundledXmp(fileName) {
+        if (!BUNDLED_PRESET.test(String(fileName))) throw new Error('Invalid preset name: ' + fileName);
+        var file = new File($.dr7Base + '/presets/' + fileName);
+        if (!file.exists) throw new Error('Missing bundled preset: ' + file.fsName);
+        return applyPresetXMP(file, false);
     }
 
-function APPLY_PRESET_XMP(fileOrPath, withDialog) {
-    return applyPresetXMP(fileOrPath, withDialog);
-}
-function APPLY_LUT(fileOrPath) {
-    return applyLUT(fileOrPath);
-}
+    var APPLY_PRESET_XMP = applyPresetXMP;
 
-    // One-click panel buttons: each applies a preset bundled in /presets silently.
-    function quickPreset(fileName) {
-        return function () {
-            var file = new File($.dr7Base + '/presets/' + fileName);
-            if (!file.exists) throw new Error('Missing bundled preset: ' + file.fsName);
-            return applyPresetXMP(file, false);
-        };
-    }
-    var XMP_MHK05451 = quickPreset('MHK05451.xmp');
-
-    $.dr7Commands = $.dr7Commands || {};
-    $.dr7Commands['APPLY_PRESET_XMP'] = APPLY_PRESET_XMP;
-    $.dr7Commands['APPLY_LUT'] = APPLY_LUT;
-    $.dr7Commands['XMP_MHK05451'] = XMP_MHK05451;
-
+    // loader.jsx copies these into $.dr7Commands for the panel bridge.
     $.presetLutCommands = {
-        APPLY_PRESET_XMP: APPLY_PRESET_XMP,
-        APPLY_LUT: APPLY_LUT,
-        XMP_MHK05451: XMP_MHK05451
+        APPLY_PRESET_XMP: APPLY_PRESET_XMP
     };
 
     $.dr7ApplyPresetXMP = applyPresetXMP;
-    $.dr7ApplyLUT = applyLUT;
+    $.dr7ApplyBundledXmp = applyBundledXmp;
     $.dr7SanitizeAcrXmp = sanitizeAcrXmp;
 }());
