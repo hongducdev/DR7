@@ -61,9 +61,21 @@ $._ext.evalFiles = function (jsxFolderPath) {
     var here = dr7Here();
     $.dr7Base = here;                                    // lưu lại để lần sau/tiện debug
     $._ext.evalFile(here + '/jsx/4.jsxbin');
+    // 4.jsxbin leaks a global C holding ScriptUI graphics; while it exists every
+    // Camera Raw Filter call fails with "Panel() is not a function".
+    try { delete $.global.C; } catch (eLeak) { $.dr7LoadErrors.push('4.jsxbin: cannot clear global C: ' + eLeak); }
+    if ($._ext_WM && typeof $._ext_WM.run === 'function') {
+        var wmRun = $._ext_WM.run;
+        $._ext_WM.run = function () {
+            try { return wmRun.apply(this, arguments); } finally { delete $.global.C; }
+        };
+    }
     $._ext.evalFiles(here + '/jsx');
     for (var name in $.mhkReplacements) {
         if ($.mhkReplacements.hasOwnProperty(name)) $.dr7Commands[name] = $.mhkReplacements[name];
+    }
+    for (var pName in $.presetLutCommands) {
+        if ($.presetLutCommands.hasOwnProperty(pName)) $.dr7Commands[pName] = $.presetLutCommands[pName];
     }
     $.dr7Ready = $.dr7LoadErrors.length === 0;
 }());

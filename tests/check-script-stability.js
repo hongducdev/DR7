@@ -14,10 +14,35 @@ const names = [...new Set([...html.matchAll(/doa\('([^']+)'\)/g)].map(m => m[1])
 const main = read('jsx/main.jsx');
 const registered = main.slice(main.lastIndexOf('$.dr7Commands ='));
 const replacements = read('jsx/mhk-replacements.jsx');
+const presetLut = read('jsx/preset-lut.jsx');
 for (const name of names) {
     assert.ok(new RegExp('\\b' + name + ': ' + name + '\\b').test(registered) ||
-        new RegExp('\\b' + name + ': function').test(replacements), name + ' must be registered');
+        new RegExp('\\b' + name + ': function').test(replacements) ||
+        new RegExp('\\b' + name + ': ' + name + '\\b').test(presetLut), name + ' must be registered');
 }
+assert.doesNotMatch(presetLut, /CrVe/, 'preset-lut must not hardcode ACR version CrVe to prevent Unsupported Edits popup');
+// Execute the real module against a stub host so the ACR payload builder is
+// exercised, not its source text. A preset exported by a newer Camera Raw must
+// reach the filter without a version claim, else ACR raises Unsupported Edits.
+const acrHost = { $: {}, app: { documents: [] }, charIDToTypeID: (k) => k, stringIDToTypeID: (k) => k,
+    DialogModes: { NO: 2, ALL: 1 }, Error, decodeURI, String, RegExp, JSON };
+acrHost.window = acrHost;
+vm.runInNewContext(presetLut, acrHost);
+assert.equal(typeof acrHost.$.dr7SanitizeAcrXmp, 'function', 'payload sanitizer must be exported');
+const future = '<?xml?> <rdf:Description xmlns:crs="http://ns.adobe.com/camera-raw-settings/1.0/" '
+    + 'crs:Version="15.0" crs:Exposure2012="+0.50"><crs:CameraProfile>Embedded</crs:CameraProfile></rdf:Description>';
+const cleaned = acrHost.$.dr7SanitizeAcrXmp(future);
+assert.doesNotMatch(cleaned, /crs:Version/, 'a future ACR version claim must be stripped before the filter runs');
+assert.match(cleaned, /crs:Exposure2012="\+0\.50"/, 'sanitizing must keep the actual preset settings');
+assert.match(cleaned, /crs:HasSettings="True"/, 'settings blob must be marked as settings for Camera Raw');
+assert.equal((acrHost.$.dr7SanitizeAcrXmp(future).match(/crs:HasSettings/g) || []).length, 1,
+    'an existing HasSettings flag must not be duplicated');
+const sidecar = acrHost.$.dr7SanitizeAcrXmp(read('presets/MHK05451.xmp'));
+assert.doesNotMatch(sidecar, /crs:(Temperature|Tint)=/, 'raw-only Kelvin white balance must not reach the filter');
+assert.match(sidecar, /crs:WhiteBalance="Auto"/, 'white balance mode must be kept');
+assert.match(sidecar, /crs:HueAdjustmentOrange="\+12"/, 'colour settings must be kept');
+const relative = acrHost.$.dr7SanitizeAcrXmp('<x crs:Temperature="+20" crs:Tint="-5" xmlns:crs="c"/>');
+assert.match(relative, /crs:Temperature="\+20" crs:Tint="-5"/, 'filter-range white balance must be kept');
 assert.doesNotMatch(main, /\$\._ext\s*=/, 'main must not overwrite loader error handling');
 for (const entry of fs.readdirSync(path.join(root, 'jsx'), { withFileTypes: true })) {
     if (!entry.isFile()) continue;

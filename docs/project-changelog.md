@@ -1,5 +1,45 @@
 # Changelog
 
+## 2026-10-13 — Nút màu nhanh MHK05451 + sửa Camera Raw Filter
+
+- Thêm nút `MHK05451` (`XMP_MHK05451`): áp preset đóng gói `presets/MHK05451.xmp` bằng 1 click,
+  không hỏi file, không mở hộp thoại. Helper `quickPreset()` trong `jsx/preset-lut.jsx` dùng lại cho nút sau.
+- Sửa lỗi nghiêm trọng: `jsx/4.jsxbin` rò rỉ biến toàn cục `C` (ScriptUI graphics) khiến mọi lệnh
+  Camera Raw Filter (Preset XMP, Camera Raw) lỗi `Panel() is not a function`. `loader.jsx` xoá `C`
+  sau khi nạp và sau mỗi lần chạy Chữ / Logo.
+- Preset XMP truyền thiết lập qua key `XMPp` (XMPParameters) thay cho `LCs ` (LocalAdjustments — sai key)
+  + `Previous.xmp`. Trước đây preset không đổi màu ảnh; nay áp đúng. Không còn ghi đè `Previous.xmp` của người dùng.
+- `sanitizeAcrXmp()` bỏ `crs:Temperature/Tint` dạng Kelvin (chỉ có nghĩa với RAW) khi áp lên ảnh đã render.
+- Test: unit test sanitizer cho sidecar RAW; audit live kiểm tra không rò `C` và nút MHK05451 đổi màu điểm ảnh.
+
+## 2026-09-16 — Preset XMP áp dụng tự động (không cần thao tác)
+
+- `APPLY_PRESET_XMP` chạy hoàn toàn tự động: đặt thiết lập XMP làm "previous conversion" của Camera Raw
+  rồi gọi bộ lọc với `Sett = Prev` và `DialogModes.NO`. Camera Raw tự render vào layer `Preset - [tên]`
+  và tự đóng — không còn hộp thoại phải bấm OK.
+- Sửa lỗi **"Unsupported Edits — edited in a newer version of Camera Raw"**:
+  descriptor trước đây khai báo cứng `CrVe = "15.0"` (Camera Raw 15) trong khi máy đang chạy Camera Raw 14.2,
+  khiến ACR coi thiết lập là "từ phiên bản tương lai". Log ACR xác nhận:
+  `Settings are from future ACR version 0f000000 (15.0.0.0). Current version is 0e020000 (14.2.0.0)`.
+  Đã bỏ `CrVe` hoàn toàn và thêm `sanitizeAcrXmp()` loại bỏ mọi khai báo `crs:Version` trước khi đưa
+  thiết lập vào Camera Raw, nên preset xuất từ ACR mới hơn cũng không còn gây cảnh báo.
+- Giữ nguyên dữ liệu preset: `crs:Exposure2012`, `crs:ToneCurvePV2012`, `crs:PresetName`… không bị thay đổi;
+  thiết lập được đánh dấu `crs:HasSettings="True"` nếu file gốc thiếu.
+- Nếu cả hai lần chạy tự động đều lỗi, chỉ khi đó mới mở Camera Raw để người dùng tự xác nhận
+  (`withDialog: false` sẽ tắt hẳn đường dự phòng này).
+- Kiểm chứng: `tests/check-script-stability.js` chạy thẳng module để kiểm tra bộ làm sạch payload
+  (assertion thất bại nếu còn `crs:Version`); `tests/photoshop-preset-lut-audit.jsx` kiểm tra trên
+  Photoshop thật rằng preset đổi màu điểm ảnh và file staging không còn khai báo phiên bản.
+
+## 2026-09-16 — Áp dụng Preset XMP và 3D LUT
+
+- Thêm 2 nút điều khiển `Preset XMP` và `3D LUT` vào hàng cuối của panel (lấp đầy 3 cột, giữ nguyên chuẩn 235px).
+- Thêm module lõi `jsx/preset-lut.jsx`:
+  - `APPLY_PRESET_XMP`: Tải trước thiết lập XMP vào `Previous.xmp` và Camera Raw Settings, mở giao diện bộ lọc Camera Raw với thông số từ file XMP nạp sẵn; khi bấm OK, Camera Raw áp dụng hiệu ứng lên layer gộp độc lập (`Preset - [tên preset]`) rồi đóng lại; nếu bấm Cancel, layer tạm được tự động thu hồi.
+  - `APPLY_LUT`: Tạo lớp điều chỉnh Color Lookup và nạp dữ liệu nhị phân file 3D LUT (.cube, .3dl, .look).
+- Tích hợp sẵn preset mẫu `presets/Fuji_ceremony.xmp`.
+- Cập nhật `loader.jsx` và đồng bộ bộ kiểm thử tự động `tests/check-script-stability.js`.
+
 ## 2026-09-16 — Keep only working functions (26 buttons)
 
 - Remove every unavailable (dimmed) action button and the whole icon toolbar + logo from index.html.

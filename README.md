@@ -31,7 +31,7 @@
 
 - **Giao diện 100% tiếng Việt**: Mọi nút bấm, nhãn và chú thích (tooltip) được bản địa hóa chuẩn xác theo thuật ngữ nhiếp ảnh và đồ họa chuyên nghiệp.
 - **Bố cục Responsive tối ưu**: Chiều rộng chuẩn 235px của panel CEP, lưới nút bấm 3 cột tự động co giãn theo nội dung, cuộn dọc mượt mà, tương thích hoàn hảo với mọi kích thước màn hình.
-- **Giao diện gọn, không nút chết**: Chỉ giữ 26 chức năng đang hoạt động; toàn bộ nút mờ và script của chúng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
+- **Giao diện gọn, không nút chết**: Giữ 29 chức năng đang hoạt động (bao gồm Preset XMP, 3D LUT và nút màu nhanh MHK05451); toàn bộ nút mờ và script không dùng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
 - **Xử lý ảnh không phá hủy (Non-destructive)**: Mọi thao tác đều sinh layer, mask hoặc adjustment layer riêng biệt, dễ dàng tinh chỉnh Opacity, Blend Mode hoặc đảo ngược bất cứ lúc nào.
 - **Hỗ trợ ảnh RGB 8-bit và 16-bit**: Các thuật toán xử lý màu sắc và kết cấu vận hành chính xác trên cả định dạng ảnh tiêu chuẩn và ảnh chất lượng cao.
 - **Hiệu năng cao & Bảo mật**: Vận hành hoàn toàn cục bộ trên nền tảng chuẩn Adobe CEP + ExtendScript, không phụ thuộc thư viện ngoài nặng nề, không gửi dữ liệu qua mạng.
@@ -111,7 +111,7 @@ Nếu muốn tự triển khai hoặc cài đặt cho toàn bộ người dùng 
 
 ## Bảng chức năng
 
-Bảng điều khiển **MHK DR7** chỉ giữ lại **26 chức năng đang hoạt động** (những nút còn sáng màu).
+Bảng điều khiển **MHK DR7** bao gồm **29 chức năng đang hoạt động** (toàn bộ nút sáng màu, bao gồm Preset XMP, 3D LUT và MHK05451).
 Toàn bộ nút mờ (không khả dụng) cùng script, hàm lõi và tài nguyên của chúng đã được gỡ bỏ hoàn toàn,
 nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 
@@ -128,7 +128,8 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 │ [ Giảm Vàng ] [ Trắng Da ] [ Trắng Răng ]              │
 │ [ Son Môi ] [ Hào Quang ] [ Hạt phim ]                 │
 │ [ Camera Raw ] [ Chi tiết ] [ Hạt thô ]                │
-│ [ Chấm ]                                               │
+│ [ Chấm ] [ Preset XMP ] [ 3D LUT ]                     │
+│ [ MHK05451 ]                                           │
 └────────────────────────────────────────────────────────┘
 ```
 
@@ -173,6 +174,9 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | **Hạt phim** | `MLXG` | Hoa văn hạt phim (Grain). |
 | **Hạt thô** | `mcwl` | Hoa văn hạt thô (Coarse). |
 | **Chấm** | `sfb` | Hoa văn chấm bi (Dots). |
+| **Preset XMP** | `APPLY_PRESET_XMP` | Chọn file preset Camera Raw (.xmp) — thiết lập được nạp vào Camera Raw và render tự động lên lớp gộp riêng `Preset - [tên]`, không mở hộp thoại, không phá huỷ ảnh gốc. |
+| **MHK05451** | `XMP_MHK05451` | Áp nhanh preset đóng gói `presets/MHK05451.xmp` (Classic Chrome) bằng 1 click — không hỏi file, không mở hộp thoại, render lên lớp `Preset - MHK05451`. |
+| **3D LUT** | `APPLY_LUT` | Tạo lớp điều chỉnh Color Lookup và nạp file 3D LUT (.cube, .3dl, .look). |
 | **Camera Raw** | `DKACR` | Khởi chạy trực tiếp bộ lọc Adobe Camera Raw. |
 | **Chi tiết** | `PP_DETAIL` | Tách chi tiết High Pass trên layer độc lập để tăng độ trong của ảnh. |
 | **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt. |
@@ -228,7 +232,9 @@ DR7/
 │   ├── mhk-replacements.jsx # Hào Quang, Hạt phim, Hạt thô, Chấm, Chi tiết
 │   ├── Photoshop.jsx        # Tiện ích Crash Bug Fix (chạy khi mở panel)
 │   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ hoa văn (.pat)
+│   ├── preset-lut.jsx       # Lõi áp dụng Preset Camera Raw (.xmp) và 3D LUT (.cube)
 │   └── *.jsx                # Module chuyên biệt còn dùng: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
+├── presets/                 # Preset đóng gói (Fuji_ceremony.xmp, MHK05451.xmp cho nút màu nhanh)
 ├── img/
 │   └── icon-large.png       # Biểu tượng panel trong menu Window > Extensions
 ├── install/
