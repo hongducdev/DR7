@@ -121,7 +121,7 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 ├────────────────────────────────────────────────────────┤
 │ ┌─ ● QUY TRÌNH ──────────────────────────────────────┐ │
 │ │ [            Làm Da V5.0            ]              │ │
-│ │ [ Hàng loạt ] [ Tự động ] [ Chữ / Logo ]           │ │
+│ │ [ Tuỳ chỉnh ] [ Hàng loạt ] [ Chữ / Logo ]         │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● DA ─────────────────────────────────────────────┐ │
 │ │ [ Làm mịn ] [ Lẫn mịn ] [ Tẩy lông ]               │ │
@@ -148,8 +148,8 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | Nút bấm | Mã lệnh | Tác vụ |
 |---|---|---|
 | **Làm Da V5.0** | `DS` | Quy trình làm mịn da thông minh, làm đều vùng da sần sùi mà không làm mờ lỗ chân lông hay mất kết cấu tự nhiên. |
-| **Hàng loạt** | `BA` | Thiết lập thông số một lần rồi áp dụng cho nhiều ảnh. |
-| **Tự động** | `SE` | Làm đẹp tự động tối ưu hóa nhiều bước chỉ với một cú nhấp chuột. |
+| **Tuỳ chỉnh** | `SE` | Như Làm Da V5.0 nhưng mở hộp thoại chỉnh bán kính làm mịn, độ sâu chi tiết, bảo vệ vùng sáng (có thể lưu làm mặc định). |
+| **Hàng loạt** | `BA` | Làm da cho tất cả ảnh đang mở trong Photoshop (cần mở ít nhất 1 ảnh). |
 | **Làm mịn / Lẫn mịn** | `LS` / `SS` | Làm mịn da bề mặt nhanh chóng, kết hợp làm mờ quang học tự nhiên. |
 | **Tẩy lông** | `RE` | Xóa sạch lông tơ, sợi tóc con vướng trên trán, má hoặc cằm. |
 

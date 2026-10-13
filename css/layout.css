@@ -19,12 +19,14 @@ body {
     z-index: 2;
     width: 25px;
     height: 25px;
+    border: 0;
+    outline: none;
     color: #aaa;
     background: transparent;
     font: 20px/25px "Segoe UI", sans-serif;
     cursor: pointer;
 }
-.reload-panel:hover, .reload-panel:focus { color: #fff; background: #414141; }
+.reload-panel:hover, .reload-panel:focus { color: #fff; background: #414141; outline: none; }
 
 .panel {
     display: block;
@@ -77,6 +79,13 @@ body {
     width: 100%;
 }
 
+button,
+button:focus,
+button:active,
+button:focus-visible {
+    outline: none !important;
+}
+
 .row > button,
 .action-grid > button {
     width: 100% !important;
@@ -121,9 +130,10 @@ body {
 }
 
 .row > button:focus,
-.action-grid > button:focus {
-    outline: 2px solid #fff !important;
-    outline-offset: -3px;
+.action-grid > button:focus,
+.row > button:focus-visible,
+.action-grid > button:focus-visible {
+    outline: none !important;
 }
 
 .row > button[disabled],
@@ -210,7 +220,8 @@ body {
 }
 .group > .btn-primary:hover { filter: brightness(1.12); }
 .group > .btn-primary:active { transform: translateY(1px); filter: brightness(.9); }
-.group > .btn-primary:focus { outline: 2px solid #fff !important; outline-offset: -3px; }
+.group > .btn-primary:focus,
+.group > .btn-primary:focus-visible { outline: none !important; }
 
 /* Preset names run longer than tool labels, so these rows get two wider columns */
 .group .action-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }

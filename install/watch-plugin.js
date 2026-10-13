@@ -8,7 +8,7 @@ const target = path.resolve(process.argv[2] && process.argv[2] !== '--once' ? pr
     path.join(process.env.APPDATA, 'Adobe/CEP/extensions/DR7'));
 if (target === root || root.startsWith(target + path.sep)) throw new Error('Target must not contain source');
 const once = process.argv.includes('--once');
-const folders = ['js', 'jsx', 'css', 'img', 'assets'];
+const folders = ['js', 'jsx', 'css', 'img', 'presets'];
 function inventory() {
     const result = new Map();
     function add(relative) {
@@ -23,7 +23,8 @@ function inventory() {
         }
     }
     for (const file of ['index.html','style.css','loader.jsx']) add(file);
-    for (const folder of folders) walk(folder);
+    // Optional folders (e.g. an empty presets/) may be absent; a missing one must not stop the sync.
+    for (const folder of folders) if (fs.existsSync(path.join(root, folder))) walk(folder);
     return result;
 }
 async function evaluate(expression) {

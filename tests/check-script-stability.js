@@ -51,6 +51,22 @@ for (const entry of fs.readdirSync(path.join(root, 'jsx'), { withFileTypes: true
     assert.doesNotMatch(source, /typeof\$|new File\(\$\.fileName\)/);
     assert.doesNotMatch(source, /[^\x00-\x7f]/, 'ExtendScript source must remain ASCII');
 }
+// Workflow skin scripts: a real failure must reach the panel bridge (message/line, silent cancel),
+// not be reported as "no file open". Executes each file's actual wrapper statement.
+for (const file of ['ds', 'se', 'ba']) {
+    const line = read('jsx/' + file + '.jsx').split('\n').find(l => l.includes('suspendHistory("Delicious'));
+    const wrapper = line && [line.slice(line.indexOf('try{app.activeDocument.suspendHistory')).trim()];
+    assert.ok(wrapper, file + ' wrapper must exist');
+    const notices = [];
+    const stub = documents => ({ alert: m => notices.push(m), app: { documents, get activeDocument() {
+        if (!documents.length) throw new Error('No such element');
+        return { suspendHistory: () => { throw new Error('host failure'); } };
+    } } });
+    assert.throws(() => vm.runInNewContext(wrapper[0], stub([{}])), /host failure/, file + ' must rethrow real errors');
+    assert.equal(notices.length, 0, file + ' must not mislabel a real error as "no file open"');
+    vm.runInNewContext(wrapper[0], stub([]));
+    assert.equal(notices.length, 1, file + ' must still explain a missing document');
+}
 for (const name of ['DnB_Brush.tpl', 'DS4_Soft_Brush.tpl', 'dsPickColor.png',
     'dsSelection.png', 'dsTransform.png', 'eyesSelection.png', 'localSmoother.png',
     'maskSamplers.png', 'removerDialog.png', 'removerSelection.png']) {
@@ -96,6 +112,11 @@ vm.runInNewContext(read('js/panel.js'), panel);
 panel.doa('GGXS');
 assert.equal(calls.length, 1, 'must wait for loader callback');
 calls[0].callback('DR7_READY');
+// The ScriptUI crash workaround must run once the core is ready, not from body onload (always too early).
+assert.equal(calls.length, 2, 'ready must dispatch the BUGFIX workaround');
+assert.match(calls[1].code, /\$\._ext_BUGFIX\.run/);
+assert.doesNotMatch(read('index.html'), /onClickButton\('BUGFIX'\)/, 'BUGFIX must not fire before the loader is ready');
+calls.pop().callback('DR7_OK');
 let ran = 0;
 const host = { app: { documents: [{}], displayDialogs: 1, preferences: { rulerUnits: 2 } }, $: { dr7Commands: {} } };
 host.$.dr7Commands.GGXS = () => {
@@ -133,6 +154,17 @@ const applied = [];
 host.$.dr7ApplyBundledXmp = name => { applied.push(name); };
 assert.equal(vm.runInNewContext(calls[3].code, host), 'DR7_OK');
 assert.deepEqual(applied, ['MHK05451.xmp']);
+calls[3].callback('DR7_OK');
+// Batch skin (BA) processes the open documents, so it needs one; WM picks its own folders.
+host.app.documents = [];
+host.$._ext_BA = { run: () => { throw new Error('BA must not run without a document'); } };
+host.$._ext_WM = { run: () => {} };
+panel.onClickButton('BA');
+assert.equal(vm.runInNewContext(calls[4].code, host), 'DR7_NO_DOCUMENT');
+calls[4].callback('DR7_NO_DOCUMENT');
+panel.onClickButton('WM');
+assert.equal(vm.runInNewContext(calls[5].code, host), 'DR7_OK');
+calls[5].callback('DR7_OK');
 assert.throws(() => acrHost.$.dr7ApplyBundledXmp('../../secret.xmp'), /Invalid preset name/,
     'the host must re-check preset names before touching the file system');
 console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks/preset names');

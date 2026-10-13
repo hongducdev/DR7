@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-13 — Sửa nhóm Quy trình
+
+- `BUGFIX` (workaround treo Photoshop khi mở hộp thoại ScriptUI từ panel CEP) trước đây gọi từ `body onload`,
+  luôn chạy trước khi lõi ExtendScript sẵn sàng nên bị bỏ qua lặng lẽ. Nay `js/panel.js` gọi ngay sau khi loader báo
+  `DR7_READY`; các hộp thoại Làm Da / Tuỳ chỉnh / Hàng loạt / Chữ-Logo được bảo vệ đúng.
+- Nút `SE` đổi nhãn "Tự động" → "Tuỳ chỉnh" (đúng chức năng: hộp thoại bán kính/chi tiết/bảo vệ vùng sáng), xếp cạnh
+  nút chính; tooltip DS/SE/BA mô tả đúng việc làm.
+- `BA` xử lý mọi ảnh đang mở nên không còn được miễn kiểm tra "chưa mở ảnh"; báo lỗi thống nhất với các nút khác.
+- `ds/se/ba.jsx`: lỗi thật không còn bị báo nhầm "Bạn chưa mở file nào cả"; được ném lên bridge để hiện nội dung,
+  file, dòng (Huỷ thì im lặng). Chỉ báo "chưa mở file" khi thật sự không có ảnh.
+- `install/watch-plugin.js` bỏ thư mục `assets/` đã xoá, thêm `presets/`; `tests/check-live-reload.js` chờ
+  `dr7IsBusy` thay cho `mhkPP` đã gỡ.
+
 ## 2026-10-13 — Nút preset tự sinh từ thư mục, gỡ 3D LUT
 
 - Mỗi file `.xmp` trong `presets/` thành một nút trên card "Màu & Preset" (`renderPresets()` trong

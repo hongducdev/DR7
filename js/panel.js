@@ -19,7 +19,7 @@
     function run(kind, name) {
         if (kind === 'preset' ? !PRESET_FILE.test(name) : !/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) return;
         if (!ready) {
-            if (name !== 'BUGFIX') alert('Lõi Photoshop chưa sẵn sàng. Hãy đóng và mở lại panel.');
+            alert('Lõi Photoshop chưa sẵn sàng. Hãy đóng và mở lại panel.');
             return;
         }
         if (busy) return;
@@ -27,8 +27,10 @@
         var target = kind === 'doa' ? '$.dr7Commands[' + JSON.stringify(name) + ']' :
             kind === 'preset' ? '$.dr7ApplyBundledXmp' : '$._ext_' + name + '.run';
         var args = kind === 'preset' ? JSON.stringify(name) : '';
+        // Only WM (its own batch dialog) and BUGFIX run without an open image;
+        // BA processes every open document, so it needs at least one.
         var code = '(function(){var d=app.displayDialogs,u=app.preferences.rulerUnits;' +
-            'try{' + (!/^(BA|WM|BUGFIX)$/.test(name) ?
+            'try{' + (!/^(WM|BUGFIX)$/.test(name) ?
                 'if(!app.documents.length)return "DR7_NO_DOCUMENT";' : '') +
             'if(typeof ' + target + '!=="function")throw new Error("Missing command: ' + name + '");' +
             target + '(' + args + ');return "DR7_OK";}catch(e){if(e.number===8007)return "DR7_CANCEL";' +
@@ -107,7 +109,12 @@
             ready = res === 'DR7_READY';
             if (!ready) {
                 alert('MHK DR7 — không nạp được lõi ExtendScript:\n' + res + '\n\nThư mục panel:\n' + base);
+                return;
             }
+            // ScriptUI dialogs opened from a CEP panel (Làm Da, Hàng loạt, Tuỳ chỉnh, Chữ/Logo)
+            // can hang Photoshop on Windows until this workaround runs. It used to be fired from
+            // body onload, which always lands before this async callback and was silently dropped.
+            run('ext', 'BUGFIX');
         });
     }
 }());

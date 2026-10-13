@@ -28,10 +28,10 @@ async function waitFor(check) {
     let watcher;
     try {
         await cdp('Page.reload',{ignoreCache:true});
-        await waitFor(()=>evaluate('typeof dr7Reload==="function" && typeof mhkPP==="function"'));
+        await waitFor(()=>evaluate('typeof dr7Reload==="function" && typeof dr7IsBusy==="function"'));
         const before=await evaluate('performance.timing.navigationStart');
         await evaluate('document.querySelector(".reload-panel").click()');
-        await waitFor(()=>evaluate('performance.timing.navigationStart>'+before+' && typeof mhkPP==="function"'));
+        await waitFor(()=>evaluate('performance.timing.navigationStart>'+before+' && typeof dr7IsBusy==="function"'));
         console.log('PASS: manual panel reload');
         watcher=spawn(process.execPath,[path.join(root,'install/watch-plugin.js')],{cwd:root,stdio:['ignore','pipe','pipe'],windowsHide:true});
         watcher.stdout.on('data',chunk=>process.stdout.write(chunk));
