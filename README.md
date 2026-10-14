@@ -31,7 +31,7 @@
 
 - **Giao diện 100% tiếng Việt**: Mọi nút bấm, nhãn và chú thích (tooltip) được bản địa hóa chuẩn xác theo thuật ngữ nhiếp ảnh và đồ họa chuyên nghiệp.
 - **Bố cục Responsive tối ưu**: Chiều rộng chuẩn 235px của panel CEP, lưới nút bấm 3 cột tự động co giãn theo nội dung, cuộn dọc mượt mà, tương thích hoàn hảo với mọi kích thước màn hình.
-- **Giao diện gọn, không nút chết**: Giữ 27 chức năng đang hoạt động, chia 5 nhóm card, cộng nút preset màu tự sinh từ thư mục `presets/`; toàn bộ nút mờ và script không dùng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
+- **Giao diện gọn, không nút chết**: Giữ 23 chức năng đang hoạt động, chia 2 nhóm card, cộng nút preset màu tự sinh từ thư mục `presets/`; toàn bộ nút mờ và script không dùng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
 - **Xử lý ảnh không phá hủy (Non-destructive)**: Mọi thao tác đều sinh layer, mask hoặc adjustment layer riêng biệt, dễ dàng tinh chỉnh Opacity, Blend Mode hoặc đảo ngược bất cứ lúc nào.
 - **Hỗ trợ ảnh RGB 8-bit và 16-bit**: Các thuật toán xử lý màu sắc và kết cấu vận hành chính xác trên cả định dạng ảnh tiêu chuẩn và ảnh chất lượng cao.
 - **Hiệu năng cao & Bảo mật**: Vận hành hoàn toàn cục bộ trên nền tảng chuẩn Adobe CEP + ExtendScript, không phụ thuộc thư viện ngoài nặng nề, không gửi dữ liệu qua mạng.
@@ -111,7 +111,7 @@ Nếu muốn tự triển khai hoặc cài đặt cho toàn bộ người dùng 
 
 ## Bảng chức năng
 
-Bảng điều khiển **MHK DR7** bao gồm **27 chức năng đang hoạt động** chia 5 nhóm, cộng **1 nút cho mỗi preset `.xmp`** trong thư mục `presets/`.
+Bảng điều khiển **MHK DR7** bao gồm **23 chức năng đang hoạt động** chia 2 nhóm, cộng **1 nút cho mỗi preset `.xmp`** trong thư mục `presets/`.
 Toàn bộ nút mờ (không khả dụng) cùng script, hàm lõi và tài nguyên của chúng đã được gỡ bỏ hoàn toàn,
 nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 
@@ -119,22 +119,15 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 ┌────────────────────────────────────────────────────────┐
 │                   MHK DR7        [↻ Nạp lại]           │
 ├────────────────────────────────────────────────────────┤
-│ ┌─ ● QUY TRÌNH ──────────────────────────────────────┐ │
+│ ┌─ ● RETOUCH ────────────────────────────────────────┐ │
 │ │ [            Làm Da V5.0            ]              │ │
 │ │ [ Tuỳ chỉnh ] [ Hàng loạt ] [ Chữ / Logo ]         │ │
-│ └────────────────────────────────────────────────────┘ │
-│ ┌─ ● DA ─────────────────────────────────────────────┐ │
-│ │ [ Làm mịn ] [ Lẫn mịn ] [ Tẩy lông ]               │ │
-│ │ [ Đánh Khối ] [ Highlight ] [ Màu tổng ]           │ │
-│ │ [ Màu Da ] [ Giảm Vàng ] [ Trắng Da ]              │ │
-│ └────────────────────────────────────────────────────┘ │
-│ ┌─ ● CHÂN DUNG ──────────────────────────────────────┐ │
-│ │ [ Phủ phấn ] [ Lông Mi ] [ Bóng Mắt ]              │ │
-│ │ [ Son Môi ] [ Trắng Răng ] [ Hào Quang ]           │ │
-│ │ [ Làm nét ] [ Chi tiết ] [ Liquify ]               │ │
-│ └────────────────────────────────────────────────────┘ │
-│ ┌─ ● HOA VĂN ────────────────────────────────────────┐ │
-│ │ [ Hạt phim ] [ Hạt thô ] [ Chấm ]                  │ │
+│ │ [ Làm mịn ] [ Tẩy lông ] [ Đánh Khối ]             │ │
+│ │ [ Highlight ] [ Màu tổng ] [ Màu Da ]              │ │
+│ │ [ Trắng Da ] [ Phủ phấn ] [ Lông Mi ]              │ │
+│ │ [ Bóng Mắt ] [ Son Môi ] [ Trắng Răng ]            │ │
+│ │ [ Hào Quang ] [ Làm nét ] [ Hạt phim ]             │ │
+│ │ [ Hạt thô ] [ Chấm ]                               │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● MÀU & PRESET ───────────────────────────────────┐ │
 │ │ [ Camera Raw ]          [ Preset XMP… ]            │ │
@@ -150,7 +143,7 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | **Làm Da V5.0** | `DS` | Quy trình làm mịn da thông minh, làm đều vùng da sần sùi mà không làm mờ lỗ chân lông hay mất kết cấu tự nhiên. |
 | **Tuỳ chỉnh** | `SE` | Như Làm Da V5.0 nhưng mở hộp thoại chỉnh bán kính làm mịn, độ sâu chi tiết, bảo vệ vùng sáng (có thể lưu làm mặc định). |
 | **Hàng loạt** | `BA` | Làm da cho tất cả ảnh đang mở trong Photoshop (cần mở ít nhất 1 ảnh). |
-| **Làm mịn / Lẫn mịn** | `LS` / `SS` | Làm mịn da bề mặt nhanh chóng, kết hợp làm mờ quang học tự nhiên. |
+| **Làm mịn** | `LS` | Làm mịn da bề mặt nhanh chóng, kết hợp làm mờ quang học tự nhiên. |
 | **Tẩy lông** | `RE` | Xóa sạch lông tơ, sợi tóc con vướng trên trán, má hoặc cằm. |
 
 ### 2. Đánh khối, độ nét & ánh sáng
@@ -159,7 +152,6 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 |---|---|---|
 | **Đánh Khối** | `DB` | Tạo tự động nhóm layer Dodge & Burn kèm đường cong Curves và mặt nạ đen, sẵn sàng quét sáng/tối tạo khối gương mặt. |
 | **Làm nét** | `SH` | Tăng chi tiết tóc và đường viền chân dung. |
-| **Liquify** | `LI` | Mở nhanh công cụ Liquify để nắn chỉnh hình thể và khuôn mặt. |
 | **Phủ phấn** | `TJSH` | Giảm độ bóng nhờn, tạo hiệu ứng da phủ phấn mịn màng như trang điểm thực tế. |
 | **Highlight** | `GGXS` | Tạo điểm nhấn bắt sáng tự nhiên tại sống mũi, gò má, cằm và trán. |
 
@@ -169,7 +161,6 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 |---|---|---|
 | **Màu tổng** | `BTNPFSD2` | Cân bằng sắc độ da toàn diện, khắc phục da loang màu hoặc lệch tone. |
 | **Màu Da** | `TC` | Áp dụng bảng màu da chuẩn, tạo vẻ rạng rỡ và hồng hào tự nhiên. |
-| **Giảm Vàng** | `FSJH` | Loại bỏ sắc tố vàng dư thừa do ánh sáng môi trường không chuẩn. |
 | **Trắng Da** | `MBPF` | Nâng tone sáng trong trẻo cho làn da mà vẫn giữ nguyên chi tiết khối. |
 | **Trắng Răng** | `WT` | Loại bỏ ố vàng trên men răng, tăng độ trắng sáng tự nhiên. |
 | **Son Môi** | `ZCZQ` | Tô sắc môi tự nhiên, hỗ trợ tùy biến sắc độ môi. |
@@ -187,7 +178,6 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | **Preset XMP** | `APPLY_PRESET_XMP` | Chọn file preset Camera Raw (.xmp) — thiết lập được nạp vào Camera Raw và render tự động lên lớp gộp riêng `Preset - [tên]`, không mở hộp thoại, không phá huỷ ảnh gốc. |
 | **● [tên preset]** | `dr7ApplyPreset(file)` | Nút tự sinh cho mỗi file `.xmp` trong `presets/` (nhãn = tên file). Áp bằng 1 click, không hỏi file, không mở hộp thoại, render lên lớp `Preset - [tên]`. |
 | **Camera Raw** | `DKACR` | Khởi chạy trực tiếp bộ lọc Adobe Camera Raw. |
-| **Chi tiết** | `PP_DETAIL` | Tách chi tiết High Pass trên layer độc lập để tăng độ trong của ảnh. |
 | **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt. |
 
 > **Thêm preset màu:** chép file `.xmp` (preset Camera Raw / Lightroom) vào thư mục `presets/` của plugin

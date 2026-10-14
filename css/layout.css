@@ -222,9 +222,7 @@ button:focus-visible {
 }
 .panel-header + .panel-status + .group { margin-top: 6px; }
 
-.group-workflow { --accent: var(--amber);  --accent-soft: rgba(232, 167, 45, .14);  --accent-line: rgba(232, 167, 45, .45); }
-.group-portrait { --accent: var(--rose);   --accent-soft: rgba(232, 78, 104, .14);  --accent-line: rgba(232, 78, 104, .45); }
-.group-texture  { --accent: var(--blue);   --accent-soft: rgba(19, 155, 211, .14);  --accent-line: rgba(19, 155, 211, .45); }
+.group-retouch  { --accent: var(--amber);  --accent-soft: rgba(232, 167, 45, .14);  --accent-line: rgba(232, 167, 45, .45); }
 .group-color    { --accent: var(--violet); --accent-soft: rgba(122, 92, 214, .16); --accent-line: rgba(122, 92, 214, .5); }
 
 .section-title {
