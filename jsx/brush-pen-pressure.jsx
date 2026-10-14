@@ -1,0 +1,65 @@
+/*
+ * BPP - turn on Shape Dynamics for the current brush and set every Control
+ * (Size Jitter, Angle Jitter, Roundness Jitter) to Pen Pressure.
+ *
+ * Two entry points:
+ *  - DR7 panel button (loader evaluates this file and only registers $._ext_BPP).
+ *  - Run directly (File > Scripts > Browse, or the "MHK DR7" action with a function key)
+ *    -> runs immediately because the loader's $.dr7Loading flag is not set.
+ */
+$._ext_BPP = {
+    // Photoshop bVTy: 0 Off, 1 Fade, 2 Pen Pressure, 3 Pen Tilt, 4 Stylus Wheel
+    PEN_PRESSURE: 2,
+    // Size Jitter only has the charID 'szVr'; Angle/Roundness have stringIDs
+    SHAPE_CONTROLS: [charIDToTypeID('szVr'), stringIDToTypeID('angleDynamics'), stringIDToTypeID('roundnessDynamics')],
+
+    readToolOptions: function () {
+        var ref = new ActionReference();
+        ref.putProperty(stringIDToTypeID('property'), stringIDToTypeID('currentToolOptions'));
+        ref.putEnumerated(stringIDToTypeID('application'), stringIDToTypeID('ordinal'), stringIDToTypeID('targetEnum'));
+        return executeActionGet(ref).getObjectValue(stringIDToTypeID('currentToolOptions'));
+    },
+
+    writeToolOptions: function (options) {
+        var target = new ActionReference();
+        target.putClass(stringIDToTypeID(app.currentTool));
+        var desc = new ActionDescriptor();
+        desc.putReference(stringIDToTypeID('null'), target);
+        desc.putObject(stringIDToTypeID('to'), stringIDToTypeID('null'), options);
+        executeAction(stringIDToTypeID('set'), desc, DialogModes.NO);
+    },
+
+    run: function () {
+        var self = $._ext_BPP;
+        var tipKey = stringIDToTypeID('useTipDynamics');
+        var options = self.readToolOptions();
+        // Tools without Shape Dynamics (Move, Marquee...) -> switch to the Brush and re-read
+        if (!options.hasKey(tipKey)) {
+            app.currentTool = 'paintbrushTool';
+            options = self.readToolOptions();
+        }
+        // While Shape Dynamics is off Photoshop omits the Control keys,
+        // so enable it first, re-read, then set Pen Pressure.
+        if (!options.getBoolean(tipKey)) {
+            options.putBoolean(tipKey, true);
+            self.writeToolOptions(options);
+            options = self.readToolOptions();
+        }
+        for (var i = 0; i < self.SHAPE_CONTROLS.length; i += 1) {
+            var key = self.SHAPE_CONTROLS[i];
+            if (!options.hasKey(key)) continue;
+            var control = options.getObjectValue(key);
+            control.putInteger(charIDToTypeID('bVTy'), self.PEN_PRESSURE);
+            options.putObject(key, options.getObjectType(key), control);
+        }
+        self.writeToolOptions(options);
+    }
+};
+
+if ($.dr7Loading !== true) {
+    try {
+        $._ext_BPP.run();
+    } catch (e) {
+        alert('Kh\u00f4ng \u0111\u1eb7t \u0111\u01b0\u1ee3c Pen Pressure cho c\u1ecd:\n' + e);
+    }
+}

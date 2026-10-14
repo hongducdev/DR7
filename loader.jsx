@@ -60,8 +60,15 @@ $._ext.evalFiles = function (jsxFolderPath) {
 (function () {
     var here = dr7Here();
     $.dr7Base = here;                                    // lưu lại để lần sau/tiện debug
-    $._ext.evalFile(here + '/jsx/4.jsxbin');
-    $._ext.evalFiles(here + '/jsx');
+    // Cờ cho các file jsx/ chạy được độc lập (vd brush-pen-pressure.jsx):
+    // đang nạp từ loader thì chỉ đăng ký lệnh, không tự chạy.
+    $.dr7Loading = true;
+    try {
+        $._ext.evalFile(here + '/jsx/4.jsxbin');
+        $._ext.evalFiles(here + '/jsx');
+    } finally {
+        $.dr7Loading = false;
+    }
     for (var name in $.mhkReplacements) {
         if ($.mhkReplacements.hasOwnProperty(name)) $.dr7Commands[name] = $.mhkReplacements[name];
     }
