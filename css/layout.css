@@ -223,6 +223,7 @@ button:focus-visible {
 .panel-header + .panel-status + .group { margin-top: 6px; }
 
 .group-retouch  { --accent: var(--amber);  --accent-soft: rgba(232, 167, 45, .14);  --accent-line: rgba(232, 167, 45, .45); }
+.group-brush    { --accent: var(--blue);   --accent-soft: rgba(19, 155, 211, .14);  --accent-line: rgba(19, 155, 211, .45); }
 .group-color    { --accent: var(--violet); --accent-soft: rgba(122, 92, 214, .16); --accent-line: rgba(122, 92, 214, .5); }
 
 .section-title {
@@ -285,8 +286,24 @@ button:focus-visible {
 .group > .btn-primary:focus-visible { outline: none !important; }
 
 /* Preset names run longer than tool labels, so these rows get two wider columns */
+.group .action-grid.one-col { grid-template-columns: minmax(0, 1fr); }
 .group .action-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.group .action-grid.preset-grid { margin-top: var(--panel-gap); }
+.group .action-grid.preset-grid,
+.group .action-grid.shortcut-row { margin-top: var(--panel-gap); }
+
+/* Nút phím tắt: nền tối; khi đang nghe phím thì đổ đầy + nhấp nháy viền */
+.group .action-grid > button.shortcut-capture {
+    background: #2f2f2f !important;
+    font-weight: 400 !important;
+}
+.group .action-grid > button.shortcut-capture.listening {
+    background: var(--accent) !important;
+    color: #fff !important;
+    animation: dr7-listening 1s ease-in-out infinite;
+}
+@keyframes dr7-listening {
+    50% { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .6) !important; }
+}
 .group .action-grid.preset-grid:empty { display: none; }
 
 /* Preset áp nhanh: đổ đầy tím, chấm màu phía trước */
