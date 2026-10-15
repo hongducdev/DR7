@@ -1,6 +1,6 @@
 # Changelog
 
-## Đổi tên — SCCTLM_Foto
+## v0.1.2 — Đổi tên thành SCCTLM_Foto
 
 - Plugin và repo GitHub đổi tên từ "MHK DR7" / `hongducdev/DR7` thành **SCCTLM_Foto** (`hongducdev/SCCTLM_Foto`): menu
   Window > Extensions, tiêu đề panel, `Abstract` trong manifest, thông báo, updater (`REPO`), README, tên History/hộp thoại
