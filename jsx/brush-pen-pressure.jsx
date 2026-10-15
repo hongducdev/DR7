@@ -3,9 +3,10 @@
  * (Size Jitter, Angle Jitter, Roundness Jitter) to Pen Pressure.
  *
  * Two entry points:
- *  - DR7 panel button (loader evaluates this file and only registers $._ext_BPP).
- *  - Run directly (File > Scripts > Browse, or the "MHK DR7" action with a function key)
- *    -> runs immediately because the loader's $.dr7Loading flag is not set.
+ *  - DR7 panel "Setup Brush" / "Reset default" buttons (loader evaluates this file and only
+ *    registers $._ext_BPP / $._ext_BPPRESET).
+ *  - Run directly (File > Scripts > Browse) -> runs immediately because the loader's
+ *    $.dr7Loading flag is not set.
  */
 $._ext_BPP = {
     // Photoshop bVTy: 0 Off, 1 Fade, 2 Pen Pressure, 3 Pen Tilt, 4 Stylus Wheel
@@ -53,8 +54,45 @@ $._ext_BPP = {
             options.putObject(key, options.getObjectType(key), control);
         }
         self.writeToolOptions(options);
+    },
+
+    // Panel button state: "setup" (Shape Dynamics on + every Control = Pen Pressure),
+    // "default" (anything else), "none" (current tool has no Shape Dynamics)
+    state: function () {
+        var self = $._ext_BPP;
+        var options = self.readToolOptions();
+        var tipKey = stringIDToTypeID('useTipDynamics');
+        if (!options.hasKey(tipKey)) return 'none';
+        if (!options.getBoolean(tipKey)) return 'default';
+        for (var i = 0; i < self.SHAPE_CONTROLS.length; i += 1) {
+            var key = self.SHAPE_CONTROLS[i];
+            if (!options.hasKey(key) ||
+                options.getObjectValue(key).getInteger(charIDToTypeID('bVTy')) !== self.PEN_PRESSURE) return 'default';
+        }
+        return 'setup';
+    },
+
+    // Undo the setup: every Control back to Off, then Shape Dynamics off (Photoshop defaults).
+    // Controls are only present while Shape Dynamics is on, so both change in one write.
+    reset: function () {
+        var self = $._ext_BPP;
+        var options = self.readToolOptions();
+        var tipKey = stringIDToTypeID('useTipDynamics');
+        if (!options.hasKey(tipKey) || !options.getBoolean(tipKey)) return;
+        for (var i = 0; i < self.SHAPE_CONTROLS.length; i += 1) {
+            var key = self.SHAPE_CONTROLS[i];
+            if (!options.hasKey(key)) continue;
+            var control = options.getObjectValue(key);
+            control.putInteger(charIDToTypeID('bVTy'), 0);
+            options.putObject(key, options.getObjectType(key), control);
+        }
+        options.putBoolean(tipKey, false);
+        self.writeToolOptions(options);
     }
 };
+
+// Panel "Reset default" button (run('ext', 'BPPRESET'))
+$._ext_BPPRESET = { run: function () { $._ext_BPP.reset(); } };
 
 if ($.dr7Loading !== true) {
     try {

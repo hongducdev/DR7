@@ -21,12 +21,21 @@
     // Bundled preset file names: plain characters only, so a name can never
     // climb out of /presets or break out of the generated JS string.
     var PRESET_FILE = /^[A-Za-z0-9 _()-]+(\.[A-Za-z0-9 _()-]+)*\.xmp$/i;
-    // Phím tắt cho Action Pen Pressure (xem jsx/action-shortcut-setup.jsx)
-    var SHORTCUT_KEY = /^(Ctrl\+)?(Shift\+)?F([2-9]|1[0-2])$/;
+    // Danh sách phím tắt Play Action: mỗi dòng "phím\tbộ\tAction" (xem jsx/action-shortcut-setup.jsx).
+    // Rỗng = xoá hết phím. Tên Action không được chứa ký tự điều khiển.
+    var SHORTCUT_LIST = {
+        test: function (text) {
+            return text === '' || String(text).split('\n').every(function (line) {
+                var f = line.split('\t');
+                return f.length === 3 && /^(Ctrl\+)?(Shift\+)?F([2-9]|1[0-2])$/.test(f[0]) &&
+                    f[1] !== '' && f[2] !== '' && !/[\x00-\x1f]/.test(f[1] + f[2]);
+            });
+        }
+    };
 
     // done(res): tuỳ chọn, gọi sau khi Photoshop chạy xong (res = "DR7_OK" / "DR7_CANCEL" / lỗi)
     function run(kind, name, done) {
-        var valid = kind === 'preset' ? PRESET_FILE : kind === 'shortcut' ? SHORTCUT_KEY : /^[A-Za-z_][A-Za-z0-9_]*$/;
+        var valid = kind === 'preset' ? PRESET_FILE : kind === 'shortcut' ? SHORTCUT_LIST : /^[A-Za-z_][A-Za-z0-9_]*$/;
         if (!valid.test(name)) { if (done) done('DR7_INVALID'); return; }
         if (!ready) {
             alert('Lõi Photoshop chưa sẵn sàng. Hãy đóng và mở lại panel.');
@@ -39,12 +48,15 @@
             kind === 'preset' ? '$.dr7ApplyBundledXmp' :
             kind === 'shortcut' ? '$.dr7ShortcutSetup.install' : '$._ext_' + name + '.run';
         var args = kind === 'preset' || kind === 'shortcut' ? JSON.stringify(name) : '';
-        // Only WM (its own batch dialog), BPP (brush setup) and BUGFIX run without an open image;
+        // name đã qua kiểm tra; riêng danh sách phím tắt (nhiều dòng, tên Action tuỳ ý) không được
+        // chèn thô vào mã ExtendScript hay thông báo → dùng nhãn cố định
+        var label = kind === 'shortcut' ? 'Phím tắt Action' : name;
+        // Only WM (its own batch dialog), BPP/BPPRESET (brush setup) and BUGFIX run without an open image;
         // BA processes every open document, so it needs at least one.
         var code = '(function(){var d=app.displayDialogs,u=app.preferences.rulerUnits;' +
-            'try{' + (kind !== 'shortcut' && !/^(WM|BPP|BUGFIX)$/.test(name) ?
+            'try{' + (kind !== 'shortcut' && !/^(WM|BPP|BPPRESET|BUGFIX)$/.test(name) ?
                 'if(!app.documents.length)return "DR7_NO_DOCUMENT";' : '') +
-            'if(typeof ' + target + '!=="function")throw new Error("Missing command: ' + name + '");' +
+            'if(typeof ' + target + '!=="function")throw new Error("Missing command: ' + label + '");' +
             target + '(' + args + ');return "DR7_OK";}catch(e){if(e.number===8007)return "DR7_CANCEL";' +
             'return "DR7_ERROR: "+e+"\\nFile: "+e.fileName+"\\nLine: "+e.line;}' +
             'finally{app.displayDialogs=d;app.preferences.rulerUnits=u;}}())';
@@ -54,7 +66,7 @@
                 if (res === 'DR7_NO_DOCUMENT') {
                     alert('Hãy mở ảnh trong Photoshop trước khi chạy lệnh.');
                 } else if (res !== 'DR7_OK' && res !== 'DR7_CANCEL') {
-                    alert('Photoshop — ' + name + ':\n' + res);
+                    alert('Photoshop — ' + label + ':\n' + res);
                 }
                 if (done) done(res);
             });
@@ -70,10 +82,9 @@
     window.onClickButton = function (name) { run('ext', name); };
     window.dr7ApplyPreset = function (fileName) { run('preset', fileName); };
     // Gọi từ js/shortcut-key-capture.js sau khi người dùng ấn phím
-    window.dr7SetupShortcut = function (key, done) {
-        if (!SHORTCUT_KEY.test(key)) { if (done) done('DR7_INVALID'); return; }
-        run('shortcut', key, done);
-    };
+    window.dr7SetupShortcut = function (list, done) { run('shortcut', list, done); };
+    // Cho module khác (js/brush-setup-controls.js) chạy lệnh $._ext_<name> và nhận kết quả
+    window.dr7RunCommand = function (name, done) { run('ext', name, done); };
 
     // One button per .xmp dropped into /presets, labelled with the file name.
     function renderPresets() {
@@ -111,6 +122,7 @@
         box.className = 'panel-status' + (isError ? ' is-error' : '');
         fitHeight();
     }
+    window.dr7Status = status;
     function showRelease(result) {
         release = result;
         var label = document.querySelector('.panel-version');
@@ -157,6 +169,7 @@
     window.onLoaded = function () {
         renderPresets();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();
+        if (window.dr7InitBrushSetup) window.dr7InitBrushSetup();
         fitHeight();
         // Silent check: an offline panel simply shows no badge.
         if (window.dr7Updater && base && window.cep) {

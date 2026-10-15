@@ -31,7 +31,7 @@
 
 - **Giao diện 100% tiếng Việt**: Mọi nút bấm, nhãn và chú thích (tooltip) được bản địa hóa chuẩn xác theo thuật ngữ nhiếp ảnh và đồ họa chuyên nghiệp.
 - **Bố cục Responsive tối ưu**: Chiều rộng chuẩn 235px của panel CEP, lưới nút bấm 3 cột tự động co giãn theo nội dung, cuộn dọc mượt mà, tương thích hoàn hảo với mọi kích thước màn hình.
-- **Giao diện gọn, không nút chết**: Giữ 24 chức năng đang hoạt động, chia 3 nhóm card, cộng nút preset màu tự sinh từ thư mục `presets/`; toàn bộ nút mờ và script không dùng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
+- **Giao diện gọn, không nút chết**: Giữ 24 chức năng đang hoạt động, chia 4 nhóm card, cộng nút preset màu tự sinh từ thư mục `presets/`; toàn bộ nút mờ và script không dùng đã bị gỡ khỏi mã nguồn nên panel nạp nhanh và không báo lỗi "Missing command".
 - **Xử lý ảnh không phá hủy (Non-destructive)**: Mọi thao tác đều sinh layer, mask hoặc adjustment layer riêng biệt, dễ dàng tinh chỉnh Opacity, Blend Mode hoặc đảo ngược bất cứ lúc nào.
 - **Hỗ trợ ảnh RGB 8-bit và 16-bit**: Các thuật toán xử lý màu sắc và kết cấu vận hành chính xác trên cả định dạng ảnh tiêu chuẩn và ảnh chất lượng cao.
 - **Hiệu năng cao & Bảo mật**: Vận hành hoàn toàn cục bộ trên nền tảng chuẩn Adobe CEP + ExtendScript, không phụ thuộc thư viện ngoài nặng nề, không gửi dữ liệu qua mạng.
@@ -111,7 +111,7 @@ Nếu muốn tự triển khai hoặc cài đặt cho toàn bộ người dùng 
 
 ## Bảng chức năng
 
-Bảng điều khiển **MHK DR7** bao gồm **24 chức năng đang hoạt động** chia 3 nhóm, cộng **1 nút cho mỗi preset `.xmp`** trong thư mục `presets/`.
+Bảng điều khiển **MHK DR7** bao gồm **24 chức năng đang hoạt động** chia 4 nhóm, cộng **1 nút cho mỗi preset `.xmp`** trong thư mục `presets/`.
 Toàn bộ nút mờ (không khả dụng) cùng script, hàm lõi và tài nguyên của chúng đã được gỡ bỏ hoàn toàn,
 nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 
@@ -130,7 +130,10 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 │ │ [ Hạt thô ] [ Chấm ]                               │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● BRUSH ──────────────────────────────────────────┐ │
-│ │ [                Pen Pressure                ]     │ │
+│ │ [ ✓ Setup Brush ]       [ Reset default ]          │ │
+│ └────────────────────────────────────────────────────┘ │
+│ ┌─ ● PHÍM TẮT ACTION ────────────────────────────────┐ │
+│ │ [ Gradient Map  —  Shift+F3                  ▾ ]   │ │
 │ │ [           ⌨ Phím tắt: Shift+F3             ]     │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● MÀU & PRESET ───────────────────────────────────┐ │
@@ -156,7 +159,8 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 |---|---|---|
 | **Đánh Khối** | `DB` | Tạo tự động nhóm layer Dodge & Burn kèm đường cong Curves và mặt nạ đen, sẵn sàng quét sáng/tối tạo khối gương mặt. |
 | **Làm nét** | `SH` | Tăng chi tiết tóc và đường viền chân dung. |
-| **Pen Pressure** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về Pen Pressure (đang cầm công cụ không phải cọ thì tự chuyển sang Brush). Không cần mở ảnh. Gán phím tắt: bấm **⌨ Phím tắt** rồi ấn phím (xem bên dưới). |
+| **Setup Brush** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về Pen Pressure (đang cầm công cụ không phải cọ thì tự chuyển sang Brush). Không cần mở ảnh. Xong thì báo thành công, nút mờ đi (✓) và hiện **Reset default** bên cạnh. Trạng thái đọc từ cọ hiện tại mỗi khi quay lại panel. |
+| **Reset default** | `BPPRESET` | Trả cọ về mặc định của Photoshop: mọi Control = Off, tắt Shape Dynamics; nút Setup Brush bấm được lại. |
 | **Phủ phấn** | `TJSH` | Giảm độ bóng nhờn, tạo hiệu ứng da phủ phấn mịn màng như trang điểm thực tế. |
 | **Highlight** | `GGXS` | Tạo điểm nhấn bắt sáng tự nhiên tại sống mũi, gò má, cằm và trán. |
 
@@ -185,13 +189,19 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | **Camera Raw** | `DKACR` | Khởi chạy trực tiếp bộ lọc Adobe Camera Raw. |
 | **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt. |
 
-> **Gán phím tắt cho Pen Pressure:** trong nhóm Brush bấm **⌨ Phím tắt** (nút chuyển xanh, đang nghe) → ấn tổ hợp phím
-> F2–F12, có thể kèm Shift và/hoặc Ctrl (vd `Shift+F3`, `Ctrl+Shift+F11`). Esc hoặc bấm nút lần nữa để huỷ.
-> Phím khác (chữ, số, Alt…) bị từ chối vì Action của Photoshop chỉ nhận phím F.
-> Panel tự tạo bộ Action **MHK DR7 › Pen Pressure** gắn sẵn phím đó (gán lại sẽ thay bộ cũ, không tạo trùng).
-> Từ đó bấm phím ở bất kỳ đâu trong Photoshop là cọ được set ngay, không cần mở panel.
+> **Phím tắt Play Action:** trong nhóm **Phím tắt Action** chọn Action (danh sách lấy từ bảng Actions, mọi bộ
+> trừ bộ **MHK DR7** do panel tự dựng) → bấm **⌨ Gán phím tắt** (nút chuyển xanh, đang nghe) → ấn F2–F12, có thể kèm Shift và/hoặc Ctrl
+> (vd `F5`, `Shift+F3`, `Ctrl+Shift+F11`). **Backspace/Delete** xoá phím của Action đó; Esc hoặc bấm nút lần nữa để huỷ.
+> Phím khác (chữ, số, Alt…) bị từ chối vì Action của Photoshop chỉ nhận phím F. Mỗi phím chỉ Play 1 Action
+> (gán phím đã dùng cho Action khác thì phím chuyển sang Action mới).
+>
+> Cách hoạt động: Photoshop không cho script đặt phím lên Action có sẵn, nên panel dựng lại bộ **MHK DR7** gồm
+> mỗi phím một Action `▶ <tên Action> (<bộ>)` có gắn phím, chỉ 1 bước Play Action gốc (hết phím thì bộ bị xoá).
+> Action gốc của bạn không bị sửa. Danh sách phím lưu trong panel; xoá bộ MHK DR7 bằng tay thì gán lại 1 phím bất kỳ
+> để dựng lại. Action mới tạo trong Photoshop xuất hiện trong danh sách khi quay lại panel.
+>
 > Nếu phím trùng phím tắt menu (vd F2 = Cut, F3 = Copy, F4 = Paste), Photoshop hỏi *"Remove the conflicting action shortcuts?"*:
-> chọn **No** để phím chạy Pen Pressure, **Yes** để giữ phím cho menu (Action khi đó không có phím).
+> chọn **No** để phím Play Action, **Yes** để giữ phím cho menu (Action khi đó không có phím).
 
 > **Thêm preset màu:** chép file `.xmp` (preset Camera Raw / Lightroom) vào thư mục `presets/` của plugin
 > (`%APPDATA%\Adobe\CEP\extensions\DR7\presets`) rồi bấm **↻**. Mỗi file thành một nút, nhãn là tên file.
@@ -260,7 +270,8 @@ DR7/
 │   ├── CSInterface.js       # Thư viện giao tiếp Adobe CEP tiêu chuẩn
 │   ├── github-updater.js    # Kiểm tra & cài GitHub Release mới nhất (cep.fs, không cần Node)
 │   ├── dev-source-sync.js   # ↻ trên máy dev: chép code mới từ thư mục nguồn (.dr7-dev-source)
-│   ├── shortcut-key-capture.js # Nút ⌨ Phím tắt: nghe phím F người dùng ấn rồi gán cho Pen Pressure
+│   ├── shortcut-key-capture.js # Nhóm Phím tắt Action: chọn Action, nghe phím F người dùng ấn, lưu danh sách phím
+│   ├── brush-setup-controls.js # Nhóm Brush: Setup Brush / Reset default, trạng thái nút theo cọ hiện tại
 │   └── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop, header Nạp lại/Cập nhật
 ├── jsx/
 │   ├── 4.jsxbin             # Hộp thoại Chữ / Logo (WM)
@@ -269,8 +280,8 @@ DR7/
 │   ├── Photoshop.jsx        # Tiện ích Crash Bug Fix (chạy khi mở panel)
 │   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ hoa văn (.pat)
 │   ├── preset-lut.jsx       # Lõi áp dụng Preset Camera Raw (.xmp): chọn file hoặc preset đóng gói
-│   ├── brush-pen-pressure.jsx # Pen Pressure (BPP) — chạy được độc lập (Action gọi file này)
-│   ├── action-shortcut-setup.jsx # Gán phím: tự sinh .atn bộ "MHK DR7" có phím F rồi nạp vào Photoshop
+│   ├── brush-pen-pressure.jsx # Setup Brush (BPP) / Reset default (BPPRESET) / trạng thái cọ; chạy được độc lập
+│   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh .atn bộ "MHK DR7" (▶ Play Action có phím F) rồi nạp
 │   └── *.jsx                # Module chuyên biệt còn dùng: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
 ├── presets/                 # Preset .xmp đóng gói — mỗi file thành 1 nút trên panel
 ├── img/

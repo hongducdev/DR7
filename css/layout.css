@@ -291,6 +291,37 @@ button:focus-visible {
 .group .action-grid.preset-grid,
 .group .action-grid.shortcut-row { margin-top: var(--panel-gap); }
 
+/* Setup Brush đã chạy: vẫn hiện (khác nút chết bị ẩn ở trên) nhưng mờ, không bấm được */
+.group .action-grid > button.brush-setup-run[disabled] {
+    display: block;
+    opacity: .55;
+    cursor: default;
+}
+.group .action-grid > button.brush-setup-run[disabled]:hover {
+    background: var(--accent-soft) !important;
+    color: #e6e6e6 !important;
+}
+.group .action-grid > button[hidden] { display: none; }
+
+/* Ô chọn Action cần gán phím: cùng khung với nút trong nhóm */
+.group .action-grid > select.shortcut-action {
+    width: 100%;
+    min-width: 0;
+    height: 23px;
+    margin: 0;
+    padding: 0 4px;
+    border: 0;
+    border-radius: 6px;
+    background: #2f2f2f;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    color: #e6e6e6;
+    font: 400 10.5px "Segoe UI", Tahoma, sans-serif;
+    outline: none;
+    cursor: pointer;
+}
+.group .action-grid > select.shortcut-action optgroup { color: #9a9a9a; font-style: normal; }
+.group .action-grid > select.shortcut-action option { color: #e6e6e6; background: #2f2f2f; }
+
 /* Nút phím tắt: nền tối; khi đang nghe phím thì đổ đầy + nhấp nháy viền */
 .group .action-grid > button.shortcut-capture {
     background: #2f2f2f !important;

@@ -1,14 +1,17 @@
 /*
- * One-click shortcut (F2-F12, optionally with Shift and/or Ctrl/Cmd) for the Pen Pressure command.
+ * Function-key shortcuts (F2-F12, optionally with Shift and/or Ctrl/Cmd) that PLAY any action.
  *
- * Scripts cannot get keyboard shortcuts, but actions can have function keys. So we
- * generate an .atn file (set "MHK DR7" with one action that runs jsx/brush-pen-pressure.jsx,
- * key already assigned) and load it - instead of the user recording the action by hand.
+ * Scripts cannot set a key on an existing action ("Set" is not available for actions), but an
+ * .atn file can carry one. So we generate the set "MHK DR7" with one action per binding,
+ * "\u25B6 <action> (<set>)", that has the key and whose only step plays the target, and load it,
+ * replacing the previous "MHK DR7" set (removed when no binding is left).
+ * The user's own actions are never touched.
  * .atn layout: Adobe Photoshop File Formats, "Actions file format".
  */
 $.dr7ShortcutSetup = {
     SET_NAME: 'MHK DR7',
-    ACTION_NAME: 'Pen Pressure',
+    PLAY_PREFIX: '\u25B6 ',
+    KEY: /^(Ctrl\+)?(Shift\+)?F([2-9]|1[0-2])$/,
 
     u8: function (n) { return String.fromCharCode(n & 255); },
     u16: function (n) { return String.fromCharCode((n >>> 8) & 255, n & 255); },
@@ -21,60 +24,97 @@ $.dr7ShortcutSetup = {
     },
     ascii: function (s) { return this.u32(s.length) + s; },
 
-    // One action step = File > Scripts > Browse... on the script file
-    scriptStep: function (scriptFile) {
-        var desc = new ActionDescriptor();
-        desc.putPath(charIDToTypeID('jsCt'), scriptFile);
-        desc.putString(charIDToTypeID('jsMs'), 'undefined');
-        return this.u8(0) + this.u8(1) + this.u8(0) + this.u8(0) +      // expanded, enabled, dialog, dialog options
-            'TEXT' + this.ascii('AdobeScriptAutomation Scripts') + this.ascii('Scripts') +
+    // One step: expanded, enabled, dialog, dialog options, event (4-char id), display name, descriptor
+    step: function (charId, displayName, desc) {
+        return this.u8(0) + this.u8(1) + this.u8(0) + this.u8(0) + 'long' + charId + this.ascii(displayName) +
             this.u32(0xFFFFFFFF) + desc.toStream().substring(4);       // toStream() starts with a 4-byte version
     },
 
-    buildAtn: function (scriptFile, fKey, shift, ctrl) {
-        var action = this.u16(fKey) + this.u8(shift ? 1 : 0) + this.u8(ctrl ? 1 : 0) + this.u16(0) +   // function key, Shift, Ctrl/Cmd, colour
-            this.unicode(this.ACTION_NAME) + this.u8(0) + this.u32(1) + this.scriptStep(scriptFile);
-        return this.u32(16) + this.unicode(this.SET_NAME) + this.u8(1) + this.u32(1) + action;
+    // Play <setName> > <actionName>
+    playStep: function (setName, actionName) {
+        var ref = new ActionReference();
+        ref.putName(charIDToTypeID('Actn'), actionName);
+        ref.putName(charIDToTypeID('ASet'), setName);
+        var desc = new ActionDescriptor();
+        desc.putReference(charIDToTypeID('null'), ref);
+        return this.step('Ply ', 'Play', desc);
     },
 
-    setExists: function () {
+    // key: null for no shortcut, otherwise a KEY match
+    action: function (name, key, stepBytes) {
+        var m = key ? this.KEY.exec(key) : null;
+        return this.u16(m ? parseInt(m[3], 10) : 0) + this.u8(m && m[2] ? 1 : 0) + this.u8(m && m[1] ? 1 : 0) +
+            this.u16(0) + this.unicode(name) + this.u8(0) + this.u32(1) + stepBytes;   // colour none, collapsed, 1 step
+    },
+
+    // Visits every action as fn(setName, actionName); stops early when fn returns true
+    eachAction: function (fn) {
         for (var i = 1; ; i += 1) {
-            var ref = new ActionReference();
-            ref.putIndex(charIDToTypeID('ASet'), i);
-            var desc;
+            var setRef = new ActionReference();
+            setRef.putIndex(charIDToTypeID('ASet'), i);
+            var set;
             try {
-                desc = executeActionGet(ref);
+                set = executeActionGet(setRef);
             } catch (e) {
-                return false;                                   // past the last action set
+                return;                                         // past the last action set
             }
-            if (desc.getString(charIDToTypeID('Nm  ')) === this.SET_NAME) return true;
+            var setName = set.getString(charIDToTypeID('Nm  '));
+            var count = set.hasKey(stringIDToTypeID('numberOfChildren')) ? set.getInteger(stringIDToTypeID('numberOfChildren')) : 0;
+            for (var j = 1; j <= count; j += 1) {
+                var ref = new ActionReference();
+                ref.putIndex(charIDToTypeID('Actn'), j);
+                ref.putIndex(charIDToTypeID('ASet'), i);
+                if (fn(setName, executeActionGet(ref).getString(charIDToTypeID('Nm  ')))) return;
+            }
         }
     },
 
-    // Remove the previous set so reloading never leaves two "MHK DR7" sets
-    deleteOldSet: function () {
-        if (!this.setExists()) return;
-        var ref = new ActionReference();
-        ref.putName(charIDToTypeID('ASet'), this.SET_NAME);
-        var desc = new ActionDescriptor();
-        desc.putReference(charIDToTypeID('null'), ref);
-        executeAction(charIDToTypeID('Dlt '), desc, DialogModes.NO);
+    // "set\taction\n..." for the panel's picker, without our own play wrappers
+    listActions: function () {
+        var self = $.dr7ShortcutSetup, out = [];
+        self.eachAction(function (setName, actionName) {
+            if (setName === self.SET_NAME) return false;           // our generated play wrappers
+            out.push(setName + '\t' + actionName);
+            return false;
+        });
+        return out.join('\n');
     },
 
-    // key: "[Ctrl+][Shift+]F2".."[Ctrl+][Shift+]F12" (built by js/shortcut-key-capture.js)
-    install: function (key) {
+    exists: function (setName, actionName) {
+        var found = false;
+        this.eachAction(function (s, a) {
+            found = s === setName && (actionName === null || a === actionName);
+            return found;
+        });
+        return found;
+    },
+
+    // bindings: "key\tset\taction\n..." (built by js/shortcut-key-capture.js)
+    install: function (bindings) {
         var self = $.dr7ShortcutSetup;
-        var match = /^(Ctrl\+)?(Shift\+)?F([2-9]|1[0-2])$/.exec(String(key));
-        if (!match) throw new Error('Ph\u00edm kh\u00f4ng h\u1ee3p l\u1ec7: ' + key);
-        var script = new File($.dr7Base + '/jsx/brush-pen-pressure.jsx');
-        if (!script.exists) throw new Error('Kh\u00f4ng th\u1ea5y ' + script.fsName);
+        var actions = [];
+        var lines = String(bindings).split('\n');
+        for (var i = 0; i < lines.length; i += 1) {
+            var f = lines[i].split('\t');
+            // Our own set is rebuilt below, so it can never be a target; missing targets are dropped
+            if (f.length !== 3 || !self.KEY.test(f[0]) || f[1] === self.SET_NAME || !self.exists(f[1], f[2])) continue;
+            actions.push(self.action(self.PLAY_PREFIX + f[2] + ' (' + f[1] + ')', f[0], self.playStep(f[1], f[2])));
+        }
+        if (self.exists(self.SET_NAME, null)) {
+            var ref = new ActionReference();
+            ref.putName(charIDToTypeID('ASet'), self.SET_NAME);
+            var desc = new ActionDescriptor();
+            desc.putReference(charIDToTypeID('null'), ref);
+            executeAction(charIDToTypeID('Dlt '), desc, DialogModes.NO);
+        }
+        if (!actions.length) return 0;                            // no shortcuts left: no empty set
         var atn = new File(Folder.temp + '/dr7-shortcut.atn');
         atn.encoding = 'BINARY';
-        if (!atn.open('w')) throw new Error('Kh\u00f4ng ghi \u0111\u01b0\u1ee3c ' + atn.fsName);
-        atn.write(self.buildAtn(script, parseInt(match[3], 10), !!match[2], !!match[1]));
+        if (!atn.open('w')) throw new Error('Kh\u00F4ng ghi \u0111\u01B0\u1EE3c ' + atn.fsName);
+        atn.write(self.u32(16) + self.unicode(self.SET_NAME) + self.u8(1) + self.u32(actions.length) + actions.join(''));
         atn.close();
-        self.deleteOldSet();
         app.load(atn);
         atn.remove();
+        return actions.length;                                    // number of shortcuts installed
     }
 };

@@ -73,10 +73,15 @@
 	<section class="group group-brush" aria-label="Brush">
 		<div class="section-title">Brush</div>
 		<div class="action-grid one-col">
-			<button onclick="onClickButton('BPP')" title="Bật Shape Dynamics, mọi Control = Pen Pressure">Pen Pressure</button>
+			<button class="brush-setup-run" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Setup Brush</button>
+			<button class="brush-setup-reset" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Reset default</button>
 		</div>
-		<div class="action-grid one-col shortcut-row">
-			<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt cho Pen Pressure">⌨ Đặt phím tắt</button>
+	</section>
+	<section class="group group-shortcut" aria-label="Phím tắt Action">
+		<div class="section-title">Phím tắt Action</div>
+		<div class="action-grid one-col">
+			<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
+			<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">⌨ Gán phím tắt</button>
 		</div>
 	</section>
 	<section class="group group-color" aria-label="Màu và Preset">
@@ -92,6 +97,7 @@
 <script type="text/javascript" src="./js/github-updater.js"></script>
 <script type="text/javascript" src="./js/dev-source-sync.js"></script>
 <script type="text/javascript" src="./js/shortcut-key-capture.js"></script>
+<script type="text/javascript" src="./js/brush-setup-controls.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 
 
