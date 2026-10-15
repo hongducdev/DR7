@@ -8,7 +8,7 @@ const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 const html = read('index.html');
 const manifest = read('CSXS/manifest.xml');
 assert.match(manifest, /<Menu>SCCTLM_Foto<\/Menu>/);
-assert.match(manifest, /<Size><Height>580<\/Height><Width>235<\/Width><\/Size>/);
+assert.match(manifest, /<Size><Height>580<\/Height><Width>300<\/Width><\/Size>/);
 assert.equal((manifest.match(/\.\/img\/icon-large\.png/g) || []).length, 2);
 // The GitHub updater compares release tags with the panel Version; bundle and panel must agree.
 const bundleVersion = /ExtensionBundleVersion="(\d+\.\d+\.\d+)"/.exec(manifest);

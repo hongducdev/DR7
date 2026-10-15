@@ -44,68 +44,107 @@
 		</button>
 	</header>
 	<div class="panel-status" role="status" hidden></div>
-	<section class="group group-retouch" aria-label="Retouch">
-		<div class="section-title">Retouch</div>
-		<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu">Làm Da V5.0</button>
-		<div class="action-grid">
-			<button onclick="onClickButton('SE')" title="Làm da với bán kính, độ sâu chi tiết và bảo vệ vùng sáng tự chọn">Tuỳ chỉnh</button>
-			<button onclick="onClickButton('BA')" title="Làm da cho tất cả ảnh đang mở">Hàng loạt</button>
-			<button onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
-			<button onclick="onClickButton('LS')" title="Làm mịn da">Làm mịn</button>
-			<button onclick="onClickButton('RE')" title="Tẩy lông">Tẩy lông</button>
-			<button onclick="onClickButton('DB')" title="Đánh khối">Đánh Khối</button>
-			<button onclick="doa('GGXS')" title="Làm sáng vùng highlight">Highlight</button>
-			<button onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
-			<button onclick="onClickButton('TC')" title="Màu da">Màu Da</button>
-			<button onclick="doa('MBPF')" title="Trắng da">Trắng Da</button>
-			<button onclick="doa('TJSH')" title="Phủ phấn">Phủ phấn</button>
-			<button onclick="doa('JMXS')" title="Lông mi">Lông Mi</button>
-			<button onclick="doa('TJYY')" title="Bóng mắt">Bóng Mắt</button>
-			<button onclick="doa('ZCZQ')" title="Son môi">Son Môi</button>
-			<button onclick="onClickButton('WT')" title="Trắng răng">Trắng Răng</button>
-			<button onclick="doa('CGYSB')" title="Lớp hào quang Screen">Hào Quang</button>
-			<button onclick="onClickButton('SH')" title="Làm nét">Làm nét</button>
-			<button onclick="doa('MLXG')" title="Hoa văn hạt phim">Hạt phim</button>
-			<button onclick="doa('mcwl')" title="Hoa văn hạt thô">Hạt thô</button>
-			<button onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
+	<nav class="tab-bar" role="tablist" aria-label="Mục chức năng">
+		<button class="tab-button is-active" role="tab" data-tab="retouch" aria-selected="true">Retouch</button>
+		<button class="tab-button" role="tab" data-tab="artboard" aria-selected="false">Artboard</button>
+		<button class="tab-button" role="tab" data-tab="explore" aria-selected="false">Khám phá</button>
+		<button class="tab-button tab-support" role="tab" data-tab="support" aria-selected="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.5S2.5 10 2.5 6A2.9 2.9 0 0 1 8 4.8 2.9 2.9 0 0 1 13.5 6C13.5 10 8 13.5 8 13.5z"/></svg>Ủng Hộ</button>
+	</nav>
+	<div class="tab-pane" role="tabpanel" data-tab="retouch">
+		<section class="group group-retouch" aria-label="Retouch">
+			<div class="section-title">Retouch</div>
+			<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu">Làm Da V5.0</button>
+			<div class="action-grid">
+				<button onclick="onClickButton('SE')" title="Làm da với bán kính, độ sâu chi tiết và bảo vệ vùng sáng tự chọn">Tuỳ chỉnh</button>
+				<button onclick="onClickButton('BA')" title="Làm da cho tất cả ảnh đang mở">Hàng loạt</button>
+				<button onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
+				<button onclick="onClickButton('LS')" title="Làm mịn da">Làm mịn</button>
+				<button onclick="onClickButton('RE')" title="Tẩy lông">Tẩy lông</button>
+				<button onclick="onClickButton('DB')" title="Đánh khối">Đánh Khối</button>
+				<button onclick="doa('GGXS')" title="Làm sáng vùng highlight">Highlight</button>
+				<button onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
+				<button onclick="onClickButton('TC')" title="Màu da">Màu Da</button>
+				<button onclick="doa('MBPF')" title="Trắng da">Trắng Da</button>
+				<button onclick="doa('TJSH')" title="Phủ phấn">Phủ phấn</button>
+				<button onclick="doa('JMXS')" title="Lông mi">Lông Mi</button>
+				<button onclick="doa('TJYY')" title="Bóng mắt">Bóng Mắt</button>
+				<button onclick="doa('ZCZQ')" title="Son môi">Son Môi</button>
+				<button onclick="onClickButton('WT')" title="Trắng răng">Trắng Răng</button>
+				<button onclick="doa('CGYSB')" title="Lớp hào quang Screen">Hào Quang</button>
+				<button onclick="onClickButton('SH')" title="Làm nét">Làm nét</button>
+				<button onclick="doa('MLXG')" title="Hoa văn hạt phim">Hạt phim</button>
+				<button onclick="doa('mcwl')" title="Hoa văn hạt thô">Hạt thô</button>
+				<button onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
+			</div>
+		</section>
+		<section class="group group-brush" aria-label="Cọ vẽ">
+			<div class="section-title">Cọ vẽ</div>
+			<div class="action-grid one-col">
+				<button class="brush-setup-run" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
+				<button class="brush-setup-reset" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
+			</div>
+		</section>
+		<section class="group group-shortcut" aria-label="Action">
+			<div class="section-title">Action</div>
+			<!-- panel.js thêm 1 nút cho mỗi file .atn trong thư mục presets/ -->
+			<div class="action-grid one-col atn-grid" hidden></div>
+			<!-- hiện sau khi nạp Action thành công (js/rim-color-controls.js) -->
+			<div class="action-grid two-col rim-color-row" hidden>
+				<input type="color" class="rim-color-input" value="#ffffff" title="Màu cho lớp Color của Rim Light (mặc định là màu Foreground hiện tại)" aria-label="Màu Rim Light">
+				<button class="rim-color-apply" title="Tô lớp Color trong nhóm Rim Light bằng màu đã chọn bên cạnh">Màu Rim Light</button>
+			</div>
+			<div class="action-grid one-col">
+				<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
+				<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">⌨ Gán phím tắt</button>
+			</div>
+		</section>
+		<section class="group group-color" aria-label="Màu và Preset">
+			<div class="section-title">Màu &amp; Preset</div>
+			<div class="action-grid two-col">
+				<button onclick="doa('DKACR')" title="Mở bộ lọc Camera Raw">Camera Raw</button>
+				<button onclick="doa('APPLY_PRESET_XMP')" title="Chọn file Preset Camera Raw (.xmp) bất kỳ">Preset XMP…</button>
+			</div>
+			<!-- panel.js thêm 1 nút cho mỗi file .xmp trong thư mục presets/ -->
+			<div class="action-grid two-col preset-grid"></div>
+		</section>
+	</div>
+	<div class="tab-pane" role="tabpanel" data-tab="artboard" hidden>
+		<p class="tab-empty">Artboard — sắp có.</p>
+	</div>
+	<div class="tab-pane" role="tabpanel" data-tab="explore" hidden>
+		<p class="tab-empty">Khám phá — sắp có.</p>
+	</div>
+	<div class="tab-pane" role="tabpanel" data-tab="support" hidden>
+		<div class="support-card">
+			<svg class="support-mug" viewBox="0 0 80 80" aria-hidden="true">
+				<path class="steam steam-1" d="M30 20c-4-5 4-7 0-12" fill="none" stroke="#f3efe6" stroke-width="2.4" stroke-linecap="round"/>
+				<path class="steam steam-2" d="M40 22c-4-5 4-8 0-14" fill="none" stroke="#f3efe6" stroke-width="2.4" stroke-linecap="round"/>
+				<path class="sparkle" d="M64 12l1.6 4 4 1.6-4 1.6L64 23l-1.6-3.8-4-1.6 4-1.6z" fill="#f7c948"/>
+				<path d="M14 30h42v20a14 14 0 0 1-14 14H28a14 14 0 0 1-14-14z" fill="#f8f4ea" stroke="#000" stroke-width="3"/>
+				<path d="M56 36h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#000" stroke-width="3"/>
+				<ellipse cx="35" cy="30" rx="21" ry="4.5" fill="#6b3a1e" stroke="#000" stroke-width="2.5"/>
+				<path class="mug-heart" d="M35 55s-9-5.5-9-11a5 5 0 0 1 9-2.4A5 5 0 0 1 44 44c0 5.500-9 11-9 11z" fill="#f50008"/>
+			</svg>
+			<h2 class="support-title">Đồng hành cùng SCCTLM</h2>
+			<p class="support-text">Nếu plugin hữu ích với bạn, hãy góp sức để SCCTLM tiếp tục phát triển.</p>
+			<div class="support-qr">
+				<svg viewBox="0 0 52 52" aria-hidden="true">
+					<path d="M2 14V2h12M38 2h12v12M50 38v12H38M14 50H2V38" fill="none" stroke="#777" stroke-width="3"/>
+					<path d="M26 36s-9-5.500-9-11a5 5 0 0 1 9-2.400A5 5 0 0 1 35 25c0 5.500-9 11-9 11z" fill="#f50008"/>
+				</svg>
+				<strong>QR ỦNG HỘ</strong>
+				<span>Đang chờ mã QR chính thức</span>
+			</div>
+			<p class="support-thanks">Cảm ơn bạn đã đồng hành ♡</p>
 		</div>
-	</section>
-	<section class="group group-brush" aria-label="Cọ vẽ">
-		<div class="section-title">Cọ vẽ</div>
-		<div class="action-grid one-col">
-			<button class="brush-setup-run" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
-			<button class="brush-setup-reset" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
-		</div>
-	</section>
-	<section class="group group-shortcut" aria-label="Action">
-		<div class="section-title">Action</div>
-		<!-- panel.js thêm 1 nút cho mỗi file .atn trong thư mục presets/ -->
-		<div class="action-grid one-col atn-grid" hidden></div>
-		<!-- hiện sau khi nạp Action thành công (js/rim-color-controls.js) -->
-		<div class="action-grid two-col rim-color-row" hidden>
-			<input type="color" class="rim-color-input" value="#ffffff" title="Màu cho lớp Color của Rim Light (mặc định là màu Foreground hiện tại)" aria-label="Màu Rim Light">
-			<button class="rim-color-apply" title="Tô lớp Color trong nhóm Rim Light bằng màu đã chọn bên cạnh">Màu Rim Light</button>
-		</div>
-		<div class="action-grid one-col">
-			<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
-			<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">⌨ Gán phím tắt</button>
-		</div>
-	</section>
-	<section class="group group-color" aria-label="Màu và Preset">
-		<div class="section-title">Màu &amp; Preset</div>
-		<div class="action-grid two-col">
-			<button onclick="doa('DKACR')" title="Mở bộ lọc Camera Raw">Camera Raw</button>
-			<button onclick="doa('APPLY_PRESET_XMP')" title="Chọn file Preset Camera Raw (.xmp) bất kỳ">Preset XMP…</button>
-		</div>
-		<!-- panel.js thêm 1 nút cho mỗi file .xmp trong thư mục presets/ -->
-		<div class="action-grid two-col preset-grid"></div>
-	</section>
+	</div>
 </div>
 <script type="text/javascript" src="./js/github-updater.js"></script>
 <script type="text/javascript" src="./js/dev-source-sync.js"></script>
 <script type="text/javascript" src="./js/shortcut-key-capture.js"></script>
 <script type="text/javascript" src="./js/brush-setup-controls.js"></script>
 <script type="text/javascript" src="./js/rim-color-controls.js"></script>
+<script type="text/javascript" src="./js/tab-switcher.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 
 

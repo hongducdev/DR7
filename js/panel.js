@@ -3,6 +3,7 @@
     'use strict';
 
     var cs = new CSInterface();
+    var PANEL_MIN_WIDTH = 300;
     var ready = false;
     var busy = false;
     window.dr7IsBusy = function () { return busy; };
@@ -141,7 +142,8 @@
         var panel = document.querySelector('.panel');
         if (!panel) return;
         var height = Math.ceil(panel.getBoundingClientRect().bottom + window.pageYOffset);
-        cs.resizeContent(document.documentElement.clientWidth, height);
+        // Photoshop nhớ bề rộng cũ của panel: nâng lên tối thiểu PANEL_MIN_WIDTH (khớp MinSize trong manifest)
+        cs.resizeContent(Math.max(document.documentElement.clientWidth, PANEL_MIN_WIDTH), height);
     }
 
     // --- Cập nhật từ GitHub Release (logic trong js/github-updater.js) ---
@@ -210,6 +212,7 @@
     };
 
     window.onLoaded = function () {
+        if (window.dr7InitTabs) window.dr7InitTabs();
         renderPresets();
         renderActionFiles();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();

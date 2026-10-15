@@ -43,7 +43,7 @@ window.addEventListener("load", function () {
   }).map(function (x) { return x.textContent.trim() + "(" + Math.round(x.clientWidth) + "px)"; });
   out.push("tight=" + JSON.stringify(tight));
   out.push("wrap=" + JSON.stringify(bad(function (x) { return x.scrollHeight > x.clientHeight + 1; })));
-  out.push("loose=" + JSON.stringify(bad(function (x) { return !/row|tools|action-grid/.test(x.parentNode.className || ""); })));
+  out.push("loose=" + JSON.stringify(bad(function (x) { return !/row|tools|action-grid|tab-bar/.test(x.parentNode.className || ""); })));
   out.push("ngoai=" + JSON.stringify(bad(function (x) { var q = x.getBoundingClientRect(); return q.left < r.left - 0.5 || q.right > r.right + 0.5; })));
   out.push("overflowY=" + getComputedStyle(b).overflowY);
   out.push("scrollbar=" + (window.innerWidth - de.clientWidth) + "px");
