@@ -113,3 +113,14 @@
 .explore .explore-blue { margin-top: 6px; padding: 3px 10px; border-radius: 12px; background: #1877f2; color: #fff; font-size: 10px; font-weight: 600; line-height: 16px; transition: background 140ms, transform 140ms, box-shadow 140ms; }
 .explore .explore-blue:hover { background: #2f88ff; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(24, 119, 242, .4); }
 .explore .explore-blue:active { transform: translateY(1px); box-shadow: none; }
+
+/* Nút "Xem kênh": pill đỏ YouTube, hover đổ đầy màu */
+.explore .explore-channel .explore-outline { padding: 4px 12px; border-color: rgba(245, 0, 8, .6); border-radius: 14px; background: rgba(245, 0, 8, .1); color: #ff6a70; font-weight: 600; }
+.explore .explore-channel .explore-outline:hover { border-color: var(--rose); background: var(--rose); color: #fff; box-shadow: 0 3px 8px rgba(245, 0, 8, .35); transform: translateY(-1px); }
+.explore .explore-channel .explore-outline:active { transform: translateY(1px); box-shadow: none; }
+
+/* Chip chủ đề: nền tối, viền đỏ khi hover, chip đang chọn đổ đỏ như tab */
+.explore .explore-chips { gap: 4px; }
+.explore .explore-chip { padding: 3px 8px; border-color: #444; background: #232323; color: #bdbdbd; }
+.explore .explore-chip:hover { border-color: rgba(245, 0, 8, .6); background: rgba(245, 0, 8, .1); color: #ff9a9e; }
+.explore .explore-chip.is-active, .explore .explore-chip.is-active:hover { border-color: var(--rose); background: var(--rose); color: #fff; box-shadow: 0 2px 6px rgba(245, 0, 8, .3); }
