@@ -211,4 +211,5 @@
         window.addEventListener('focus', refreshActions);       // quay lại panel → bắt Action mới tạo trong Photoshop
         refreshActions();
     };
+    window.dr7RefreshActions = refreshActions;               // sau khi nạp thêm bộ Action (js/panel.js)
 }());

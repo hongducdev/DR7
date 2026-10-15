@@ -132,7 +132,9 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 │ ┌─ ● CỌ VẼ ──────────────────────────────────────────┐ │
 │ │ [ ✓ Thiết lập cọ ]      [ Về mặc định ]            │ │
 │ └────────────────────────────────────────────────────┘ │
-│ ┌─ ● PHÍM TẮT ACTION ────────────────────────────────┐ │
+│ ┌─ ● ACTION ─────────────────────────────────────────┐ │
+│ │ [ ⤓ Thumbnail action ]  ← 1 nút / file .atn        │ │
+│ │ [ ■ ] [ Màu Rim Light ] ← khi ảnh có Rim Light    │ │
 │ │ [ Gradient Map  —  Shift+F3                  ▾ ]   │ │
 │ │ [           ⌨ Phím tắt: Shift+F3             ]     │ │
 │ └────────────────────────────────────────────────────┘ │
@@ -189,7 +191,19 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 | **Camera Raw** | `DKACR` | Khởi chạy trực tiếp bộ lọc Adobe Camera Raw. |
 | **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo thương hiệu hàng loạt. |
 
-> **Phím tắt Play Action:** trong nhóm **Phím tắt Action** chọn Action (danh sách lấy từ bảng Actions, mọi bộ
+> **Nạp Action nhanh:** chép file bộ Action `.atn` vào `presets/` (cùng chỗ với preset `.xmp`, tên file theo cùng quy tắc)
+> rồi bấm **↻** — mỗi file thành một nút **⤓ <tên file>** trong nhóm **Action**. Bấm nút là nạp bộ Action vào bảng Actions,
+> không cần mở ảnh. Bộ cùng tên đã có trong Photoshop thì giữ nguyên bản của bạn và panel báo "đã có" (không nạp trùng).
+> Bản đóng gói sẵn: `Thumbnail_action.atn` (bộ **Thumbnail action**: Stroke Brush Path — phím F5, YouTube Rim Light).
+> Nếu phím F của bộ trùng phím tắt menu (F2–F4), Photoshop sẽ hỏi như mục Phím tắt Action bên dưới.
+>
+> **Màu Rim Light:** khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color`, panel hiện hàng **Màu Rim Light** (tự ẩn khi không có; panel kiểm tra mỗi vài giây) gồm ô chọn màu
+> và nút **Màu Rim Light**. Ô màu mặc định theo màu **Foreground** của Photoshop (cập nhật mỗi lần quay lại panel); chọn màu
+> khác trong ô thì giữ màu đó và nút đổi thành **Áp dụng**. Bấm nút để tô lại lớp `Color` trong nhóm `Rim Light` (do Action *YouTube Rim Light* tạo) —
+> giữ nguyên vùng trong suốt, hoặc đổi màu nếu lớp là Solid Color; mỗi lần bấm là 1 bước History. Chưa có nhóm/lớp
+> đó trong ảnh thì báo lỗi. Đang có vùng chọn thì chỉ tô trong vùng chọn.
+>
+> **Phím tắt Play Action:** trong nhóm **Action** chọn Action (danh sách lấy từ bảng Actions, mọi bộ
 > trừ bộ **MHK DR7** do panel tự dựng) → bấm **⌨ Gán phím tắt** (nút chuyển xanh, đang nghe) → ấn F2–F12, có thể kèm Shift và/hoặc Ctrl
 > (vd `F5`, `Shift+F3`, `Ctrl+Shift+F11`). **Backspace/Delete** xoá phím của Action đó; Esc hoặc bấm nút lần nữa để huỷ.
 > Phím khác (chữ, số, Alt…) bị từ chối vì Action của Photoshop chỉ nhận phím F. Mỗi phím chỉ Play 1 Action
@@ -281,9 +295,11 @@ DR7/
 │   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ hoa văn (.pat)
 │   ├── preset-lut.jsx       # Lõi áp dụng Preset Camera Raw (.xmp): chọn file hoặc preset đóng gói
 │   ├── brush-pen-pressure.jsx # Thiết lập cọ (BPP) / Về mặc định (BPPRESET) / trạng thái cọ; chạy được độc lập
+│   ├── action-set-import.jsx # Nạp bộ Action .atn đóng gói (bỏ qua nếu Photoshop đã có bộ cùng tên)
+│   ├── rim-light-color.jsx  # RIMCOLOR: tô lớp Color trong nhóm Rim Light bằng màu chọn / Foreground
 │   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh .atn bộ "MHK DR7" (▶ Play Action có phím F) rồi nạp
 │   └── *.jsx                # Module chuyên biệt còn dùng: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
-├── presets/                 # Preset .xmp đóng gói — mỗi file thành 1 nút trên panel
+├── presets/                 # Preset .xmp (nút Màu & Preset) và bộ Action .atn (nút Nạp Action) đóng gói
 ├── img/
 │   └── icon-large.png       # Biểu tượng panel trong menu Window > Extensions
 ├── install/

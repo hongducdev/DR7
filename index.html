@@ -77,8 +77,15 @@
 			<button class="brush-setup-reset" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
 		</div>
 	</section>
-	<section class="group group-shortcut" aria-label="Phím tắt Action">
-		<div class="section-title">Phím tắt Action</div>
+	<section class="group group-shortcut" aria-label="Action">
+		<div class="section-title">Action</div>
+		<!-- panel.js thêm 1 nút cho mỗi file .atn trong thư mục presets/ -->
+		<div class="action-grid one-col atn-grid" hidden></div>
+		<!-- hiện sau khi nạp Action thành công (js/rim-color-controls.js) -->
+		<div class="action-grid two-col rim-color-row" hidden>
+			<input type="color" class="rim-color-input" value="#ffffff" title="Màu cho lớp Color của Rim Light (mặc định là màu Foreground hiện tại)" aria-label="Màu Rim Light">
+			<button class="rim-color-apply" title="Tô lớp Color trong nhóm Rim Light bằng màu đã chọn bên cạnh">Màu Rim Light</button>
+		</div>
 		<div class="action-grid one-col">
 			<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
 			<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">⌨ Gán phím tắt</button>
@@ -98,6 +105,7 @@
 <script type="text/javascript" src="./js/dev-source-sync.js"></script>
 <script type="text/javascript" src="./js/shortcut-key-capture.js"></script>
 <script type="text/javascript" src="./js/brush-setup-controls.js"></script>
+<script type="text/javascript" src="./js/rim-color-controls.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 
 

@@ -251,6 +251,8 @@ button:focus-visible {
 }
 
 .group .action-grid { margin-top: 0; }
+.group .action-grid + .action-grid { margin-top: var(--panel-gap); }
+.action-grid[hidden] { display: none; }
 
 /* Nút trong nhóm: nền mờ cùng tông, viền màu nhấn, đổ đầy khi rê chuột */
 .group .action-grid > button {
@@ -321,6 +323,24 @@ button:focus-visible {
 }
 .group .action-grid > select.shortcut-action optgroup { color: #9a9a9a; font-style: normal; }
 .group .action-grid > select.shortcut-action option { color: #e6e6e6; background: #2f2f2f; }
+
+/* Ô chọn màu Rim Light: cùng khung với nút trong nhóm */
+.group .action-grid > input[type="color"].rim-color-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 23px;
+    margin: 0;
+    padding: 2px;
+    border: 0;
+    border-radius: 6px;
+    background: #2f2f2f;
+    box-shadow: inset 0 0 0 1px var(--accent-line);
+    cursor: pointer;
+}
+.group .action-grid > input[type="color"].rim-color-input:focus { outline: none; }
+.rim-color-input::-webkit-color-swatch-wrapper { padding: 0; }
+.rim-color-input::-webkit-color-swatch { border: 0; border-radius: 4px; }
 
 /* Nút phím tắt: nền tối; khi đang nghe phím thì đổ đầy + nhấp nháy viền */
 .group .action-grid > button.shortcut-capture {

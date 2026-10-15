@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-10-15 — Nút nạp bộ Action
+
+- Nhóm **Action** (gộp nút nạp bộ Action, màu Rim Light và Phím tắt Action vào một card, gọn hơn ~100px): mỗi file `.atn` trong `presets/` thành một nút **⤓ <tên file>**, bấm là nạp bộ Action vào
+  bảng Actions (`app.load`), không cần mở ảnh. Đọc tên bộ từ đầu file `.atn`; Photoshop đã có bộ cùng tên thì giữ
+  nguyên và báo "đã có" thay vì nạp trùng.
+- Đóng gói sẵn `presets/Thumbnail_action.atn` (bộ Thumbnail action: Stroke Brush Path, YouTube Rim Light).
+  Để trong `presets/` nên cơ chế cập nhật GitHub, đồng bộ máy dev và `watch-plugin.js` tự mang theo.
+- Mã: `jsx/action-set-import.jsx` (`$.dr7ImportBundledAtn`), kiểu lệnh `atn` trong `js/panel.js` (bridge trả thêm
+  `DR7_EXISTS`), `window.dr7RefreshActions` để danh sách Phím tắt Action cập nhật ngay sau khi nạp.
+- Hàng **Màu Rim Light** (chỉ hiện khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color` — `$._ext_RIMCOLOR.available()`, panel hỏi lại khi focus và mỗi 2,5 giây): ô chọn màu (mặc định theo Foreground, giữ màu người
+  dùng đã chọn) + nút **Màu Rim Light** tô lớp `Color` trong nhóm `Rim Light` (`jsx/rim-light-color.jsx`, lệnh `RIMCOLOR`,
+  `js/rim-color-controls.js`; bridge `run` nhận thêm tham số màu `#rrggbb`). Lớp `Color` do Action tạo là lớp pixel nên
+  được tô lại giữ vùng trong suốt (lớp Solid Color thì đổi màu); 1 bước History, giữ nguyên layer đang chọn.
+- Test: `tests/check-script-stability.js` kiểm tra tên file bị từ chối, đọc đúng tên bộ từ `.atn` thật, nạp /
+  bỏ qua khi đã có, không alert với `DR7_EXISTS`.
+
 ## 2026-10-13 — Header panel, cập nhật từ GitHub Release
 
 - Nút nạp lại `↻` nổi đè card được thay bằng thanh tiêu đề: "MHK DR7 v<phiên bản>" + nút icon SVG Cập nhật

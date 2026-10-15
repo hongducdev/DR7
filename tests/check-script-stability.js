@@ -193,4 +193,36 @@ assert.equal(vm.runInNewContext(calls[5].code, host), 'DR7_OK');
 calls[5].callback('DR7_OK');
 assert.throws(() => acrHost.$.dr7ApplyBundledXmp('../../secret.xmp'), /Invalid preset name/,
     'the host must re-check preset names before touching the file system');
-console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks/preset names');
+// Bundled .atn import: same name rules as presets, no open document needed, "already there" is not an error.
+const sent = calls.length, alertsBefore = alerts.length;
+for (const bad of ['../evil.atn', 'a"b.atn', 'notes.txt', '.atn']) panel.dr7ImportActions(bad);
+assert.equal(calls.length, sent, 'unsafe action file names must be rejected by the bridge');
+const atnResults = [];
+panel.dr7ImportActions('Thumbnail_action.atn', res => atnResults.push(res));
+assert.equal(calls.length, sent + 1, 'a valid bundled actions file must be sent');
+const atnHost = {
+    app: { documents: [], displayDialogs: 1, preferences: { rulerUnits: 2 }, load: file => atnHost.loaded.push(file.name) },
+    loaded: [], asked: [],
+    $: { dr7Base: root, dr7ShortcutSetup: { exists: (set, action) => { atnHost.asked.push([set, action]); return atnHost.present; } } },
+    File: function (file) {
+        this.name = path.basename(file); this.fsName = file; this.exists = fs.existsSync(file);
+        let data = null, at = 0;
+        this.open = () => { data = fs.readFileSync(file); at = 0; return true; };
+        this.read = count => { const text = data.subarray(at, at + count).toString('latin1'); at += count; return text; };
+        this.close = () => { data = null; };
+    }
+};
+vm.runInNewContext(read('jsx/action-set-import.jsx'), atnHost);
+atnHost.present = false;
+assert.equal(vm.runInNewContext(calls[sent].code, atnHost), 'DR7_OK', 'import must work without an open document');
+assert.deepEqual(atnHost.asked, [['Thumbnail action', null]], 'the set name must be read from the .atn header');
+assert.deepEqual(atnHost.loaded, ['Thumbnail_action.atn']);
+atnHost.present = true;
+assert.equal(vm.runInNewContext(calls[sent].code, atnHost), 'DR7_EXISTS', 'an existing set must be kept, not loaded twice');
+assert.equal(atnHost.loaded.length, 1);
+calls[sent].callback('DR7_EXISTS');
+assert.deepEqual(atnResults, ['DR7_EXISTS']);
+assert.equal(alerts.length, alertsBefore, 'DR7_EXISTS must not raise an alert');
+assert.throws(() => vm.runInNewContext('$.dr7ImportBundledAtn("../x.atn")', atnHost),
+    /Invalid action file name/, 'the host must re-check the file name');
+console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks/preset names, atn import');
