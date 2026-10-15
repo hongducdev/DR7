@@ -1,9 +1,9 @@
 /*
- * Nhóm Brush: nút "Setup Brush" (BPP) + "Reset default" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
+ * Nhóm Cọ vẽ: nút "Thiết lập cọ" (BPP) + "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
  *
  * Trạng thái lấy thẳng từ cọ hiện tại trong Photoshop ($._ext_BPP.state()), không lưu ở panel:
- *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → Setup Brush bị khoá, hiện Reset default
- *   - còn lại  : Setup Brush bấm được, ẩn Reset default
+ *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → Thiết lập cọ bị khoá, hiện Về mặc định
+ *   - còn lại  : Thiết lập cọ bấm được, ẩn Về mặc định
  * Đọc lại khi mở panel, khi quay lại panel (focus) và sau mỗi lần bấm, vì đổi cọ/công cụ trong
  * Photoshop cũng làm đổi trạng thái.
  */
@@ -19,7 +19,7 @@
     function render(state) {
         var done = state === 'setup';
         setupButton.disabled = done;
-        setupButton.textContent = done ? '✓ Setup Brush' : 'Setup Brush';
+        setupButton.textContent = done ? '✓ Thiết lập cọ' : 'Thiết lập cọ';
         resetButton.hidden = !done;
         grid.classList.toggle('two-col', done);
         grid.classList.toggle('one-col', !done);
@@ -59,10 +59,10 @@
         if (!setupButton || !resetButton) return;
         grid = setupButton.parentNode;
         setupButton.addEventListener('click', function () {
-            runCommand('BPP', '✓ Đã setup Brush: Shape Dynamics + Pen Pressure');
+            runCommand('BPP', '✓ Đã thiết lập cọ: Shape Dynamics + Pen Pressure');
         });
         resetButton.addEventListener('click', function () {
-            runCommand('BPPRESET', '✓ Đã trả Brush về mặc định');
+            runCommand('BPPRESET', '✓ Đã trả cọ về mặc định');
         });
         window.addEventListener('focus', refresh);
         refresh();

@@ -129,8 +129,8 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 │ │ [ Hào Quang ] [ Làm nét ] [ Hạt phim ]             │ │
 │ │ [ Hạt thô ] [ Chấm ]                               │ │
 │ └────────────────────────────────────────────────────┘ │
-│ ┌─ ● BRUSH ──────────────────────────────────────────┐ │
-│ │ [ ✓ Setup Brush ]       [ Reset default ]          │ │
+│ ┌─ ● CỌ VẼ ──────────────────────────────────────────┐ │
+│ │ [ ✓ Thiết lập cọ ]      [ Về mặc định ]            │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● PHÍM TẮT ACTION ────────────────────────────────┐ │
 │ │ [ Gradient Map  —  Shift+F3                  ▾ ]   │ │
@@ -159,8 +159,8 @@ nên panel gọn hơn, nạp nhanh hơn và không còn lệnh "chết".
 |---|---|---|
 | **Đánh Khối** | `DB` | Tạo tự động nhóm layer Dodge & Burn kèm đường cong Curves và mặt nạ đen, sẵn sàng quét sáng/tối tạo khối gương mặt. |
 | **Làm nét** | `SH` | Tăng chi tiết tóc và đường viền chân dung. |
-| **Setup Brush** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về Pen Pressure (đang cầm công cụ không phải cọ thì tự chuyển sang Brush). Không cần mở ảnh. Xong thì báo thành công, nút mờ đi (✓) và hiện **Reset default** bên cạnh. Trạng thái đọc từ cọ hiện tại mỗi khi quay lại panel. |
-| **Reset default** | `BPPRESET` | Trả cọ về mặc định của Photoshop: mọi Control = Off, tắt Shape Dynamics; nút Setup Brush bấm được lại. |
+| **Thiết lập cọ** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về Pen Pressure (đang cầm công cụ không phải cọ thì tự chuyển sang Brush). Không cần mở ảnh. Xong thì báo thành công, nút mờ đi (✓) và hiện **Về mặc định** bên cạnh. Trạng thái đọc từ cọ hiện tại mỗi khi quay lại panel. |
+| **Về mặc định** | `BPPRESET` | Trả cọ về mặc định của Photoshop: mọi Control = Off, tắt Shape Dynamics; nút Thiết lập cọ bấm được lại. |
 | **Phủ phấn** | `TJSH` | Giảm độ bóng nhờn, tạo hiệu ứng da phủ phấn mịn màng như trang điểm thực tế. |
 | **Highlight** | `GGXS` | Tạo điểm nhấn bắt sáng tự nhiên tại sống mũi, gò má, cằm và trán. |
 
@@ -271,7 +271,7 @@ DR7/
 │   ├── github-updater.js    # Kiểm tra & cài GitHub Release mới nhất (cep.fs, không cần Node)
 │   ├── dev-source-sync.js   # ↻ trên máy dev: chép code mới từ thư mục nguồn (.dr7-dev-source)
 │   ├── shortcut-key-capture.js # Nhóm Phím tắt Action: chọn Action, nghe phím F người dùng ấn, lưu danh sách phím
-│   ├── brush-setup-controls.js # Nhóm Brush: Setup Brush / Reset default, trạng thái nút theo cọ hiện tại
+│   ├── brush-setup-controls.js # Nhóm Cọ vẽ: Thiết lập cọ / Về mặc định, trạng thái nút theo cọ hiện tại
 │   └── panel.js             # Cầu nối điều khiển giao tiếp Panel ↔ Photoshop, header Nạp lại/Cập nhật
 ├── jsx/
 │   ├── 4.jsxbin             # Hộp thoại Chữ / Logo (WM)
@@ -280,7 +280,7 @@ DR7/
 │   ├── Photoshop.jsx        # Tiện ích Crash Bug Fix (chạy khi mở panel)
 │   ├── pj/                  # Tài nguyên cọ vẽ (.tpl) và bộ hoa văn (.pat)
 │   ├── preset-lut.jsx       # Lõi áp dụng Preset Camera Raw (.xmp): chọn file hoặc preset đóng gói
-│   ├── brush-pen-pressure.jsx # Setup Brush (BPP) / Reset default (BPPRESET) / trạng thái cọ; chạy được độc lập
+│   ├── brush-pen-pressure.jsx # Thiết lập cọ (BPP) / Về mặc định (BPPRESET) / trạng thái cọ; chạy được độc lập
 │   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh .atn bộ "MHK DR7" (▶ Play Action có phím F) rồi nạp
 │   └── *.jsx                # Module chuyên biệt còn dùng: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
 ├── presets/                 # Preset .xmp đóng gói — mỗi file thành 1 nút trên panel
