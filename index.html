@@ -117,13 +117,46 @@
 	<div class="tab-pane" role="tabpanel" data-tab="support" hidden>
 		<div class="support-card">
 			<svg class="support-mug" viewBox="0 0 80 80" aria-hidden="true">
-				<path class="steam steam-1" d="M30 20c-4-5 4-7 0-12" fill="none" stroke="#f3efe6" stroke-width="2.4" stroke-linecap="round"/>
-				<path class="steam steam-2" d="M40 22c-4-5 4-8 0-14" fill="none" stroke="#f3efe6" stroke-width="2.4" stroke-linecap="round"/>
-				<path class="sparkle" d="M64 12l1.6 4 4 1.6-4 1.6L64 23l-1.6-3.8-4-1.6 4-1.6z" fill="#f7c948"/>
-				<path d="M14 30h42v20a14 14 0 0 1-14 14H28a14 14 0 0 1-14-14z" fill="#f8f4ea" stroke="#000" stroke-width="3"/>
-				<path d="M56 36h5a7 7 0 0 1 0 14h-5" fill="none" stroke="#000" stroke-width="3"/>
-				<ellipse cx="35" cy="30" rx="21" ry="4.5" fill="#6b3a1e" stroke="#000" stroke-width="2.5"/>
-				<path class="mug-heart" d="M35 55s-9-5.5-9-11a5 5 0 0 1 9-2.4A5 5 0 0 1 44 44c0 5.500-9 11-9 11z" fill="#f50008"/>
+				<defs>
+					<linearGradient id="mug-body" x1="0" x2="1" y1="0" y2="0">
+						<stop offset="0" stop-color="#ffffff"/>
+						<stop offset=".45" stop-color="#f8f4ea"/>
+						<stop offset="1" stop-color="#cfc6ae"/>
+					</linearGradient>
+					<linearGradient id="mug-band" x1="0" x2="1" y1="0" y2="0">
+						<stop offset="0" stop-color="#3be08c"/>
+						<stop offset=".5" stop-color="#15c671"/>
+						<stop offset="1" stop-color="#0c8f50"/>
+					</linearGradient>
+					<linearGradient id="mug-handle" x1="0" x2="1" y1="0" y2="1">
+						<stop offset="0" stop-color="#f1ecdc"/>
+						<stop offset="1" stop-color="#bfb59a"/>
+					</linearGradient>
+					<radialGradient id="mug-coffee" cx=".4" cy=".35" r=".8">
+						<stop offset="0" stop-color="#8a5230"/>
+						<stop offset="1" stop-color="#4a2410"/>
+					</radialGradient>
+					<clipPath id="mug-clip"><path d="M13 30h44v20a15 15 0 0 1-15 15H28a15 15 0 0 1-15-15z"/></clipPath>
+				</defs>
+				<path class="steam steam-1" d="M30 20c-4-5 4-7 0-12" fill="none" stroke="#d3d3d7" stroke-width="2.4" stroke-linecap="round"/>
+				<path class="steam steam-2" d="M40 22c-4-5 4-8 0-14" fill="none" stroke="#d3d3d7" stroke-width="2.4" stroke-linecap="round"/>
+				<path class="sparkle" d="M66 10l1.8 4.4 4.4 1.8-4.4 1.8L66 22.400l-1.8-4.400-4.400-1.800 4.400-1.800z" fill="#f7c948"/>
+				<ellipse cx="42" cy="70.500" rx="32" ry="6.500" fill="#000" opacity=".35"/>
+				<ellipse cx="38" cy="69" rx="30" ry="6" fill="#8c8c94"/>
+				<ellipse cx="38" cy="67.500" rx="30" ry="6" fill="#d3d3d7"/>
+				<ellipse cx="38" cy="66.500" rx="21" ry="3.600" fill="#b9b9c0"/>
+				<path d="M57 38h4.500a7.500 7.500 0 0 1 0 15H55" fill="none" stroke="url(#mug-handle)" stroke-width="5" stroke-linecap="round"/>
+				<path d="M13 30h44v20a15 15 0 0 1-15 15H28a15 15 0 0 1-15-15z" fill="url(#mug-body)"/>
+				<g clip-path="url(#mug-clip)">
+					<path d="M13 55h44v10H13z" fill="url(#mug-band)"/>
+					<path d="M13 52h44v3H13z" fill="#0c8f50" opacity=".35"/>
+					<path d="M18 36h3.500v22H18z" fill="#fff" opacity=".55" rx="1.700"/>
+					<ellipse cx="35" cy="65" rx="22" ry="4" fill="#000" opacity=".18"/>
+					<path class="mug-heart" d="M35 52s-8-4.800-8-9.600a4.400 4.400 0 0 1 8-2.100 4.400 4.400 0 0 1 8 2.100c0 4.800-8 9.600-8 9.600z" fill="#f50008"/>
+				</g>
+				<ellipse cx="35" cy="30" rx="22" ry="5.500" fill="#e4ddca"/>
+				<ellipse cx="35" cy="30.500" rx="19" ry="4" fill="url(#mug-coffee)"/>
+				<ellipse cx="29" cy="29.600" rx="7" ry="1.300" fill="#c98a58" opacity=".6"/>
 			</svg>
 			<h2 class="support-title">Đồng hành cùng SCCTLM</h2>
 			<p class="support-text">Nếu plugin hữu ích với bạn, hãy góp sức để SCCTLM tiếp tục phát triển.</p>

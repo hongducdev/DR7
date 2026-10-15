@@ -487,5 +487,5 @@ button:focus-visible {
     100% { opacity: 0; transform: translateY(-6px); }
 }
 @keyframes dr7-twinkle { 0%, 100% { opacity: .35; transform: scale(.6) rotate(0); } 50% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
-@keyframes dr7-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.18); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+@keyframes dr7-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.12); } 30% { transform: scale(1); } 45% { transform: scale(1.07); } }
 @media (prefers-reduced-motion: reduce) { .support-mug * { animation: none !important; } }
