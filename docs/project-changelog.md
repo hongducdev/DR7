@@ -1,6 +1,6 @@
 # Changelog
 
-## 2026-10-15 — Nút nạp bộ Action
+## v0.1.1 (2026-10-15) — Nút nạp bộ Action và màu Rim Light
 
 - Nhóm **Action** (gộp nút nạp bộ Action, màu Rim Light và Phím tắt Action vào một card, gọn hơn ~100px): mỗi file `.atn` trong `presets/` thành một nút **⤓ <tên file>**, bấm là nạp bộ Action vào
   bảng Actions (`app.load`), không cần mở ảnh. Đọc tên bộ từ đầu file `.atn`; Photoshop đã có bộ cùng tên thì giữ
