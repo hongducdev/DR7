@@ -1,14 +1,14 @@
-// Requires Photoshop with the installed MHK DR7 panel open on CEP port 9004.
+// Requires Photoshop with the installed SCCTLM_Foto panel open on CEP port 9004.
 // Temporarily adds an HTML comment; always restores source. Does not touch images.
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
 const {spawn}=require('node:child_process');
 const root=path.resolve(__dirname,'..'), source=path.join(root,'index.html');
-const installed=path.join(process.env.APPDATA,'Adobe/CEP/extensions/DR7/index.html');
+const installed=path.join(process.env.APPDATA,'Adobe/CEP/extensions/SCCTLM_Foto/index.html');
 const original=fs.readFileSync(source), marker='MHK_LIVE_RELOAD_CHECK_'+Date.now();
 async function cdp(method,params={}) {
     const pages=await (await fetch('http://127.0.0.1:9004/json')).json();
     const page=pages.find(p=>decodeURI(p.url).toLowerCase()==='file:///'+installed.replace(/\\/g,'/').toLowerCase());
-    assert.ok(page,'Installed MHK DR7 panel must be open');
+    assert.ok(page,'Installed SCCTLM_Foto panel must be open');
     return new Promise((resolve,reject)=>{
         const ws=new WebSocket(page.webSocketDebuggerUrl);
         const timer=setTimeout(()=>{ws.close();reject(Error('CEP timed out'));},5000);

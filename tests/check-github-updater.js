@@ -53,8 +53,8 @@ function setup(routes, disk) {
 
 // Objects from the vm realm have foreign prototypes; compare their JSON shape.
 const plain = value => JSON.parse(JSON.stringify(value));
-const API = 'https://api.github.com/repos/hongducdev/DR7';
-const RAW = 'https://raw.githubusercontent.com/hongducdev/DR7/v1.1.0/';
+const API = 'https://api.github.com/repos/hongducdev/SCCTLM_Foto';
+const RAW = 'https://raw.githubusercontent.com/hongducdev/SCCTLM_Foto/v1.1.0/';
 const release = JSON.stringify({ tag_name: 'v1.1.0', name: 'DR7 1.1.0', body: 'notes', html_url: 'u' });
 const tree = entries => JSON.stringify({ truncated: false, tree: entries.map(([p, sha]) => ({ path: p, type: 'blob', sha })) });
 
@@ -75,7 +75,7 @@ const tree = entries => JSON.stringify({ truncated: false, tree: entries.map(([p
     const routes = {
         [API + '/git/trees/v1.1.0?recursive=1']: tree([
             ['index.html', 'h2'], ['CSXS/manifest.xml', 'm2'], ['jsx/main.jsx', 'same'], ['img/new icon.png', 'p1'],
-            ['README.md', 'r'], ['tests/check.js', 't'], ['install/Cai-dat-DR7.bat', 'b'], ['jsx/../../evil.jsx', 'e']
+            ['README.md', 'r'], ['tests/check.js', 't'], ['install/Cai-dat-SCCTLM_Foto.bat', 'b'], ['jsx/../../evil.jsx', 'e']
         ]),
         [RAW + 'index.html']: '<html>new</html>',
         [RAW + 'CSXS/manifest.xml']: manifest('1.1.0'),

@@ -7,7 +7,7 @@
  * nuốt mất (vd F5 mở Brush Settings).
  *
  * Danh sách phím lưu ở localStorage; mỗi lần đổi, toàn bộ danh sách được dựng lại thành bộ
- * Action "MHK DR7" bởi jsx/action-shortcut-setup.jsx (qua window.dr7SetupShortcut, js/panel.js).
+ * Action "SCCTLM_Foto" bởi jsx/action-shortcut-setup.jsx (qua window.dr7SetupShortcut, js/panel.js).
  */
 (function () {
     'use strict';
@@ -15,7 +15,8 @@
     var BINDINGS_KEY = 'dr7ActionShortcuts';            // [{ key, set, action }]
     var TARGET_KEY = 'dr7ShortcutTarget';               // "set\taction" đang chọn
     var LEGACY_KEY = 'dr7ShortcutKey';                   // bản cũ: 1 phím cho Pen Pressure, chỉ để xoá
-    var OWN_SET = 'MHK DR7';                             // bộ Action panel tự dựng (jsx/action-shortcut-setup.jsx)
+    var OWN_SET = 'SCCTLM_Foto';                         // bộ Action panel tự dựng (jsx/action-shortcut-setup.jsx)
+    var LEGACY_SET = 'MHK DR7';                          // tên bộ đó ở bản cũ (trước khi đổi tên plugin)
     var KEY_BACKSPACE = 8, KEY_ESCAPE = 27, KEY_DELETE = 46;
     var KEY_F2 = 113, KEY_F12 = 123;                    // mã phím ảo: F1 = 112
 
@@ -48,8 +49,9 @@
         } catch (e) {
             console.warn('DR7: danh sách phím tắt hỏng, bỏ qua', e);
         }
-        // Bộ "MHK DR7" do panel tự dựng (Action ▶) nên không thể là đích; bản cũ từng gán Pen Pressure ở đó
-        return list.filter(function (b) { return b && b.set !== OWN_SET; });
+        // Bộ "SCCTLM_Foto" (và tên cũ "MHK DR7") do panel tự dựng (Action ▶) nên không thể là đích;
+        // bản cũ từng gán Pen Pressure ở đó
+        return list.filter(function (b) { return b && b.set !== OWN_SET && b.set !== LEGACY_SET; });
     }
 
     function target() {
@@ -112,15 +114,20 @@
         });
     }
 
-    // Bản cũ gán phím cho MHK DR7 › Pen Pressure: dựng lại bộ Action không còn phím đó (1 lần mỗi
-    // lần mở panel; chạy sau listActions nên lõi ExtendScript chắc chắn đã nạp xong)
+    // Dựng lại bộ Action 1 lần mỗi lần mở panel nếu còn dấu vết bản cũ: phím cũ gán cho Pen Pressure,
+    // hoặc bộ "MHK DR7" (tên trước khi đổi plugin) còn trong Photoshop → bộ mới "SCCTLM_Foto" thay thế.
+    // Chạy sau listActions nên lõi ExtendScript chắc chắn đã nạp xong.
     var cleanupTried = false;
     function cleanupLegacy() {
         if (cleanupTried) return;
         cleanupTried = true;
         var raw = load(BINDINGS_KEY) || '';
-        if (load(LEGACY_KEY) === null && raw.indexOf('"set":"' + OWN_SET + '"') < 0) return;
-        apply(bindings(), null);
+        var stale = load(LEGACY_KEY) !== null || raw.indexOf('"set":"' + OWN_SET + '"') >= 0 ||
+            raw.indexOf('"set":"' + LEGACY_SET + '"') >= 0;
+        if (stale) { apply(bindings(), null); return; }
+        cs.evalScript('$.dr7ShortcutSetup.exists(' + JSON.stringify(LEGACY_SET) + ',null)', function (res) {
+            if (res === 'true') apply(bindings(), null);
+        });
     }
 
     // Xin CEP giao F2–F12 (mọi tổ hợp Shift/Ctrl), Esc, Backspace, Delete cho panel trong lúc nghe
@@ -153,7 +160,7 @@
 
     function onBlur() { stop(); }
 
-    // Dựng lại bộ "MHK DR7" với danh sách mới; chỉ lưu khi Photoshop nạp thành công
+    // Dựng lại bộ "SCCTLM_Foto" với danh sách mới; chỉ lưu khi Photoshop nạp thành công
     function apply(next, label) {
         stop(label);
         var text = next.map(function (b) { return b.key + '\t' + b.set + '\t' + b.action; }).join('\n');

@@ -2,14 +2,15 @@
  * Function-key shortcuts (F2-F12, optionally with Shift and/or Ctrl/Cmd) that PLAY any action.
  *
  * Scripts cannot set a key on an existing action ("Set" is not available for actions), but an
- * .atn file can carry one. So we generate the set "MHK DR7" with one action per binding,
+ * .atn file can carry one. So we generate the set "SCCTLM_Foto" with one action per binding,
  * "\u25B6 <action> (<set>)", that has the key and whose only step plays the target, and load it,
- * replacing the previous "MHK DR7" set (removed when no binding is left).
+ * replacing the previous "SCCTLM_Foto" set (and the legacy "MHK DR7" set of older versions) (removed when no binding is left).
  * The user's own actions are never touched.
  * .atn layout: Adobe Photoshop File Formats, "Actions file format".
  */
 $.dr7ShortcutSetup = {
-    SET_NAME: 'MHK DR7',
+    SET_NAME: 'SCCTLM_Foto',
+    LEGACY_SET_NAME: 'MHK DR7',                                // set name before the rename; removed on the next install
     PLAY_PREFIX: '\u25B6 ',
     KEY: /^(Ctrl\+)?(Shift\+)?F([2-9]|1[0-2])$/,
 
@@ -73,7 +74,7 @@ $.dr7ShortcutSetup = {
     listActions: function () {
         var self = $.dr7ShortcutSetup, out = [];
         self.eachAction(function (setName, actionName) {
-            if (setName === self.SET_NAME) return false;           // our generated play wrappers
+            if (setName === self.SET_NAME || setName === self.LEGACY_SET_NAME) return false;   // our generated play wrappers
             out.push(setName + '\t' + actionName);
             return false;
         });
@@ -97,12 +98,14 @@ $.dr7ShortcutSetup = {
         for (var i = 0; i < lines.length; i += 1) {
             var f = lines[i].split('\t');
             // Our own set is rebuilt below, so it can never be a target; missing targets are dropped
-            if (f.length !== 3 || !self.KEY.test(f[0]) || f[1] === self.SET_NAME || !self.exists(f[1], f[2])) continue;
+            if (f.length !== 3 || !self.KEY.test(f[0]) || f[1] === self.SET_NAME || f[1] === self.LEGACY_SET_NAME || !self.exists(f[1], f[2])) continue;
             actions.push(self.action(self.PLAY_PREFIX + f[2] + ' (' + f[1] + ')', f[0], self.playStep(f[1], f[2])));
         }
-        if (self.exists(self.SET_NAME, null)) {
+        var stale = [self.SET_NAME, self.LEGACY_SET_NAME];
+        for (var k = 0; k < stale.length; k += 1) {
+            if (!self.exists(stale[k], null)) continue;
             var ref = new ActionReference();
-            ref.putName(charIDToTypeID('ASet'), self.SET_NAME);
+            ref.putName(charIDToTypeID('ASet'), stale[k]);
             var desc = new ActionDescriptor();
             desc.putReference(charIDToTypeID('null'), ref);
             executeAction(charIDToTypeID('Dlt '), desc, DialogModes.NO);

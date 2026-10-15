@@ -13,7 +13,7 @@
         var depths = [BitsPerChannelType.EIGHT, BitsPerChannelType.SIXTEEN];
         for (var d = 0; d < depths.length; d++) {
             for (var c = 0; c < colors.length; c++) {
-                scratch = app.documents.add(128, 128, 72, 'MHK DR7 skin audit', NewDocumentMode.RGB);
+                scratch = app.documents.add(128, 128, 72, 'SCCTLM_Foto skin audit', NewDocumentMode.RGB);
                 scratch.bitsPerChannel = depths[d];
                 var color = new SolidColor();
                 color.rgb.hexValue = colors[c];

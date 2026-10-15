@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="img/icon-large.png" alt="MHK DR7" width="96" />
+<img src="img/icon-large.png" alt="SCCTLM_Foto" width="96" />
 
-# 🎨 MHK DR7
+# 🎨 SCCTLM_Foto
 
 **Panel retouch chuyên nghiệp cho Adobe Photoshop — giao diện 100% tiếng Việt**
 
-[![Release](https://img.shields.io/github/v/release/hongducdev/DR7?style=flat-square&color=27b96a)](https://github.com/hongducdev/DR7/releases/latest)
+[![Release](https://img.shields.io/github/v/release/hongducdev/SCCTLM_Foto?style=flat-square&color=27b96a)](https://github.com/hongducdev/SCCTLM_Foto/releases/latest)
 ![Photoshop](https://img.shields.io/badge/Photoshop-CC%202015%2B-31a8ff?style=flat-square&logo=adobephotoshop&logoColor=white)
 ![CEP](https://img.shields.io/badge/Adobe%20CEP-6.0%2B-7a5cd6?style=flat-square)
 ![Platform](https://img.shields.io/badge/Windows%20%7C%20macOS-lightgrey?style=flat-square)
 
 </div>
 
-**MHK DR7** là tiện ích mở rộng (CEP Extension) dành cho Photoshop, gom quy trình làm đẹp chân dung, ảnh cưới, thời trang và studio thương mại vào một panel gọn: **24 chức năng tự động hoá**, nạp nhanh bộ Action, đổi màu Rim Light trực tiếp và gán phím tắt F2–F12 cho bất kỳ Action nào.
+**SCCTLM_Foto** là tiện ích mở rộng (CEP Extension) dành cho Photoshop, gom quy trình làm đẹp chân dung, ảnh cưới, thời trang và studio thương mại vào một panel gọn: **24 chức năng tự động hoá**, nạp nhanh bộ Action, đổi màu Rim Light trực tiếp và gán phím tắt F2–F12 cho bất kỳ Action nào.
 
 ---
 
@@ -64,19 +64,19 @@
 ### 🪟 Windows — tự động (khuyến nghị)
 
 1. **Đóng hoàn toàn Photoshop.**
-2. Chạy `install\Cai-dat-DR7.bat` — script sẽ:
+2. Chạy `install\Cai-dat-SCCTLM_Foto.bat` — script sẽ:
    - bật `PlayerDebugMode` cho CSXS.4 → CSXS.15 (cho phép extension chưa ký số);
-   - chép plugin vào `%APPDATA%\Adobe\CEP\extensions\DR7`.
-3. Mở Photoshop → **Window > Extensions > MHK DR7**.
+   - chép plugin vào `%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto`.
+3. Mở Photoshop → **Window > Extensions > SCCTLM_Foto**.
 
 <details>
 <summary>🔧 Cài thủ công (Windows)</summary>
 
-1. Nhấp đúp `install\Fix-CEP-DR7.reg` để bật chế độ chạy extension (chỉ trong `HKEY_CURRENT_USER`, không cần Administrator).
+1. Nhấp đúp `install\Fix-CEP-SCCTLM_Foto.reg` để bật chế độ chạy extension (chỉ trong `HKEY_CURRENT_USER`, không cần Administrator).
 2. Chép toàn bộ thư mục plugin vào một trong hai nơi:
-   - Chỉ người dùng hiện tại: `%APPDATA%\Adobe\CEP\extensions\DR7\`
-   - Mọi người dùng (cần Administrator): `C:\ProgramData\Adobe\CEP\extensions\DR7\`
-3. Mở Photoshop → `Window > Extensions > MHK DR7`.
+   - Chỉ người dùng hiện tại: `%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto\`
+   - Mọi người dùng (cần Administrator): `C:\ProgramData\Adobe\CEP\extensions\SCCTLM_Foto\`
+3. Mở Photoshop → `Window > Extensions > SCCTLM_Foto`.
 
 </details>
 
@@ -92,8 +92,8 @@
    defaults write com.adobe.CSXS.13 PlayerDebugMode 1
    defaults write com.adobe.CSXS.14 PlayerDebugMode 1
    ```
-2. Chép plugin vào `~/Library/Application Support/Adobe/CEP/extensions/DR7/`.
-3. Mở Photoshop → `Window > Extensions > MHK DR7`.
+2. Chép plugin vào `~/Library/Application Support/Adobe/CEP/extensions/SCCTLM_Foto/`.
+3. Mở Photoshop → `Window > Extensions > SCCTLM_Foto`.
 
 </details>
 
@@ -103,7 +103,7 @@
 
 ```text
 ┌────────────────────────────────────────────────────────┐
-│  MHK DR7  v0.1.1                      [⤓ Cập nhật] [↻] │
+│  SCCTLM_Foto  v0.1.1                      [⤓ Cập nhật] [↻] │
 ├────────────────────────────────────────────────────────┤
 │ ┌─ ● RETOUCH ────────────────────────────────────────┐ │
 │ │ [            Làm Da V5.0            ]              │ │
@@ -180,7 +180,7 @@
 | **Hạt phim / Hạt thô / Chấm** | `MLXG` / `mcwl` / `sfb` | Hoa văn kết cấu Grain / Coarse / Dots. |
 | **Chữ / Logo** | `WM` | Hộp thoại đóng dấu bản quyền hoặc gắn logo hàng loạt. |
 
-> 📌 **Thêm preset màu:** chép file `.xmp` vào `presets/` của plugin (`%APPDATA%\Adobe\CEP\extensions\DR7\presets`) rồi bấm **↻**. Tên file chỉ dùng chữ không dấu, số, khoảng trắng, `-`, `_`, `(`, `)`; tên khác bị bỏ qua để an toàn. Nhiệt độ màu Kelvin của sidecar RAW bị bỏ qua khi áp lên ảnh thường.
+> 📌 **Thêm preset màu:** chép file `.xmp` vào `presets/` của plugin (`%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto\presets`) rồi bấm **↻**. Tên file chỉ dùng chữ không dấu, số, khoảng trắng, `-`, `_`, `(`, `)`; tên khác bị bỏ qua để an toàn. Nhiệt độ màu Kelvin của sidecar RAW bị bỏ qua khi áp lên ảnh thường.
 
 <details>
 <summary>🗑️ 31 chức năng cũ đã gỡ bỏ</summary>
@@ -213,7 +213,7 @@ Khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color` (do Action *YouT
 
 ### ⌨️ Phím tắt Play Action
 
-1. Chọn Action trong danh sách (lấy từ bảng Actions, trừ bộ **MHK DR7** do panel tự dựng).
+1. Chọn Action trong danh sách (lấy từ bảng Actions, trừ bộ **SCCTLM_Foto** do panel tự dựng).
 2. Bấm **⌨ Gán phím tắt** (nút chuyển xanh = đang nghe).
 3. Ấn **F2–F12**, có thể kèm Shift và/hoặc Ctrl — ví dụ `F5`, `Shift+F3`, `Ctrl+Shift+F11`.
 
@@ -227,7 +227,7 @@ Khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color` (do Action *YouT
 <details>
 <summary>⚙️ Cách hoạt động & xung đột phím</summary>
 
-Photoshop không cho script đặt phím lên Action có sẵn, nên panel dựng lại bộ **MHK DR7** gồm mỗi phím một Action `▶ <tên Action> (<bộ>)` có gắn phím, chỉ 1 bước Play Action gốc (hết phím thì bộ bị xoá). Action gốc của bạn không bị sửa. Danh sách phím lưu trong panel; xoá bộ MHK DR7 bằng tay thì gán lại 1 phím bất kỳ để dựng lại. Action mới tạo trong Photoshop xuất hiện trong danh sách khi quay lại panel.
+Photoshop không cho script đặt phím lên Action có sẵn, nên panel dựng lại bộ **SCCTLM_Foto** gồm mỗi phím một Action `▶ <tên Action> (<bộ>)` có gắn phím, chỉ 1 bước Play Action gốc (hết phím thì bộ bị xoá). Action gốc của bạn không bị sửa. Danh sách phím lưu trong panel; xoá bộ SCCTLM_Foto bằng tay thì gán lại 1 phím bất kỳ để dựng lại. Bản cũ dùng tên bộ `MHK DR7`: panel tự thay bằng bộ mới (giữ nguyên phím) ở lần mở đầu tiên. Action mới tạo trong Photoshop xuất hiện trong danh sách khi quay lại panel.
 
 Nếu phím trùng phím tắt menu (F2 = Cut, F3 = Copy, F4 = Paste), Photoshop hỏi *"Remove the conflicting action shortcuts?"* — chọn **No** để phím Play Action, **Yes** để giữ phím cho menu (Action khi đó không có phím).
 
@@ -241,19 +241,19 @@ Nếu phím trùng phím tắt menu (F2 = Cut, F3 = Copy, F4 = Paste), Photoshop
 
 Nút **↻** trên thanh tiêu đề nạp lại HTML, CSS, JS và các file `.jsx` từ thư mục cài ngay lập tức, không ngắt lệnh đang chạy dở.
 
-**Máy dev (cài từ git checkout):** `Cai-dat-DR7.bat` ghi đường dẫn thư mục nguồn vào `.dr7-dev-source` trong thư mục cài. Khi có file này, bấm **↻** sẽ tự chép file mới hơn từ nguồn (`index.html`, `style.css`, `loader.jsx`, `js/`, `jsx/`, `css/`, `img/`, `presets/`) sang bản cài rồi mới nạp lại — không cần `Hot-reload-DR7.bat`. Không xoá file nào ở bản cài; muốn tắt thì xoá `.dr7-dev-source`.
+**Máy dev (cài từ git checkout):** `Cai-dat-SCCTLM_Foto.bat` ghi đường dẫn thư mục nguồn vào `.dr7-dev-source` trong thư mục cài. Khi có file này, bấm **↻** sẽ tự chép file mới hơn từ nguồn (`index.html`, `style.css`, `loader.jsx`, `js/`, `jsx/`, `css/`, `img/`, `presets/`) sang bản cài rồi mới nạp lại — không cần `Hot-reload-SCCTLM_Foto.bat`. Không xoá file nào ở bản cài; muốn tắt thì xoá `.dr7-dev-source`.
 
 ### 👀 Hot-reload tự động (nhà phát triển)
 
 ```text
-install\Hot-reload-DR7.bat
+install\Hot-reload-SCCTLM_Foto.bat
 ```
 
-*(Cần Node.js.)* Trình theo dõi sẽ: lắng nghe thay đổi HTML/CSS/JS/JSX và hình ảnh → chờ file ghi ổn định, kiểm tra Photoshop đang rảnh → đồng bộ vào `%APPDATA%\Adobe\CEP\extensions\DR7` → ra lệnh panel tự làm mới.
+*(Cần Node.js.)* Trình theo dõi sẽ: lắng nghe thay đổi HTML/CSS/JS/JSX và hình ảnh → chờ file ghi ổn định, kiểm tra Photoshop đang rảnh → đồng bộ vào `%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto` → ra lệnh panel tự làm mới.
 
 ### ⤓ Cập nhật từ GitHub
 
-Nút **⤓** trên thanh tiêu đề lấy GitHub Release mới nhất của `hongducdev/DR7`:
+Nút **⤓** trên thanh tiêu đề lấy GitHub Release mới nhất của `hongducdev/SCCTLM_Foto`:
 
 - Mỗi lần mở panel tự kiểm tra im lặng; có bản mới thì nút hiện **chấm xanh**.
 - Bấm nút → xác nhận → chỉ tải các file runtime đã đổi (`index.html`, `style.css`, `loader.jsx`, `CSXS/manifest.xml`, `js/ css/ jsx/ img/ presets/`), tải xong hết mới ghi đè, rồi tự nạp lại. Lỗi mạng giữa chừng không làm hỏng bản đang cài.
@@ -265,7 +265,7 @@ Nút **⤓** trên thanh tiêu đề lấy GitHub Release mới nhất của `ho
 
 1. Tăng `ExtensionBundleVersion` và `Version` của panel trong `CSXS/manifest.xml` (phải trùng nhau, dạng `x.y.z`).
 2. Commit, push lên `main`.
-3. `gh release create v0.2.0 --title "MHK DR7 0.2.0" --notes "Nội dung thay đổi"` — tag phải là `v` + đúng số phiên bản.
+3. `gh release create v0.2.0 --title "SCCTLM_Foto 0.2.0" --notes "Nội dung thay đổi"` — tag phải là `v` + đúng số phiên bản.
 
 </details>
 
@@ -276,7 +276,7 @@ Lịch sử thay đổi: [`docs/project-changelog.md`](docs/project-changelog.md
 ## 📁 Cấu trúc thư mục
 
 ```text
-DR7/
+SCCTLM_Foto/
 ├── CSXS/
 │   └── manifest.xml             # Cấu hình CEP, menu hiển thị & kích thước panel
 ├── .debug                       # Cổng Debugger Chromium (9004)
@@ -302,16 +302,16 @@ DR7/
 │   ├── brush-pen-pressure.jsx   # BPP / BPPRESET / trạng thái cọ; chạy được độc lập
 │   ├── action-set-import.jsx    # Nạp bộ Action .atn đóng gói (bỏ qua nếu đã có bộ cùng tên)
 │   ├── rim-light-color.jsx      # RIMCOLOR: tô lớp Color trong nhóm Rim Light
-│   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh & nạp bộ "MHK DR7" (▶ Play Action có phím F)
+│   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh & nạp bộ "SCCTLM_Foto" (▶ Play Action có phím F)
 │   ├── pj/                      # Tài nguyên cọ (.tpl) và hoa văn (.pat)
 │   └── *.jsx                    # Module chuyên biệt: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
 ├── presets/                     # Preset .xmp (nút Màu & Preset) và bộ Action .atn (nút Action)
 ├── img/
 │   └── icon-large.png           # Biểu tượng panel
 ├── install/
-│   ├── Cai-dat-DR7.bat          # Cài đặt tự động
-│   ├── Fix-CEP-DR7.reg          # Bật PlayerDebugMode
-│   ├── Hot-reload-DR7.bat       # Khởi động bộ theo dõi Hot Reload
+│   ├── Cai-dat-SCCTLM_Foto.bat          # Cài đặt tự động
+│   ├── Fix-CEP-SCCTLM_Foto.reg          # Bật PlayerDebugMode
+│   ├── Hot-reload-SCCTLM_Foto.bat       # Khởi động bộ theo dõi Hot Reload
 │   └── watch-plugin.js          # Theo dõi file và nạp lại panel bằng Node.js
 ├── tests/                       # Kiểm thử tự động độ ổn định script, giao tiếp, updater, hot reload
 ├── docs/                        # Hướng dẫn thiết kế và nhật ký phát triển
@@ -325,7 +325,7 @@ DR7/
 <details>
 <summary>🚫 Panel không xuất hiện trong Window > Extensions</summary>
 
-**Nguyên nhân:** Photoshop chưa cho chạy extension chưa ký số. **Cách xử lý:** nhấp đúp `install\Fix-CEP-DR7.reg`, chọn **Yes**, rồi khởi động lại Photoshop.
+**Nguyên nhân:** Photoshop chưa cho chạy extension chưa ký số. **Cách xử lý:** nhấp đúp `install\Fix-CEP-SCCTLM_Foto.reg`, chọn **Yes**, rồi khởi động lại Photoshop.
 
 </details>
 
@@ -339,7 +339,7 @@ DR7/
 <details>
 <summary>🔁 Sửa code nhưng giao diện chưa cập nhật</summary>
 
-Bấm **↻** trên panel. Nếu sửa ở thư mục nguồn (vd `D:\DR7`) mà ↻ vẫn ra bản cũ: bản cài thiếu `.dr7-dev-source` → chạy lại `install\Cai-dat-DR7.bat` từ git checkout, hoặc dùng `Hot-reload-DR7.bat`.
+Bấm **↻** trên panel. Nếu sửa ở thư mục nguồn (vd `D:\DR7`) mà ↻ vẫn ra bản cũ: bản cài thiếu `.dr7-dev-source` → chạy lại `install\Cai-dat-SCCTLM_Foto.bat` từ git checkout, hoặc dùng `Hot-reload-SCCTLM_Foto.bat`.
 
 </details>
 

@@ -7,7 +7,7 @@ const root = path.resolve(__dirname, '..');
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 const html = read('index.html');
 const manifest = read('CSXS/manifest.xml');
-assert.match(manifest, /<Menu>MHK DR7<\/Menu>/);
+assert.match(manifest, /<Menu>SCCTLM_Foto<\/Menu>/);
 assert.match(manifest, /<Size><Height>580<\/Height><Width>235<\/Width><\/Size>/);
 assert.equal((manifest.match(/\.\/img\/icon-large\.png/g) || []).length, 2);
 // The GitHub updater compares release tags with the panel Version; bundle and panel must agree.
@@ -225,4 +225,33 @@ assert.deepEqual(atnResults, ['DR7_EXISTS']);
 assert.equal(alerts.length, alertsBefore, 'DR7_EXISTS must not raise an alert');
 assert.throws(() => vm.runInNewContext('$.dr7ImportBundledAtn("../x.atn")', atnHost),
     /Invalid action file name/, 'the host must re-check the file name');
+// Shortcut set rename: installing replaces the new set and removes the legacy "MHK DR7" set of older versions.
+{
+    const sets = { 'MHK DR7': ['▶ Old'], 'SCCTLM_Foto': ['▶ Current'], 'Default Actions': ['Gradient Map'] };
+    const deleted = [], written = [];
+    const setHost = {
+        charIDToTypeID: id => id, stringIDToTypeID: id => id,
+        ActionReference: function () { this.idx = {}; this.putIndex = (cls, i) => { this.idx[cls] = i; }; this.putName = (cls, n) => { this.name = n; }; },
+        ActionDescriptor: function () { this.putReference = (k, r) => { this.ref = r; }; this.toStream = () => 'vers'; },
+        DialogModes: { NO: 0 },
+        executeAction: (event, desc) => { if (event === 'Dlt ') { deleted.push(desc.ref.name); delete sets[desc.ref.name]; } },
+        executeActionGet: ref => {
+            const names = Object.keys(sets), set = names[ref.idx.ASet - 1];
+            if (!set) throw new Error('past the last set');
+            if (ref.idx.Actn) return { getString: () => sets[set][ref.idx.Actn - 1] };
+            return { getString: () => set, hasKey: () => true, getInteger: () => sets[set].length };
+        },
+        File: function (f) { this.open = () => true; this.write = d => { written.push(d); }; this.close = () => {}; this.remove = () => {}; },
+        Folder: { temp: 'T' },
+        app: { load: () => {} },
+        $: {}
+    };
+    vm.runInNewContext(read('jsx/action-shortcut-setup.jsx'), setHost);
+    const setup = setHost.$.dr7ShortcutSetup;
+    assert.equal(setup.SET_NAME, 'SCCTLM_Foto');
+    assert.equal(setup.listActions(), 'Default Actions	Gradient Map', 'both play-wrapper sets stay out of the picker');
+    assert.equal(setup.install('Shift+F3	Default Actions	Gradient Map'), 1);
+    assert.deepEqual(deleted.sort(), ['MHK DR7', 'SCCTLM_Foto'], 'both the current and the legacy set must be removed');
+    assert.equal(setup.install('Shift+F3	MHK DR7	▶ Old'), 0, 'the legacy set is never a shortcut target');
+}
 console.log('PASS: ' + names.length + ' doa exports, JSX syntax/encoding/resources, bridge readiness/errors/preferences/double clicks/preset names, atn import');

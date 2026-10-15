@@ -1,10 +1,10 @@
 @echo off
 chcp 65001 >nul
 setlocal EnableExtensions
-title MHK DR7 : cai dat tu dong
+title SCCTLM_Foto : cai dat tu dong
 
 rem ============================================================
-rem  MHK DR7 : cai dat tu dong vao Photoshop (CEP)
+rem  SCCTLM_Foto : cai dat tu dong vao Photoshop (CEP)
 rem  - Bat PlayerDebugMode (sua loi "extension khong duoc phep chay")
 rem  - Copy plugin vao thu muc CEP extensions cua nguoi dung hien tai
 rem  - Canh bao go ban cu neu con (tranh xung dot $._ext_*)
@@ -14,11 +14,11 @@ rem    set DR7_SKIP_REG=1              -> khong ghi registry
 rem ============================================================
 
 for %%I in ("%~dp0..") do set "SRC=%%~fI"
-if not defined DR7_TARGET set "DR7_TARGET=%APPDATA%\Adobe\CEP\extensions\DR7"
+if not defined DR7_TARGET set "DR7_TARGET=%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto"
 set "EXTDIR=%APPDATA%\Adobe\CEP\extensions"
 
 echo ============================================================
-echo   MHK DR7 : cai dat tu dong
+echo   SCCTLM_Foto : cai dat tu dong
 echo   Nguon : %SRC%
 echo   Dich  : %DR7_TARGET%
 echo ============================================================
@@ -38,7 +38,7 @@ if "%DR7_SKIP_REG%"=="1" (
     echo [1/3] Bo qua buoc registry ^(DR7_SKIP_REG=1^)
 ) else (
     echo [1/3] Bat PlayerDebugMode cho CSXS.4 - CSXS.12 ...
-    reg import "%~dp0Fix-CEP-DR7.reg" >nul 2>&1
+    reg import "%~dp0Fix-CEP-SCCTLM_Foto.reg" >nul 2>&1
     if errorlevel 1 (
         echo       [x] Khong ghi duoc registry. Thu bam chuot phai -^> Run as administrator.
     ) else (
@@ -92,11 +92,23 @@ if defined OLD (
     echo       [ok] Khong co ban cu.
 )
 
+rem ---------- 4. Thu muc cai dat cu cua ban DR7 ----------
+set "LEGACY=%EXTDIR%\DR7"
+if /i not "%LEGACY%"=="%DR7_TARGET%" if exist "%LEGACY%\CSXS\manifest.xml" (
+    echo       [!] Phat hien thu muc cai dat cu: %LEGACY%
+    echo           Ban cu dung chung Extension Id, panel se hien trung lap.
+    choice /c YN /n /m "          Doi ten thanh DR7.disabled ? [Y/N] "
+    if not errorlevel 2 (
+        ren "%LEGACY%" "DR7.disabled" >nul 2>&1
+        if errorlevel 1 ( echo           [x] Khong doi ten duoc ^(co the dang bi Photoshop mo^). Dong Photoshop roi chay lai. ) else ( echo           [ok] Da doi ten thanh DR7.disabled )
+    )
+)
+
 echo.
 echo ============================================================
 echo   XONG. Cac buoc tiep theo:
 echo     1^) Mo Photoshop
-echo     2^) Window ^> Extensions ^> MHK DR7
+echo     2^) Window ^> Extensions ^> SCCTLM_Foto
 echo.
 echo   Kiem tra hien thi tieng Viet: File ^> Scripts ^> Browse...
 echo     chon %SRC%\_dev\tools\test-vietnamese.jsx

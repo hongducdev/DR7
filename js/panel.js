@@ -190,7 +190,7 @@
             if (!result.latest) { status('Chưa có bản phát hành nào trên GitHub.'); return null; }
             if (!result.available) { status('Đang dùng bản mới nhất (' + result.latest.tag + ').'); return null; }
             var notes = result.latest.notes ? '\n\n' + result.latest.notes.slice(0, 600) : '';
-            if (!window.confirm('Cập nhật MHK DR7 lên ' + result.latest.tag + '?' + notes)) { status(''); return null; }
+            if (!window.confirm('Cập nhật SCCTLM_Foto lên ' + result.latest.tag + '?' + notes)) { status(''); return null; }
             return window.dr7Updater.update(base, result.latest.tag, function (done, total) {
                 status('Đang tải ' + done + '/' + total + ' file...');
             }).then(function (installed) {
@@ -240,13 +240,13 @@
     var base = extensionDir();
     window.dr7Base = base;                                  // tiện kiểm tra trong console
     if (!base) {
-        alert('MHK DR7: không xác định được thư mục panel.\nHãy cài lại bằng install/Cai-dat-DR7.bat');
+        alert('SCCTLM_Foto: không xác định được thư mục panel.\nHãy cài lại bằng install/Cai-dat-SCCTLM_Foto.bat');
     } else {
         cs.evalScript('try{$.dr7Base = ' + JSON.stringify(base) + '; $.evalFile($.dr7Base + "/loader.jsx");' +
             '$.dr7Ready ? "DR7_READY" : $.dr7LoadErrors.join("\\n");}catch(e){"DR7_ERROR: "+e+" line "+e.line;}', function (res) {
             ready = res === 'DR7_READY';
             if (!ready) {
-                alert('MHK DR7 — không nạp được lõi ExtendScript:\n' + res + '\n\nThư mục panel:\n' + base);
+                alert('SCCTLM_Foto — không nạp được lõi ExtendScript:\n' + res + '\n\nThư mục panel:\n' + base);
                 return;
             }
             // ScriptUI dialogs opened from a CEP panel (Làm Da, Hàng loạt, Tuỳ chỉnh, Chữ/Logo)

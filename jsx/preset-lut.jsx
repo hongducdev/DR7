@@ -69,7 +69,7 @@
     // Failure only loses that convenience, so it is logged instead of thrown.
     function installXmpToCameraRaw(file) {
         try {
-            var targetFolder = new Folder(Folder.userData.fsName + '/Adobe/CameraRaw/Settings/DR7 Presets');
+            var targetFolder = new Folder(Folder.userData.fsName + '/Adobe/CameraRaw/Settings/SCCTLM_Foto Presets');
             if (!targetFolder.exists) targetFolder.create();
             if (!file.copy(new File(targetFolder.fsName + '/' + file.name))) {
                 $.writeln('DR7: could not copy preset to Camera Raw: ' + file.error);

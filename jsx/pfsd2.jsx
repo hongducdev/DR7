@@ -550,7 +550,7 @@ sTID = function(s) {
 return app.stringIDToTypeID(s);
 };
 // One undo step and RGB guard, see $.dr7SkinStep in main.jsx.
-$.dr7SkinStep("DR7 M\u00e0u t\u1ed5ng", SkinColor)();
+$.dr7SkinStep("SCCTLM_Foto M\u00e0u t\u1ed5ng", SkinColor)();
 
     }
 };

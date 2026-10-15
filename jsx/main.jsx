@@ -2421,7 +2421,7 @@ $.dr7SkinStep = function (title, fn) {
 
 // evalFile declarations live in the loader caller scope; retain their closures.
 $.dr7Commands = {
-    GGXS: $.dr7SkinStep("DR7 Highlight", GGXS), TJSH: TJSH, JMXS: JMXS, TJYY: TJYY,
-    FSJH: $.dr7SkinStep("DR7 Gi\u1ea3m v\u00e0ng", FSJH), MBPF: $.dr7SkinStep("DR7 Tr\u1eafng da", MBPF),
+    GGXS: $.dr7SkinStep("SCCTLM_Foto Highlight", GGXS), TJSH: TJSH, JMXS: JMXS, TJYY: TJYY,
+    FSJH: $.dr7SkinStep("SCCTLM_Foto Gi\u1ea3m v\u00e0ng", FSJH), MBPF: $.dr7SkinStep("SCCTLM_Foto Tr\u1eafng da", MBPF),
     ZCZQ: ZCZQ, DKACR: DKACR
 };

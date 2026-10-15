@@ -1,11 +1,11 @@
-/* DR7 updater: installs the latest GitHub Release of hongducdev/DR7 into the panel folder.
+/* DR7 updater: installs the latest GitHub Release of hongducdev/SCCTLM_Foto into the panel folder.
  * Pure logic (no DOM). Files are fetched over HTTPS from a fixed repository and written
  * with cep.fs; every download finishes before the first write, so a network failure
  * midway leaves the installed copy untouched. */
 (function () {
     'use strict';
 
-    var REPO = 'hongducdev/DR7';
+    var REPO = 'hongducdev/SCCTLM_Foto';
     var API = 'https://api.github.com/repos/' + REPO;
     var RAW = 'https://raw.githubusercontent.com/' + REPO + '/';
     var RECORD = '.dr7-version.json';

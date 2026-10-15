@@ -1,9 +1,9 @@
 /*
  * Đồng bộ code từ thư mục nguồn (vd D:\DR7) sang bản cài trước khi nút ↻ nạp lại,
- * để không cần chạy install\Hot-reload-DR7.bat.
+ * để không cần chạy install\Hot-reload-SCCTLM_Foto.bat.
  *
  * Chỉ bật khi bản cài có file `.dr7-dev-source` chứa đường dẫn thư mục nguồn
- * (Cai-dat-DR7.bat tự ghi khi cài từ một git checkout). Người dùng thường không có file này
+ * (Cai-dat-SCCTLM_Foto.bat tự ghi khi cài từ một git checkout). Người dùng thường không có file này
  * → ↻ chỉ nạp lại như cũ.
  *
  * Chép file khi bản cài chưa có hoặc file nguồn mới hơn (mtime). Không xoá file nào.

@@ -30,7 +30,7 @@
                 </Lifecycle>
                 <UI>
                     <Type>Panel</Type>
-                    <Menu>MHK DR7</Menu>
+                    <Menu>SCCTLM_Foto</Menu>
                     <Geometry>
                         <Size><Height>580</Height><Width>235</Width></Size>
                         <MaxSize><Height>2000</Height><Width>600</Width></MaxSize>
@@ -45,6 +45,6 @@
         </Extension>
     </DispatchInfoList>
     <Author>local build</Author>
-    <Abstract>MHK DR7 - panel retouch cho Photoshop.</Abstract>
+    <Abstract>SCCTLM_Foto - panel retouch cho Photoshop.</Abstract>
     <HostList />
 </ExtensionManifest>

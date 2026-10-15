@@ -1,5 +1,18 @@
 # Changelog
 
+## Đổi tên — SCCTLM_Foto
+
+- Plugin và repo GitHub đổi tên từ "MHK DR7" / `hongducdev/DR7` thành **SCCTLM_Foto** (`hongducdev/SCCTLM_Foto`): menu
+  Window > Extensions, tiêu đề panel, `Abstract` trong manifest, thông báo, updater (`REPO`), README, tên History/hộp thoại
+  trong Photoshop (`SCCTLM_Foto: ...`), thư mục preset Camera Raw (`SCCTLM_Foto Presets`).
+- Thư mục cài đổi thành `%APPDATA%\Adobe\CEP\extensions\SCCTLM_Foto`; script cài đổi tên thành `Cai-dat-SCCTLM_Foto.bat`,
+  `Fix-CEP-SCCTLM_Foto.reg`, `Hot-reload-SCCTLM_Foto.bat`. `Cai-dat-SCCTLM_Foto.bat` hỏi đổi tên thư mục cài cũ `DR7`
+  thành `DR7.disabled` (cùng Extension Id nên sẽ hiện trùng panel nếu để cả hai).
+- Bộ Action phím tắt đổi từ `MHK DR7` thành `SCCTLM_Foto`; lần mở panel đầu tiên tự dựng lại bộ mới từ danh sách phím
+  đã lưu và xoá bộ cũ (`LEGACY_SET_NAME`).
+- Giữ nguyên: Extension Id `com.retouchpanel.*`, tiền tố mã `dr7*` / `DR7_*`, file `.dr7-*`, tên preset cọ/lớp bên trong
+  file `.tpl` và script (vd `DR7 Soft Brush`) vì mã tra cứu theo tên đó. Các mục bên dưới giữ tên cũ vì là lịch sử.
+
 ## v0.1.1 (2026-10-15) — Nút nạp bộ Action và màu Rim Light
 
 - Nhóm **Action** (gộp nút nạp bộ Action, màu Rim Light và Phím tắt Action vào một card, gọn hơn ~100px): mỗi file `.atn` trong `presets/` thành một nút **⤓ <tên file>**, bấm là nạp bộ Action vào

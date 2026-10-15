@@ -5,7 +5,7 @@ const path = require('node:path');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
 const target = path.resolve(process.argv[2] && process.argv[2] !== '--once' ? process.argv[2] :
-    path.join(process.env.APPDATA, 'Adobe/CEP/extensions/DR7'));
+    path.join(process.env.APPDATA, 'Adobe/CEP/extensions/SCCTLM_Foto'));
 if (target === root || root.startsWith(target + path.sep)) throw new Error('Target must not contain source');
 const once = process.argv.includes('--once');
 const folders = ['js', 'jsx', 'css', 'img', 'presets'];
@@ -32,7 +32,7 @@ async function evaluate(expression) {
     const pages = await response.json();
     const expected = 'file:///' + target.replace(/\\/g, '/') + '/index.html';
     const page = pages.find(p => decodeURI(p.url).toLowerCase().split('?')[0] === expected.toLowerCase());
-    if (!page) throw new Error('Open MHK DR7 in Photoshop');
+    if (!page) throw new Error('Open SCCTLM_Foto in Photoshop');
     return new Promise((resolve, reject) => {
         const ws = new WebSocket(page.webSocketDebuggerUrl);
         const timer = setTimeout(() => { ws.close(); reject(new Error('CEP timeout')); }, 3000);
@@ -77,10 +77,10 @@ async function sync() {
     const reloaded = await evaluate('dr7Reload()');
     if (!reloaded) { status('Changes copied; waiting to reload after the current command.'); return; }
     reloadPending = false;
-    status('Synced ' + changed.length + ' files, removed ' + removed.length + '; MHK DR7 reloaded.');
+    status('Synced ' + changed.length + ' files, removed ' + removed.length + '; SCCTLM_Foto reloaded.');
 }
 async function main() {
-    console.log('MHK DR7 hot reload: ' + root + ' -> ' + target);
+    console.log('SCCTLM_Foto hot reload: ' + root + ' -> ' + target);
     do {
         try { await sync(); }
         catch (error) { status(error.message); if (once) { process.exitCode = 1; return; } }
