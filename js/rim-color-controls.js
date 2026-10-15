@@ -1,28 +1,59 @@
 /*
- * Hàng "Màu Rim Light" (trong nhóm Action): ô chọn màu + nút "Màu Rim Light" (lệnh RIMCOLOR, xem jsx/rim-light-color.jsx).
+ * Nhóm Rim Light: ô màu tròn + mã hex + hút màu Foreground + 7 màu mẫu + thanh Cường độ.
  *
- * Hàng chỉ hiện khi ảnh đang mở có nhóm "Rim Light" chứa lớp "Color" ($._ext_RIMCOLOR.available()); panel
- * hỏi lại khi quay lại panel và mỗi vài giây (Photoshop không báo khi đổi ảnh hay chạy Action).
- * Mặc định ô màu theo màu Foreground của Photoshop (đọc mỗi lần hàng hiện ra và mỗi lần quay lại panel);
- * khi người dùng tự chọn màu trong ô thì giữ màu đó (không bị Foreground ghi đè nữa) và nút đổi từ
- * "Màu Rim Light" thành "Áp dụng".
+ * Nhóm chỉ hiện khi ảnh đang mở có nhóm "Rim Light" chứa lớp "Color" ($._ext_RIMCOLOR.available(),
+ * xem jsx/rim-light-color.jsx); Photoshop không báo khi đổi ảnh hay chạy Action nên panel hỏi lại khi quay
+ * lại panel và mỗi vài giây. Đổi màu tô lại lớp Color ngay (lệnh RIMCOLOR, 1 bước History), kéo
+ * Cường độ đặt độ mờ của cả nhóm Rim Light. Nhóm vừa hiện thì lấy cường độ thật của nhóm.
  */
 (function () {
     'use strict';
 
     var POLL_MS = 2500;
+    var OPACITY_DELAY_MS = 120;
+    var HEX = /^#[0-9a-f]{6}$/i;
 
     var cs = new CSInterface();
-    var row = null, picker = null, applyButton = null;
-    var customColor = false;
+    var group = null, picker = null, hexInput = null, slider = null, sliderValue = null;
+    var exists = false;
     var pending = false;                                // chưa nhận kết quả lần hỏi trước thì không hỏi thêm
+    var opacityTimer = 0;
 
-    function syncForeground() {
-        if (customColor || row.hidden) return;
-        cs.evalScript('$._ext_RIMCOLOR.foreground()', function (res) {
-            if (/^#[0-9a-f]{6}$/i.test(res)) picker.value = res;
-            else console.warn('DR7: không đọc được màu Foreground', res);
-        });
+    function currentHex() { return picker.value.toLowerCase(); }
+    function currentOpacity() { return Math.round(Number(slider.value)); }
+
+    function paintTrack() {
+        slider.style.setProperty('--fill', slider.value + '%');
+        sliderValue.textContent = slider.value + '%';
+    }
+
+    function setColor(hex) {
+        picker.value = hex.toLowerCase();
+        hexInput.value = hex.toUpperCase();
+        hexInput.classList.remove('is-invalid');
+    }
+
+    // Có nhóm Rim Light thì tô lại màu ngay (1 bước History)
+    function applyColor() {
+        if (!exists) return;
+        window.dr7RunCommand('RIMCOLOR', function () { refresh(); }, currentHex());
+    }
+
+    function pickColor(hex) {
+        setColor(hex);
+        applyColor();
+    }
+
+    function setExists(value) {
+        if (exists === value) return;
+        exists = value;
+        group.hidden = !exists;
+        if (window.dr7FitHeight) window.dr7FitHeight();
+        if (exists) {                                    // nhóm vừa xuất hiện: lấy cường độ thật của nhóm
+            cs.evalScript('$._ext_RIMCOLOR.getOpacity()', function (res) {
+                if (/^\d{1,3}$/.test(res)) { slider.value = Math.min(100, Number(res)); paintTrack(); }
+            });
+        }
     }
 
     function refresh() {
@@ -30,28 +61,54 @@
         pending = true;
         cs.evalScript('typeof $._ext_RIMCOLOR=="object"?$._ext_RIMCOLOR.available():"0"', function (res) {
             pending = false;
-            var show = res === '1';
-            if (row.hidden === !show) { syncForeground(); return; }
-            row.hidden = !show;
-            if (show) syncForeground();
-            if (window.dr7FitHeight) window.dr7FitHeight();
+            setExists(res === '1');
+        });
+    }
+
+    function writeOpacity() {
+        if (!exists) return;
+        cs.evalScript('$._ext_RIMCOLOR.setOpacity(' + currentOpacity() + ')', function (res) {
+            if (res !== 'ok') console.warn('DR7: không đặt được cường độ Rim Light', res);
         });
     }
 
     window.dr7InitRimColor = function () {
-        row = document.querySelector('.rim-color-row');
+        group = document.querySelector('.group-rim');
         picker = document.querySelector('.rim-color-input');
-        applyButton = document.querySelector('.rim-color-apply');
-        if (!row || !picker || !applyButton) return;
-        picker.addEventListener('input', function () {
-            customColor = true;
-            applyButton.textContent = 'Áp dụng';             // đã chọn màu riêng: nút thành "Áp dụng"
+        hexInput = document.querySelector('.rim-hex');
+        slider = document.querySelector('.rim-intensity');
+        sliderValue = document.querySelector('.rim-intensity-value');
+        var eyedropper = document.querySelector('.rim-eyedropper');
+        var swatches = document.querySelectorAll('.rim-swatch');
+        if (!group || !picker || !hexInput || !slider || !sliderValue || !eyedropper) return;
+
+        picker.addEventListener('change', function () { pickColor(picker.value); });
+        hexInput.addEventListener('input', function () {
+            hexInput.classList.toggle('is-invalid', !HEX.test(hexInput.value));
         });
-        applyButton.addEventListener('click', function () {
-            window.dr7RunCommand('RIMCOLOR', function () { refresh(); }, picker.value);
+        hexInput.addEventListener('change', function () {
+            var text = hexInput.value.trim();
+            if (text.charAt(0) !== '#') text = '#' + text;
+            if (HEX.test(text)) pickColor(text);
+            else setColor(picker.value);                 // sai định dạng: trả về màu đang chọn
+        });
+        Array.prototype.forEach.call(swatches, function (swatch) {
+            swatch.addEventListener('click', function () { pickColor(swatch.getAttribute('data-color')); });
+        });
+        eyedropper.addEventListener('click', function () {
+            cs.evalScript('$._ext_RIMCOLOR.foreground()', function (res) {
+                if (HEX.test(res)) pickColor(res);
+                else console.warn('DR7: không đọc được màu Foreground', res);
+            });
+        });
+        slider.addEventListener('input', function () {
+            paintTrack();
+            clearTimeout(opacityTimer);
+            opacityTimer = setTimeout(writeOpacity, OPACITY_DELAY_MS);
         });
         window.addEventListener('focus', refresh);
         setInterval(refresh, POLL_MS);
+        paintTrack();
         refresh();
     };
 }());

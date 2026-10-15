@@ -21,6 +21,17 @@
 - Giữ nguyên: Extension Id `com.retouchpanel.*`, tiền tố mã `dr7*` / `DR7_*`, file `.dr7-*`, tên preset cọ/lớp bên trong
   file `.tpl` và script (vd `DR7 Soft Brush`) vì mã tra cứu theo tên đó. Các mục bên dưới giữ tên cũ vì là lịch sử.
 
+## Chưa phát hành — Cọ vẽ và Rim Light đầy đủ chức năng
+
+- Giao diện: nhóm có mũi tên thu gọn (`js/section-collapse.js`), nút trung tính tối, nút chính đỏ (`css/layout.css`).
+- **Cọ vẽ**: khung xem trước nét cọ + thanh Kích thước / Độ cứng đọc-ghi trực tiếp cọ hiện tại (`js/brush-controls.js`,
+  `jsx/brush-size-hardness.jsx`, lệnh `$._ext_BRUSH`); nút Thiết lập cọ thành "✓ Cọ đã bật", "Về mặc định" hiện cùng hàng khi cọ đã bật.
+  Phím tắt Play Action vẫn ở nhóm Action (không gắn vào Cọ vẽ).
+- Icon nút vẽ bằng SVG mask (`css/button-icons.css`): bánh răng / dấu tích (Thiết lập cọ), mũi tên hoàn tác (Về mặc định), bàn phím (Gán phím tắt), tải xuống (nạp `.atn`), ống hút màu (Rim Light); bỏ ký tự ⚙ ✓ ⤓ ⌨ trong chữ nút.
+- **Rim Light** (nhóm mới, thay hàng "Màu Rim Light"): ô màu tròn, hex, hút Foreground, 7 màu mẫu, thanh Cường độ (độ mờ nhóm).
+  Chỉ hiện khi ảnh có nhóm `Rim Light` > lớp `Color`; đổi màu tô lại lớp Color ngay (`RIMCOLOR`), không có nút tạo Rim Light.
+- Kiểm chứng trên Photoshop thật: đọc/ghi Size-Hardness, đọc/đặt cường độ nhóm Rim Light.
+
 ## v0.1.1 (2026-10-15) — Nút nạp bộ Action và màu Rim Light
 
 - Nhóm **Action** (gộp nút nạp bộ Action, màu Rim Light và Phím tắt Action vào một card, gọn hơn ~100px): mỗi file `.atn` trong `presets/` thành một nút **⤓ <tên file>**, bấm là nạp bộ Action vào

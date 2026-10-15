@@ -6,6 +6,7 @@
 	<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" href="css/layout.css" type="text/css">
     <link rel="stylesheet" href="css/explore.css" type="text/css">
+    <link rel="stylesheet" href="css/button-icons.css" type="text/css">
     <script type="text/javascript" src="./js/CSInterface.js"></script>
 
     <!-- Bảng màu nút: layout.css là bản chính, khối này chỉ để dự phòng. -->
@@ -57,7 +58,7 @@
 	</nav>
 	<div class="tab-pane" role="tabpanel" data-tab="retouch">
 		<section class="group group-retouch" aria-label="Retouch">
-			<div class="section-title">Retouch</div>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Retouch</div>
 			<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu">Làm Da V5.0</button>
 			<div class="action-grid">
 				<button onclick="onClickButton('SE')" title="Làm da với bán kính, độ sâu chi tiết và bảo vệ vùng sáng tự chọn">Tuỳ chỉnh</button>
@@ -83,28 +84,40 @@
 			</div>
 		</section>
 		<section class="group group-brush" aria-label="Cọ vẽ">
-			<div class="section-title">Cọ vẽ</div>
-			<div class="action-grid one-col">
-				<button class="brush-setup-run" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
-				<button class="brush-setup-reset" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Cọ vẽ</div>
+			<div class="action-grid one-col brush-actions">
+				<button class="brush-setup-run icon-btn" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
+				<button class="brush-setup-reset icon-btn" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
 			</div>
+			<canvas class="brush-preview" aria-label="Xem trước nét cọ"></canvas>
+			<div class="slider-row"><span>Kích thước</span><input type="range" class="brush-size" min="1" max="500" value="80" aria-label="Kích thước cọ"><output class="brush-size-value">80 px</output></div>
+			<div class="slider-row"><span>Độ cứng</span><input type="range" class="brush-hardness" min="0" max="100" value="20" aria-label="Độ cứng cọ"><output class="brush-hardness-value">20%</output></div>
+		</section>
+		<section class="group group-rim" aria-label="Rim Light" hidden>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Rim Light</div>
+			<div class="rim-top">
+				<input type="color" class="rim-color-input" value="#4cd6fd" title="Chọn màu Rim Light" aria-label="Màu Rim Light">
+				<div class="rim-fields">
+					<div class="rim-hex-row">
+						<input type="text" class="rim-hex" value="#4CD6FD" maxlength="7" spellcheck="false" aria-label="Mã màu hex">
+						<button class="rim-eyedropper" title="Lấy màu Foreground hiện tại của Photoshop" aria-label="Lấy màu Foreground"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg></button>
+					</div>
+					<div class="rim-swatches"><button class="rim-swatch" data-color="#ff9f43" style="background:#ff9f43" title="#FF9F43" aria-label="Màu #FF9F43"></button><button class="rim-swatch" data-color="#ffe14a" style="background:#ffe14a" title="#FFE14A" aria-label="Màu #FFE14A"></button><button class="rim-swatch" data-color="#4040ff" style="background:#4040ff" title="#4040FF" aria-label="Màu #4040FF"></button><button class="rim-swatch" data-color="#a040ff" style="background:#a040ff" title="#A040FF" aria-label="Màu #A040FF"></button><button class="rim-swatch" data-color="#3acf5a" style="background:#3acf5a" title="#3ACF5A" aria-label="Màu #3ACF5A"></button><button class="rim-swatch" data-color="#ff2a2a" style="background:#ff2a2a" title="#FF2A2A" aria-label="Màu #FF2A2A"></button><button class="rim-swatch" data-color="#4cd6fd" style="background:#4cd6fd" title="#4CD6FD" aria-label="Màu #4CD6FD"></button></div>
+				</div>
+			</div>
+			<div class="slider-row"><span>Cường độ</span><input type="range" class="rim-intensity" min="0" max="100" value="65" aria-label="Cường độ Rim Light"><output class="rim-intensity-value">65%</output></div>
 		</section>
 		<section class="group group-shortcut" aria-label="Action">
-			<div class="section-title">Action</div>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Action</div>
 			<!-- panel.js thêm 1 nút cho mỗi file .atn trong thư mục presets/ -->
 			<div class="action-grid one-col atn-grid" hidden></div>
-			<!-- hiện sau khi nạp Action thành công (js/rim-color-controls.js) -->
-			<div class="action-grid two-col rim-color-row" hidden>
-				<input type="color" class="rim-color-input" value="#ffffff" title="Màu cho lớp Color của Rim Light (mặc định là màu Foreground hiện tại)" aria-label="Màu Rim Light">
-				<button class="rim-color-apply" title="Tô lớp Color trong nhóm Rim Light bằng màu đã chọn bên cạnh">Màu Rim Light</button>
-			</div>
 			<div class="action-grid one-col">
 				<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
-				<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">⌨ Gán phím tắt</button>
+				<button class="shortcut-capture icon-btn" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">Gán phím tắt</button>
 			</div>
 		</section>
 		<section class="group group-color" aria-label="Màu và Preset">
-			<div class="section-title">Màu &amp; Preset</div>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Màu &amp; Preset</div>
 			<div class="action-grid two-col">
 				<button onclick="doa('DKACR')" title="Mở bộ lọc Camera Raw">Camera Raw</button>
 				<button onclick="doa('APPLY_PRESET_XMP')" title="Chọn file Preset Camera Raw (.xmp) bất kỳ">Preset XMP…</button>
@@ -235,10 +248,12 @@
 <script type="text/javascript" src="./js/dev-source-sync.js"></script>
 <script type="text/javascript" src="./js/shortcut-key-capture.js"></script>
 <script type="text/javascript" src="./js/brush-setup-controls.js"></script>
+<script type="text/javascript" src="./js/brush-controls.js"></script>
 <script type="text/javascript" src="./js/rim-color-controls.js"></script>
 <script type="text/javascript" src="./js/explore-feed.js"></script>
 <script type="text/javascript" src="./js/explore-tab.js"></script>
 <script type="text/javascript" src="./js/tab-switcher.js"></script>
+<script type="text/javascript" src="./js/section-collapse.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 
 

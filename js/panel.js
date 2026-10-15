@@ -91,7 +91,7 @@
     window.dr7ImportActions = function (fileName, done) { run('atn', fileName, done); };
     // Gọi từ js/shortcut-key-capture.js sau khi người dùng ấn phím
     window.dr7SetupShortcut = function (list, done) { run('shortcut', list, done); };
-    // Cho module khác (js/brush-setup-controls.js) chạy lệnh $._ext_<name> và nhận kết quả
+    // Cho module khác (js/brush-setup-controls.js, js/rim-color-controls.js) chạy lệnh $._ext_<name> và nhận kết quả
     window.dr7RunCommand = function (name, done, arg) { run('ext', name, done, arg); };
 
     // One button per .xmp dropped into /presets, labelled with the file name.
@@ -122,7 +122,8 @@
             var button = document.createElement('button');
             var label = file.replace(/\.atn$/i, '').replace(/_/g, ' ');
             button.title = 'Nạp bộ Action ' + label + ' vào bảng Actions (' + file + ')';
-            button.textContent = '⤓ ' + label;
+            button.className = 'atn-load icon-btn';
+            button.textContent = label;
             button.onclick = function () {
                 window.dr7ImportActions(file, function (res) {
                     if (res === 'DR7_OK') flashStatus('✓ Đã nạp bộ Action ' + label);
@@ -218,6 +219,7 @@
         renderActionFiles();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();
         if (window.dr7InitBrushSetup) window.dr7InitBrushSetup();
+        if (window.dr7InitBrushControls) window.dr7InitBrushControls();
         if (window.dr7InitRimColor) window.dr7InitRimColor();
         fitHeight();
         // Silent check: an offline panel simply shows no badge.

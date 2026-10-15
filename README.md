@@ -39,9 +39,9 @@
 | 🪄 | **Không phá huỷ** | Mọi thao tác sinh layer, mask hoặc adjustment layer riêng — chỉnh Opacity / Blend Mode / đảo ngược bất cứ lúc nào. |
 | 🌈 | **RGB 8-bit & 16-bit** | Thuật toán màu và kết cấu chạy chính xác trên cả hai. |
 | ⤓ | **Nạp Action 1 click** | Mỗi file `.atn` trong `presets/` thành một nút; không nạp trùng bộ đã có. |
-| 💡 | **Màu Rim Light** | Ô chọn màu ngay trên panel, mặc định theo màu Foreground. |
+| 💡 | **Rim Light** | Tự hiện khi ảnh có nhóm `Rim Light` > lớp `Color`: chọn màu (ô tròn, hex, hút Foreground, 7 màu mẫu) và Cường độ. |
 | ⌨️ | **Phím tắt Action** | Gán F2–F12 (kèm Shift/Ctrl) để Play bất kỳ Action nào. |
-| 🖌️ | **Thiết lập cọ** | Một nút bật Shape Dynamics + Pen Pressure cho cọ hiện tại. |
+| 🖌️ | **Cọ vẽ** | Bật Shape Dynamics + Pen Pressure bằng một nút; xem trước nét cọ, chỉnh Kích thước / Độ cứng ngay trên panel. |
 | 🎞️ | **Preset & kết cấu** | Preset Camera Raw `.xmp` tự thành nút; bộ hoa văn Hạt phim / Hạt thô / Chấm có sẵn. |
 | 🔒 | **Chạy cục bộ** | Adobe CEP + ExtendScript, không gửi dữ liệu qua mạng. |
 | 🔁 | **Cập nhật từ GitHub** | Nút ⤓ trên panel tải bản phát hành mới nhất, không cần cài lại. |
@@ -116,13 +116,18 @@
 │ │ [ Hạt thô ] [ Chấm ]                               │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● CỌ VẼ ──────────────────────────────────────────┐ │
-│ │ [ ✓ Thiết lập cọ ]      [ Về mặc định ]            │ │
+│ │ [            ⚙ Thiết lập cọ                  ]     │ │
+│ │ [ ~~~~~~ xem trước nét cọ ~~~~~~ ]                 │ │
+│ │ Kích thước ──●────── 80 px   Độ cứng ─●───── 20%   │ │
+│ └────────────────────────────────────────────────────┘ │
+│ ┌─ ● RIM LIGHT ── (chỉ hiện khi ảnh có Rim Light) ───┐ │
+│ │ (●) [ #4CD6FD ][💧]  ● ● ● ● ● ● ●                 │ │
+│ │ Cường độ ──────────●──── 65%                       │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● ACTION ─────────────────────────────────────────┐ │
 │ │ [ ⤓ Thumbnail action ]  ← 1 nút / file .atn        │ │
-│ │ [ ■ ] [ Màu Rim Light ] ← khi ảnh có Rim Light     │ │
 │ │ [ Gradient Map  —  Shift+F3                  ▾ ]   │ │
-│ │ [           ⌨ Phím tắt: Shift+F3             ]     │ │
+│ │ [           Phím tắt: Shift+F3               ]     │ │
 │ └────────────────────────────────────────────────────┘ │
 │ ┌─ ● MÀU & PRESET ───────────────────────────────────┐ │
 │ │ [ Camera Raw ]          [ Preset XMP… ]            │ │
@@ -167,8 +172,9 @@
 
 | Nút | Mã | Tác vụ |
 |---|---|---|
-| **Thiết lập cọ** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về **Pen Pressure** (đang cầm công cụ khác thì tự chuyển sang Brush). Không cần mở ảnh. Xong thì nút mờ đi (✓) và hiện **Về mặc định**; trạng thái đọc lại từ cọ mỗi khi quay lại panel. |
+| **Thiết lập cọ** | `BPP` | Bật Shape Dynamics cho cọ hiện tại và đặt Control của Size / Angle / Roundness Jitter về **Pen Pressure** (đang cầm công cụ khác thì tự chuyển sang Brush). Không cần mở ảnh. Xong thì nút thành **✓ Cọ đã bật** (viền xanh) và hiện nút **Về mặc định** cùng hàng; trạng thái đọc lại từ cọ mỗi khi quay lại panel. |
 | **Về mặc định** | `BPPRESET` | Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics. |
+| **Xem trước / Kích thước / Độ cứng** | `BRUSH` | Hai thanh trượt đọc và ghi trực tiếp Size (1–500 px) và Hardness (0–100%) của cọ hiện tại (`jsx/brush-size-hardness.jsx`); khung xem trước vẽ lại theo giá trị. Đọc lại khi quay lại panel. |
 
 ### 🎞️ Màu, preset & kết cấu
 
@@ -195,21 +201,22 @@ Tần số 8/16, Tần số, Frequency, Lấy mẫu, Chọn Mắt, Mặt nạ da
 
 ### ⤓ Nạp Action nhanh
 
-Chép file bộ Action `.atn` vào `presets/` (cùng chỗ với preset `.xmp`, tên file theo cùng quy tắc) rồi bấm **↻** — mỗi file thành một nút **⤓ \<tên file\>**.
+Chép file bộ Action `.atn` vào `presets/` (cùng chỗ với preset `.xmp`, tên file theo cùng quy tắc) rồi bấm **↻** — mỗi file thành một nút có icon tải xuống kèm \<tên file\>.
 
 - Bấm nút là nạp bộ Action vào bảng Actions, **không cần mở ảnh**.
 - Bộ cùng tên đã có trong Photoshop → giữ nguyên bản của bạn, panel báo "đã có" (không nạp trùng).
 - Bản đóng gói sẵn: `Thumbnail_action.atn` — bộ **Thumbnail action** gồm *Stroke Brush Path* (phím F5) và *YouTube Rim Light*.
 - Phím F của bộ trùng phím menu (F2–F4) → Photoshop sẽ hỏi như mục phím tắt bên dưới.
 
-### 💡 Màu Rim Light
+### 💡 Rim Light
 
-Khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color` (do Action *YouTube Rim Light* tạo), panel hiện hàng **Màu Rim Light** (tự ẩn khi không có; panel kiểm tra mỗi vài giây):
+Nhóm **Rim Light** chỉ hiện khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color` (do Action *YouTube Rim Light* tạo); panel kiểm tra khi quay lại panel và mỗi vài giây, không có thì ẩn cả nhóm.
 
-- 🎯 Ô màu mặc định theo màu **Foreground** của Photoshop (cập nhật mỗi lần quay lại panel).
-- 🖍️ Chọn màu khác trong ô → giữ màu đó và nút đổi thành **Áp dụng**.
-- Bấm nút để tô lại lớp `Color`: giữ nguyên vùng trong suốt (hoặc đổi màu nếu lớp là Solid Color), **1 bước History**.
-- Đang có vùng chọn thì chỉ tô trong vùng chọn. Chưa có nhóm/lớp đó thì báo lỗi.
+| Điều khiển | Tác vụ |
+|---|---|
+| Ô màu tròn / ô hex / 7 màu mẫu | Chọn màu và **tô lại lớp `Color` ngay**: giữ vùng trong suốt (lớp Solid Color thì đổi màu), 1 bước History. |
+| Nút hút màu | Lấy màu **Foreground** của Photoshop rồi tô. |
+| **Cường độ** | Độ mờ (0–100%) của cả nhóm `Rim Light`, áp ngay khi kéo; lấy giá trị thật của nhóm khi nhóm vừa hiện. |
 
 ### ⌨️ Phím tắt Play Action
 
@@ -292,7 +299,9 @@ SCCTLM_Foto/
 │   ├── dev-source-sync.js       # ↻ trên máy dev: chép code mới từ thư mục nguồn
 │   ├── shortcut-key-capture.js  # Phím tắt Action: chọn Action, nghe phím F, lưu danh sách
 │   ├── brush-setup-controls.js  # Cọ vẽ: Thiết lập cọ / Về mặc định
-│   └── rim-color-controls.js    # Hàng Màu Rim Light: ô màu, ẩn/hiện theo ảnh, nút Áp dụng
+│   ├── brush-controls.js        # Cọ vẽ: xem trước nét cọ, thanh Kích thước / Độ cứng
+│   ├── section-collapse.js      # Thu gọn / mở rộng từng nhóm
+│   └── rim-color-controls.js    # Rim Light: màu, hex, hút màu, Cường độ; ẩn khi ảnh không có Rim Light
 ├── jsx/
 │   ├── 4.jsxbin                 # Hộp thoại Chữ / Logo (WM)
 │   ├── main.jsx                 # Hàm lõi: GGXS, TJSH, JMXS, TJYY, FSJH, MBPF, ZCZQ, DKACR
@@ -301,7 +310,8 @@ SCCTLM_Foto/
 │   ├── preset-lut.jsx           # Áp Preset Camera Raw (.xmp)
 │   ├── brush-pen-pressure.jsx   # BPP / BPPRESET / trạng thái cọ; chạy được độc lập
 │   ├── action-set-import.jsx    # Nạp bộ Action .atn đóng gói (bỏ qua nếu đã có bộ cùng tên)
-│   ├── rim-light-color.jsx      # RIMCOLOR: tô lớp Color trong nhóm Rim Light
+│   ├── brush-size-hardness.jsx  # BRUSH: đọc / ghi Size + Hardness của cọ
+│   ├── rim-light-color.jsx      # RIMCOLOR: tô màu lớp Color, đọc/đặt cường độ nhóm Rim Light
 │   ├── action-shortcut-setup.jsx # Liệt kê Action; sinh & nạp bộ "SCCTLM_Foto" (▶ Play Action có phím F)
 │   ├── pj/                      # Tài nguyên cọ (.tpl) và hoa văn (.pat)
 │   └── *.jsx                    # Module chuyên biệt: ds, ba, se, ls, ss, re, db, sh, li, tc, wt, pfsd2
@@ -344,9 +354,9 @@ Bấm **↻** trên panel. Nếu sửa ở thư mục nguồn (vd `D:\DR7`) mà 
 </details>
 
 <details>
-<summary>💡 Không thấy hàng Màu Rim Light</summary>
+<summary>💡 Không thấy nhóm Rim Light</summary>
 
-Hàng chỉ hiện khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color`. Nạp bộ Thumbnail action (nút **⤓ Thumbnail action**) rồi chạy Action *YouTube Rim Light* trên ảnh.
+Nhóm chỉ hiện khi ảnh đang mở có nhóm `Rim Light` chứa lớp `Color`. Nạp bộ Thumbnail action (nút **Thumbnail action** (icon tải xuống)) rồi chạy Action *YouTube Rim Light* trên ảnh.
 
 </details>
 

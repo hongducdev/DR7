@@ -80,5 +80,16 @@ $._ext_RIMCOLOR = {
         } finally {
             doc.activeLayer = previous;
         }
+    },
+
+    // Opacity (0-100) of the whole "Rim Light" group: the panel's Cuong do slider
+    getOpacity: function () {
+        return String(Math.round(app.activeDocument.layerSets.getByName($._ext_RIMCOLOR.GROUP).opacity));
+    },
+
+    setOpacity: function (value) {
+        var group = app.activeDocument.layerSets.getByName($._ext_RIMCOLOR.GROUP);
+        group.opacity = Math.max(0, Math.min(100, Number(value)));
+        return 'ok';
     }
 };

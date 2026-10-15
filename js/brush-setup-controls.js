@@ -2,7 +2,7 @@
  * Nhóm Cọ vẽ: nút "Thiết lập cọ" (BPP) + "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
  *
  * Trạng thái lấy thẳng từ cọ hiện tại trong Photoshop ($._ext_BPP.state()), không lưu ở panel:
- *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → Thiết lập cọ bị khoá, hiện Về mặc định
+ *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → nút thành "Cọ đã bật" (khoá), hiện nút Về mặc định cùng hàng
  *   - còn lại  : Thiết lập cọ bấm được, ẩn Về mặc định
  * Đọc lại khi mở panel, khi quay lại panel (focus) và sau mỗi lần bấm, vì đổi cọ/công cụ trong
  * Photoshop cũng làm đổi trạng thái.
@@ -19,10 +19,12 @@
     function render(state) {
         var done = state === 'setup';
         setupButton.disabled = done;
-        setupButton.textContent = done ? '✓ Thiết lập cọ' : 'Thiết lập cọ';
+        setupButton.textContent = done ? 'Cọ đã bật' : 'Thiết lập cọ';
+        setupButton.classList.toggle('is-done', done);
         resetButton.hidden = !done;
         grid.classList.toggle('two-col', done);
         grid.classList.toggle('one-col', !done);
+        if (window.dr7FitHeight) window.dr7FitHeight();
     }
 
     function refresh() {

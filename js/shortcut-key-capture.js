@@ -71,7 +71,17 @@
 
     function showKey(hint) {
         var bound = bindingFor(target());
-        button.textContent = hint || (bound ? '⌨ Phím tắt: ' + bound.key : '⌨ Gán phím tắt');
+        button.textContent = '';
+        if (hint || !bound) {
+            button.textContent = hint || 'Gán phím tắt';
+        } else {
+            var key = document.createElement('b');
+            key.className = 'shortcut-key';
+            key.textContent = bound.key;
+            button.appendChild(document.createTextNode('Phím tắt: '));
+            button.appendChild(key);
+        }
+        button.title = listening ? 'Ấn F2–F12 (+Shift/Ctrl) · Esc huỷ · Backspace xoá phím' : button.getAttribute('data-title') || button.title;
         button.classList.toggle('listening', listening);
     }
 
@@ -186,10 +196,10 @@
         }
         if (code < KEY_F2 || code > KEY_F12) {
             if (/^(Shift|Control|Meta|Alt)$/.test(event.key)) return;   // đang giữ phím bổ trợ
-            showKey('Chỉ nhận F2–F12 (+Shift/Ctrl)…');
+            showKey('Chỉ nhận F2–F12…');
             return;
         }
-        if (event.altKey) { showKey('Không hỗ trợ Alt, ấn lại…'); return; }
+        if (event.altKey) { showKey('Không dùng Alt…'); return; }
         var key = (event.ctrlKey || event.metaKey ? 'Ctrl+' : '') + (event.shiftKey ? 'Shift+' : '') +
             'F' + (code - KEY_F2 + 2);
         // 1 phím chỉ Play 1 Action: gán phím đã dùng cho Action khác thì lấy lại phím đó
@@ -200,19 +210,20 @@
 
     function start() {
         if (listening) { stop(); return; }                  // bấm lần nữa = huỷ
-        if (!target()) { showKey('Chưa có Action để gán'); return; }
+        if (!target()) { showKey('Chưa có Action'); return; }
         if (window.dr7IsBusy && window.dr7IsBusy()) return;
         listening = true;
         setKeyInterest(true);
         document.addEventListener('keydown', onKeyDown, true);
         window.addEventListener('blur', onBlur);
-        showKey('Ấn F2–F12 (+Shift/Ctrl) · Esc huỷ · ⌫ xoá');
+        showKey('Ấn F2–F12…');
     }
 
     window.dr7InitShortcutCapture = function () {
         button = document.querySelector('.shortcut-capture');
         picker = document.querySelector('.shortcut-action');
         if (!button || !picker) return;
+        button.setAttribute('data-title', button.title);       // tiêu đề gốc, khôi phục sau khi nghe phím
         button.addEventListener('click', start);
         picker.addEventListener('change', function () { save(TARGET_KEY, picker.value); showKey(); });
         window.addEventListener('focus', refreshActions);       // quay lại panel → bắt Action mới tạo trong Photoshop
