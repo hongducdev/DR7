@@ -5,6 +5,7 @@
 
 	<link id="ppstyle" rel="stylesheet" type="text/css" href="./style.css">
     <link rel="stylesheet" href="css/layout.css" type="text/css">
+    <link rel="stylesheet" href="css/explore.css" type="text/css">
     <script type="text/javascript" src="./js/CSInterface.js"></script>
 
     <!-- Bảng màu nút: layout.css là bản chính, khối này chỉ để dự phòng. -->
@@ -116,7 +117,61 @@
 		<p class="tab-empty">Artboard — sắp có.</p>
 	</div>
 	<div class="tab-pane" role="tabpanel" data-tab="explore" hidden>
-		<p class="tab-empty">Khám phá — sắp có.</p>
+		<div class="explore">
+				<h2 class="explore-title">Khám phá</h2>
+				<p class="explore-sub">Học thêm mỗi ngày cùng SCCTLM.</p>
+				<section class="explore-card explore-community" aria-label="Cộng đồng">
+					<div class="explore-card-head">
+						<svg class="explore-fb" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6.2h2.1l.3-2.5h-2.4V8.800c0-.7.2-1.200 1.200-1.200h1.300V5.400c-.2 0-1-.1-1.900-.1-1.900 0-3.200 1.200-3.200 3.300v1.700H8.600v2.500h2.100V19z" fill="#fff"/></svg>
+						<span>MỚI TỪ CỘNG ĐỒNG</span><em class="explore-badge">Mới</em>
+					</div>
+					<div class="explore-community-body">
+						<img class="explore-community-art" src="img/logo.svg" alt="">
+						<div>
+							<strong>Cập nhật từ group SCCTLM</strong>
+							<span>Tin cộng đồng · Nội dung minh hoạ</span>
+							<button class="explore-blue" data-open="facebook">Xem trên Facebook ↗</button>
+						</div>
+					</div>
+				</section>
+				<section class="explore-learn" aria-label="Học cùng SCCTLM">
+					<button class="explore-learn-head" aria-expanded="true">
+						<svg class="explore-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
+						<span class="explore-yt">▶</span><span>HỌC CÙNG SCCTLM</span>
+					</button>
+					<div class="explore-learn-body">
+						<div class="explore-channel">
+							<img src="img/logo.svg" alt="">
+							<div><strong>SCCTLM</strong><span>@scctlm</span></div>
+							<button class="explore-outline" data-open="channel">Xem kênh ↗</button>
+						</div>
+						<div class="explore-featured" hidden>
+							<div class="explore-featured-main">
+								<div class="explore-featured-art">
+									<img class="explore-thumb" alt="">
+									<span class="explore-playlist-tag">PLAYLIST</span>
+								</div>
+								<div class="explore-featured-text">
+									<strong>300 bài FX Typography thiếu nhi</strong>
+									<span>Hướng dẫn miễn phí</span>
+								</div>
+							</div>
+							<button class="explore-red" data-open="playlist">▶ Mở playlist trên YouTube</button>
+						</div>
+						<input class="explore-search" type="search" placeholder="Tìm bài hướng dẫn..." aria-label="Tìm bài hướng dẫn">
+						<div class="explore-chips" role="group" aria-label="Chủ đề">
+							<button class="explore-chip is-active" data-topic="">Tất cả</button>
+							<button class="explore-chip" data-topic="Typography">Typography</button>
+							<button class="explore-chip" data-topic="Photoshop">Photoshop</button>
+							<button class="explore-chip" data-topic="Illustrator">Illustrator</button>
+						</div>
+						<p class="explore-state" role="status">Đang tải danh sách...</p>
+						<div class="explore-list"></div>
+						<p class="explore-note">Video mở bằng trình duyệt của bạn.</p>
+						<button class="explore-outline explore-red-outline" data-open="channel-videos">Xem tất cả hướng dẫn ↗</button>
+					</div>
+				</section>
+			</div>
 	</div>
 	<div class="tab-pane" role="tabpanel" data-tab="support" hidden>
 		<div class="support-card">
@@ -181,6 +236,8 @@
 <script type="text/javascript" src="./js/shortcut-key-capture.js"></script>
 <script type="text/javascript" src="./js/brush-setup-controls.js"></script>
 <script type="text/javascript" src="./js/rim-color-controls.js"></script>
+<script type="text/javascript" src="./js/explore-feed.js"></script>
+<script type="text/javascript" src="./js/explore-tab.js"></script>
 <script type="text/javascript" src="./js/tab-switcher.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>
 

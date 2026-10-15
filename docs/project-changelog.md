@@ -1,5 +1,13 @@
 # Changelog
 
+## Chưa phát hành — Tab Khám phá
+
+- Tab **Khám phá**: thẻ cộng đồng Facebook (liên kết tĩnh), thẻ kênh YouTube `@scctlm`, playlist "300 bài FX Typography
+  thiếu nhi" và danh sách video (ảnh bìa, tìm kiếm, chip lọc Tất cả/Typography/Photoshop/Illustrator). Link mở bằng trình duyệt mặc định.
+- Dữ liệu lấy từ feed RSS playlist YouTube (không cần API key), lưu cache `localStorage` để mở lại có sẵn danh sách; offline thì hiện
+  thông báo kèm nút "Thử lại". Facebook không đọc được nội dung bài đăng nếu chưa đăng nhập nên chỉ là liên kết.
+- File: `js/explore-feed.js` (tải/parse), `js/explore-tab.js` (giao diện), `css/explore.css`; kiểm tra bằng `tests/check-explore-feed.js`.
+
 ## v0.1.2 — Đổi tên thành SCCTLM_Foto
 
 - Plugin và repo GitHub đổi tên từ "MHK DR7" / `hongducdev/DR7` thành **SCCTLM_Foto** (`hongducdev/SCCTLM_Foto`): menu

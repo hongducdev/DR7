@@ -1,0 +1,115 @@
+/* --- Tab Khám phá --- */
+.explore { font-family: "Segoe UI", Tahoma, sans-serif; color: #e8e8e8; }
+/* Đặt lại luật `button` toàn cục của style.css (float, width 10%, nền nâu, viền khi hover).
+   :where() giữ độ ưu tiên thấp để các class bên dưới (kể cả :hover) luôn thắng. */
+:where(.explore) button, :where(.explore) button:hover, :where(.explore) button:active {
+    float: none; width: auto; height: auto; margin: 0; padding: 0; overflow: visible;
+    border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.explore button:focus-visible, .explore .explore-row:focus-visible { outline: 2px solid rgba(59, 157, 255, .7) !important; outline-offset: 1px; }
+.explore .explore-title { margin: 6px 0 0; color: var(--white); font: 700 18px/22px "Segoe UI", Tahoma, sans-serif; }
+.explore .explore-sub { margin: 2px 0 8px; color: #8f8f8f; font-size: 11px; }
+
+.explore .explore-card, .explore .explore-learn {
+    margin-top: 6px;
+    padding: 8px;
+    border: 1px solid #3c3c3c;
+    border-radius: 10px;
+    background: #262626;
+}
+.explore .explore-community { border-color: rgba(24, 119, 242, .45); background: linear-gradient(135deg, rgba(24, 119, 242, .16), rgba(24, 119, 242, 0) 55%), #262626; }
+.explore .explore-learn { border-color: rgba(245, 0, 8, .45); background: linear-gradient(135deg, rgba(245, 0, 8, .14), rgba(245, 0, 8, 0) 55%), #262626; }
+.explore .explore-card-head { display: flex; align-items: center; gap: 6px; font: 700 11px/16px "Segoe UI", Tahoma, sans-serif; letter-spacing: .4px; }
+.explore .explore-fb { width: 18px; height: 18px; }
+.explore .explore-badge { padding: 0 6px; border-radius: 8px; background: var(--green); color: #fff; font: 600 9px/14px "Segoe UI", Tahoma, sans-serif; }
+.explore .explore-community-body { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.explore .explore-community-body > div { flex: 1; min-width: 0; }
+.explore .explore-community-art { flex: 0 0 60px; width: 60px; height: 60px; padding: 8px; border-radius: 12px; background: linear-gradient(145deg, #3a3a3a, #232323); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08), 0 2px 8px rgba(0, 0, 0, .4); box-sizing: border-box; }
+.explore .explore-community-body strong, .explore .explore-channel strong { display: block; font-size: 12px; line-height: 16px; }
+.explore .explore-community-body span, .explore .explore-channel span { display: block; color: #8f8f8f; font-size: 10px; line-height: 14px; }
+.explore .explore-community-body strong { font-size: 13px; line-height: 17px; }
+
+.explore .explore-link { padding: 0; border: 0; background: none; color: #3b9dff; font-size: 10px; line-height: 16px; }
+.explore .explore-link:hover { background: none; color: #6db6ff; text-decoration: underline; }
+
+.explore .explore-learn-head {
+    display: flex; align-items: center; gap: 6px; width: 100%; padding: 0; border: 0;
+    background: none; color: var(--white); font: 700 11px/18px "Segoe UI", Tahoma, sans-serif; letter-spacing: .4px;
+}
+.explore .explore-chevron { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; transition: transform 140ms; }
+.explore .explore-learn-head[aria-expanded="false"] .explore-chevron { transform: rotate(-90deg); }
+.explore .explore-yt { padding: 0 5px; border-radius: 4px; background: var(--rose); color: #fff; font-size: 8px; line-height: 14px; }
+.explore .explore-learn-body[hidden], .explore .explore-state[hidden], .explore .explore-featured[hidden] { display: none; }
+
+.explore .explore-channel { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.explore .explore-channel img { flex: 0 0 40px; width: 40px; height: 40px; padding: 4px; border-radius: 50%; background: #f40008; box-sizing: border-box; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12); }
+.explore .explore-channel > div { flex: 1; min-width: 0; }
+.explore .explore-outline {
+    padding: 4px 8px; border: 1px solid #5a5a5a; border-radius: 8px; background: transparent;
+    color: #e8e8e8; font-size: 10px; line-height: 14px;
+}
+.explore .explore-outline:hover { background: #333; border: 1px solid #5a5a5a; color: #e8e8e8; }
+.explore .explore-red-outline { display: block; box-sizing: border-box; width: 100%; margin-top: 6px; border-color: var(--rose); color: #ff5a60; }
+.explore .explore-red { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 6px 8px; border: 0; border-radius: 16px; background: var(--rose); color: #fff; font-size: 11px; font-weight: 600; line-height: 16px; }
+.explore .explore-red:hover { background: #ff2a31; border: 0; color: #fff; }
+
+.explore .explore-featured { margin-top: 8px; padding: 8px; border: 1px solid rgba(245, 0, 8, .3); border-radius: 10px; background: linear-gradient(180deg, #333, #2a2a2a); }
+.explore .explore-featured-main { display: flex; align-items: center; gap: 10px; }
+.explore .explore-featured-art { position: relative; flex: 0 0 96px; }
+.explore .explore-featured-art .explore-thumb { display: block; width: 96px; height: 54px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, .45); }
+.explore .explore-playlist-tag { position: absolute; right: 3px; bottom: 3px; padding: 0 5px; border-radius: 3px; background: rgba(0, 0, 0, .78); color: #fff; font: 700 8px/13px "Segoe UI", Tahoma, sans-serif; letter-spacing: .5px; }
+.explore .explore-featured-text { flex: 1; min-width: 0; }
+.explore .explore-featured-text strong { display: block; font-size: 12px; line-height: 16px; }
+.explore .explore-featured-text span { display: block; margin-top: 2px; color: #8f8f8f; font-size: 10px; line-height: 14px; }
+.explore .explore-thumb { flex: 0 0 76px; width: 76px; height: 43px; border-radius: 6px; background: #3a3a3a; object-fit: cover; }
+
+.explore .explore-search {
+    display: block; width: 100%; height: 26px; margin-top: 8px; padding: 0 8px;
+    border: 1px solid #484848; border-radius: 8px; background: #1f1f1f; color: #e8e8e8; font-size: 11px; box-sizing: border-box;
+}
+.explore .explore-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.explore .explore-chip { padding: 2px 8px; border: 1px solid #484848; border-radius: 12px; background: #262626; color: #cfcfcf; font-size: 10px; line-height: 16px; }
+.explore .explore-chip.is-active { border-color: #e8e8e8; background: #e8e8e8; color: #1a1a1a; font-weight: 600; }
+
+.explore .explore-state { margin: 8px 0 0; color: #9a9a9a; font-size: 10px; text-align: center; }
+/* Chỉ hiện khoảng 4 bài rưỡi (gợi ý có thể cuộn), phần còn lại cuộn trong khung */
+.explore .explore-list { max-height: 290px; margin-top: 6px; padding-right: 2px; overflow-x: hidden; overflow-y: auto; }
+.explore .explore-list::-webkit-scrollbar { width: 6px; }
+.explore .explore-list::-webkit-scrollbar-track { background: transparent; }
+.explore .explore-list::-webkit-scrollbar-thumb { border-radius: 3px; background: #4a4a4a; }
+.explore .explore-list::-webkit-scrollbar-thumb:hover { background: #666; }
+.explore .explore-row {
+    display: flex; align-items: center; gap: 8px; margin-top: 4px; padding: 5px; border: 1px solid #3c3c3c;
+    border-radius: 8px; background: #2a2a2a; cursor: pointer;
+    transition: background 140ms, border-color 140ms, transform 140ms;
+}
+.explore .explore-row .explore-thumb { transition: transform 200ms, box-shadow 200ms; }
+.explore .explore-row-cta { display: block; margin-top: 2px; color: #3b9dff; font-size: 10px; line-height: 14px; transition: color 140ms, transform 140ms; }
+.explore .explore-row:hover { border-color: rgba(245, 0, 8, .65); background: #302a2a; }
+.explore .explore-row:hover .explore-thumb { transform: scale(1.04); box-shadow: 0 2px 8px rgba(0, 0, 0, .5); }
+.explore .explore-row:hover .explore-row-cta { color: #6db6ff; transform: translateX(2px); }
+.explore .explore-row:active { transform: translateY(1px); }
+.explore .explore-row-info { flex: 1; min-width: 0; }
+.explore .explore-row-info strong { display: block; overflow: hidden; font-size: 11px; line-height: 15px; }
+.explore .explore-note { margin: 8px 0 0; color: #8f8f8f; font-size: 10px; text-align: center; }
+
+/* Hover của các nút còn lại */
+.explore .explore-link { transition: color 140ms; }
+.explore .explore-link:hover { color: #6db6ff; text-decoration: underline; }
+.explore .explore-outline, .explore .explore-red, .explore .explore-chip { transition: background 140ms, border-color 140ms, color 140ms, transform 140ms; }
+.explore .explore-outline:hover { border-color: #9a9a9a; background: #333; color: #fff; }
+.explore .explore-red-outline:hover { border-color: #ff3e45; background: rgba(245, 0, 8, .14); color: #ff7a80; }
+.explore .explore-red:hover { background: #ff2a31; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(245, 0, 8, .35); }
+.explore .explore-outline:active, .explore .explore-red:active, .explore .explore-chip:active { transform: translateY(1px); box-shadow: none; }
+.explore .explore-chip:hover { border-color: #777; background: #333; color: #fff; }
+.explore .explore-chip.is-active:hover { border-color: #e8e8e8; background: #e8e8e8; color: #1a1a1a; }
+.explore .explore-learn-head { transition: color 140ms; }
+.explore .explore-learn-head:hover { color: #fff; }
+.explore .explore-learn-head:hover .explore-chevron { stroke: var(--green); }
+.explore .explore-search { transition: border-color 140ms; }
+.explore .explore-search:hover { border-color: #6a6a6a; }
+.explore .explore-search:focus { border-color: var(--green); outline: none; }
+.explore .explore-blue { margin-top: 6px; padding: 3px 10px; border-radius: 12px; background: #1877f2; color: #fff; font-size: 10px; font-weight: 600; line-height: 16px; transition: background 140ms, transform 140ms, box-shadow 140ms; }
+.explore .explore-blue:hover { background: #2f88ff; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(24, 119, 242, .4); }
+.explore .explore-blue:active { transform: translateY(1px); box-shadow: none; }

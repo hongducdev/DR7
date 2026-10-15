@@ -213,6 +213,7 @@
 
     window.onLoaded = function () {
         if (window.dr7InitTabs) window.dr7InitTabs();
+        if (window.dr7InitExplore) window.dr7InitExplore();
         renderPresets();
         renderActionFiles();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();
