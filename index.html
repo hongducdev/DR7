@@ -52,69 +52,55 @@
 	</header>
 	<div class="panel-status" role="status" hidden></div>
 	<nav class="tab-bar" role="tablist" aria-label="Mục chức năng">
-		<button class="tab-button is-active" role="tab" data-tab="retouch" aria-selected="true">Retouch</button>
-		<button class="tab-button" role="tab" data-tab="artboard" aria-selected="false">Artboard</button>
-		<button class="tab-button" role="tab" data-tab="explore" aria-selected="false">Khám phá</button>
-		<button class="tab-button tab-support" role="tab" data-tab="support" aria-selected="false"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.5S2.5 10 2.5 6A2.9 2.9 0 0 1 8 4.8 2.9 2.9 0 0 1 13.5 6C13.5 10 8 13.5 8 13.5z"/></svg>Ủng Hộ</button>
+		<button class="tab-button is-active" role="tab" data-tab="retouch" aria-selected="true"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 10 3 3"/><path d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"/><path d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"/></svg><span>Retouch</span></button>
+		<button class="tab-button" role="tab" data-tab="artboard" aria-selected="false"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="22" x2="2" y1="6" y2="6"/><line x1="22" x2="2" y1="18" y2="18"/><line x1="6" x2="6" y1="2" y2="22"/><line x1="18" x2="18" y1="2" y2="22"/></svg><span>Artboard</span></button>
+		<button class="tab-button" role="tab" data-tab="explore" aria-selected="false"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg><span>Khám phá</span></button>
+		<button class="tab-button tab-support" role="tab" data-tab="support" aria-selected="false"><svg class="tab-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg><span>Ủng hộ</span></button>
 	</nav>
 	<div class="tab-pane" role="tabpanel" data-tab="retouch">
 		<section class="group group-retouch" aria-label="Retouch">
 			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Retouch</div>
-			<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu">Làm Da V5.0</button>
+			<button class="ba11 btn-primary" onclick="onClickButton('DS')" title="Làm da tự động với thiết lập đã lưu"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4c-1.1-.7-2.5-1-4-1-4.4 0-7 3.5-7 8v3c0 4 2.6 7 7 7 1.4 0 2.6-.3 3.6-1"/><path d="M8.5 10h.01M13.5 10h.01M9 16c1.3 1 2.7 1 4 0"/><path d="m18 3 1.2 3.8L23 8l-3.8 1.2L18 13l-1.2-3.8L13 8l3.8-1.2Z"/></svg><span>Làm da</span><em>V5.0</em></button>
 			<div class="action-grid">
-				<button onclick="onClickButton('SE')" title="Làm da với bán kính, độ sâu chi tiết và bảo vệ vùng sáng tự chọn">Tuỳ chỉnh</button>
-				<button onclick="onClickButton('BA')" title="Làm da cho tất cả ảnh đang mở">Hàng loạt</button>
-				<button onclick="onClickButton('WM')" title="Thêm chữ/LOGO hàng loạt">Chữ / Logo</button>
-				<button onclick="onClickButton('LS')" title="Làm mịn da">Làm mịn</button>
-				<button onclick="onClickButton('RE')" title="Tẩy lông">Tẩy lông</button>
-				<button onclick="onClickButton('DB')" title="Đánh khối">Đánh Khối</button>
-				<button onclick="doa('GGXS')" title="Làm sáng vùng highlight">Highlight</button>
-				<button onclick="onClickButton('BTNPFSD2')" title="Màu da chung">Màu tổng</button>
-				<button onclick="onClickButton('TC')" title="Màu da">Màu Da</button>
-				<button onclick="doa('MBPF')" title="Trắng da">Trắng Da</button>
-				<button onclick="doa('TJSH')" title="Phủ phấn">Phủ phấn</button>
-				<button onclick="doa('JMXS')" title="Lông mi">Lông Mi</button>
-				<button onclick="doa('TJYY')" title="Bóng mắt">Bóng Mắt</button>
-				<button onclick="doa('ZCZQ')" title="Son môi">Son Môi</button>
-				<button onclick="onClickButton('WT')" title="Trắng răng">Trắng Răng</button>
-				<button onclick="doa('CGYSB')" title="Lớp hào quang Screen">Hào Quang</button>
-				<button onclick="onClickButton('SH')" title="Làm nét">Làm nét</button>
-				<button onclick="doa('MLXG')" title="Hoa văn hạt phim">Hạt phim</button>
-				<button onclick="doa('mcwl')" title="Hoa văn hạt thô">Hạt thô</button>
-				<button onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
+				<button onclick="doa('ZCZQ')" title="Son môi"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12c4-2 6-7 10-3 4-4 6 1 10 3-5 8-15 8-20 0ZM2 12h20"/></svg><span>Son môi</span></button>
+				<button onclick="onClickButton('WT')" title="Trắng răng"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 10c0 5-1 11-3 11-1.5 0-1-6-3-6s-1.5 6-3 6c-2 0-4-8-4-12 0-6 4-6 7-4"/><path d="m18 2 1 3 3 1-3 1-1 3-1-3-3-1 3-1Z"/></svg><span>Trắng răng</span></button>
+				<button onclick="onClickButton('RE')" title="Tẩy lông"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11c4-2 12-2 16 0M13 3c-3 5-4 9-3 13 1 3 4 3 5 0M4 21 20 5"/></svg><span>Tẩy lông</span></button>
+				<button onclick="doa('GGXS')" title="Làm sáng vùng highlight"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><span>Highlight</span></button>
+				<button onclick="doa('JMXS')" title="Lông mi"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8c5 5 13 5 18 0M5 10l-2 4M9 12l-1 4M15 12l1 4M19 10l2 4M12 12v5"/></svg><span>Lông mi</span></button>
+				<button onclick="doa('TJSH')" title="Phủ phấn"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m11 10 3 3"/><path d="M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"/><path d="M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"/></svg><span>Phủ phấn</span></button>
+				<button onclick="onClickButton('DB')" title="Đánh khối"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c-5 0-8 4-8 9s3 9 8 9 8-4 8-9-3-9-8-9Z M12 3v18M7.5 10h.01M16.5 10h.01M9 16c2 1 4 1 6 0"/></svg><span>Đánh khối</span></button>
+				<button onclick="doa('MBPF')" title="Trắng da"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 4c-1.1-.7-2.5-1-4-1-4.4 0-7 3.5-7 8v3c0 4 2.6 7 7 7 1.4 0 2.6-.3 3.6-1"/><path d="M8.5 10h.01M13.5 10h.01M9 16c1.3 1 2.7 1 4 0"/><path d="m19 12 1 3 3 1-3 1-1 3-1-3-3-1 3-1Z"/></svg><span>Trắng da</span></button>
+				<button onclick="doa('MLXG')" title="Hoa văn hạt phim"><svg class="tool-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h.01M12 7h.01M16 9h.01M7 13h.01M12 12h.01M17 14h.01M9 17h.01M14 17h.01"/></svg><span>Hạt phim</span></button>
 			</div>
 		</section>
 		<section class="group group-brush" aria-label="Brush Lab">
-			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Brush Lab</div>
-			<div class="action-grid one-col brush-actions">
-				<button class="brush-setup-run icon-btn" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
-				<button class="brush-setup-reset icon-btn" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
-			</div>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Brush Lab<span class="brush-status" hidden title="Cọ đã thiết lập Pen Pressure"></span><button class="brush-gear" title="Thiết lập cọ: Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure" aria-label="Thiết lập cọ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
 			<canvas class="brush-preview" aria-label="Xem trước nét cọ"></canvas>
-			<div class="slider-row"><span>Kích thước</span><input type="range" class="brush-size" min="1" max="500" value="80" aria-label="Kích thước cọ"><output class="brush-size-value">80 px</output></div>
-			<div class="slider-row"><span>Độ cứng</span><input type="range" class="brush-hardness" min="0" max="100" value="20" aria-label="Độ cứng cọ"><output class="brush-hardness-value">20%</output></div>
+			<div class="slider-row"><svg class="slider-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/></svg><span>Cỡ</span><input type="range" class="brush-size" min="1" max="500" value="80" aria-label="Kích thước cọ"><output class="brush-size-value">80 px</output></div>
+			<div class="slider-row"><svg class="slider-icon slider-icon-soft" viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="brush-soft-fill"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></radialGradient></defs><circle cx="12" cy="12" r="9" fill="url(#brush-soft-fill)"/><circle cx="12" cy="12" r="9" stroke-dasharray="1.5 2.5"/></svg><span>Cứng</span><input type="range" class="brush-hardness" min="0" max="100" value="20" aria-label="Độ cứng cọ"><output class="brush-hardness-value">20%</output></div>
 		</section>
 		<section class="group group-rim" aria-label="Rim Light" hidden>
-			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Rim Light</div>
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Rim Light<button class="rim-reset" title="Đặt lại: màu trắng, độ sáng 100%" aria-label="Đặt lại Rim Light"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg></button></div>
 			<div class="rim-top">
-				<input type="color" class="rim-color-input" value="#4cd6fd" title="Chọn màu Rim Light" aria-label="Màu Rim Light">
+				<input type="color" class="rim-color-input" value="#ffffff" title="Chọn màu Rim Light" aria-label="Màu Rim Light">
 				<div class="rim-fields">
 					<div class="rim-hex-row">
-						<input type="text" class="rim-hex" value="#4CD6FD" maxlength="7" spellcheck="false" aria-label="Mã màu hex">
+						<input type="text" class="rim-hex" value="#FFFFFF" maxlength="7" spellcheck="false" aria-label="Mã màu hex">
 						<button class="rim-eyedropper" title="Lấy màu Foreground hiện tại của Photoshop" aria-label="Lấy màu Foreground"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg></button>
 					</div>
-					<div class="rim-swatches"><button class="rim-swatch" data-color="#ff9f43" style="background:#ff9f43" title="#FF9F43" aria-label="Màu #FF9F43"></button><button class="rim-swatch" data-color="#ffe14a" style="background:#ffe14a" title="#FFE14A" aria-label="Màu #FFE14A"></button><button class="rim-swatch" data-color="#4040ff" style="background:#4040ff" title="#4040FF" aria-label="Màu #4040FF"></button><button class="rim-swatch" data-color="#a040ff" style="background:#a040ff" title="#A040FF" aria-label="Màu #A040FF"></button><button class="rim-swatch" data-color="#3acf5a" style="background:#3acf5a" title="#3ACF5A" aria-label="Màu #3ACF5A"></button><button class="rim-swatch" data-color="#ff2a2a" style="background:#ff2a2a" title="#FF2A2A" aria-label="Màu #FF2A2A"></button><button class="rim-swatch" data-color="#4cd6fd" style="background:#4cd6fd" title="#4CD6FD" aria-label="Màu #4CD6FD"></button></div>
+					<div class="rim-swatches"><button class="rim-swatch" data-color="#ff3b30" style="background:#ff3b30" title="#FF3B30" aria-label="Màu #FF3B30"></button><button class="rim-swatch" data-color="#ff9f2e" style="background:#ff9f2e" title="#FF9F2E" aria-label="Màu #FF9F2E"></button><button class="rim-swatch" data-color="#ffe14a" style="background:#ffe14a" title="#FFE14A" aria-label="Màu #FFE14A"></button><button class="rim-swatch" data-color="#34c759" style="background:#34c759" title="#34C759" aria-label="Màu #34C759"></button><button class="rim-swatch" data-color="#2f6bff" style="background:#2f6bff" title="#2F6BFF" aria-label="Màu #2F6BFF"></button><button class="rim-swatch" data-color="#a53bff" style="background:#a53bff" title="#A53BFF" aria-label="Màu #A53BFF"></button><button class="rim-swatch" data-color="#ff3fb4" style="background:#ff3fb4" title="#FF3FB4" aria-label="Màu #FF3FB4"></button><button class="rim-swatch" data-color="#1fc8ff" style="background:#1fc8ff" title="#1FC8FF" aria-label="Màu #1FC8FF"></button></div>
 				</div>
 			</div>
-			<div class="slider-row"><span>Cường độ</span><input type="range" class="rim-intensity" min="0" max="100" value="65" aria-label="Cường độ Rim Light"><output class="rim-intensity-value">65%</output></div>
+			<div class="slider-row"><svg class="slider-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M5 19l1.5-1.5M17.5 6.5 19 5"/></svg><span class="slider-label">Độ sáng</span><input type="range" class="rim-intensity" min="0" max="100" value="100" aria-label="Độ sáng Rim Light"><output class="rim-intensity-value">100%</output></div>
 		</section>
 		<section class="group group-shortcut" aria-label="Action">
 			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Action</div>
 			<!-- panel.js thêm 1 nút cho mỗi file .atn trong thư mục presets/ -->
-			<div class="action-grid one-col atn-grid" hidden></div>
-			<div class="action-grid one-col">
+			<div class="action-grid atn-grid"><button class="atn-import" title="Nhập nhanh file Action (.atn) bất kỳ vào bảng Actions, không qua hộp thoại Load Actions của Photoshop"><svg class="atn-import-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 10v6"/><path d="M9 13h6"/><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>Nhập…</button></div>
+			<div class="shortcut-line">
 				<select class="shortcut-action" title="Chọn Action cần gán phím tắt (danh sách lấy từ bảng Actions)" aria-label="Action cần gán phím tắt"></select>
-				<button class="shortcut-capture icon-btn" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím">Gán phím tắt</button>
+				<button class="shortcut-capture" title="Bấm rồi ấn F2–F12 (có thể kèm Shift/Ctrl) để gán phím tắt Play cho Action đã chọn · Backspace: xoá phím" aria-label="Gán phím tắt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 8h.01"/><path d="M12 12h.01"/><path d="M14 8h.01"/><path d="M16 12h.01"/><path d="M18 8h.01"/><path d="M6 8h.01"/><path d="M7 16h10"/><path d="M8 12h.01"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg></button>
+				<span class="shortcut-badge" hidden></span>
 			</div>
 		</section>
 		<section class="group group-color" aria-label="Màu và Preset">

@@ -21,7 +21,7 @@
     var KEY_F2 = 113, KEY_F12 = 123;                    // mã phím ảo: F1 = 112
 
     var cs = new CSInterface();
-    var button = null, picker = null;
+    var button = null, picker = null, badge = null;
     var listening = false;
 
     function load(key) {
@@ -69,18 +69,13 @@
         return null;
     }
 
+    // Nút chỉ có icon bàn phím; phím đã gán (hoặc lời nhắc khi đang nghe) hiện ở huy hiệu bên cạnh
     function showKey(hint) {
         var bound = bindingFor(target());
-        button.textContent = '';
-        if (hint || !bound) {
-            button.textContent = hint || 'Gán phím tắt';
-        } else {
-            var key = document.createElement('b');
-            key.className = 'shortcut-key';
-            key.textContent = bound.key;
-            button.appendChild(document.createTextNode('Phím tắt: '));
-            button.appendChild(key);
-        }
+        var text = hint || (bound ? bound.key : '');
+        badge.textContent = text;
+        badge.hidden = !text;
+        badge.classList.toggle('is-hint', !!hint);
         button.title = listening ? 'Ấn F2–F12 (+Shift/Ctrl) · Esc huỷ · Backspace xoá phím' : button.getAttribute('data-title') || button.title;
         button.classList.toggle('listening', listening);
     }
@@ -222,7 +217,8 @@
     window.dr7InitShortcutCapture = function () {
         button = document.querySelector('.shortcut-capture');
         picker = document.querySelector('.shortcut-action');
-        if (!button || !picker) return;
+        badge = document.querySelector('.shortcut-badge');
+        if (!button || !picker || !badge) return;
         button.setAttribute('data-title', button.title);       // tiêu đề gốc, khôi phục sau khi nghe phím
         button.addEventListener('click', start);
         picker.addEventListener('change', function () { save(TARGET_KEY, picker.value); showKey(); });

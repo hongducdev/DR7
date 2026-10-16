@@ -316,58 +316,186 @@ button:focus-visible {
 .group > .btn-primary:focus,
 .group > .btn-primary:focus-visible { outline: none !important; }
 
+/* --- Nhóm Retouch: nút chính xanh dương + lưới 3x3 icon trên chữ --- */
+.group-retouch > .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px !important;
+    margin-bottom: 10px !important;
+    background: #2f6fe0 !important;
+    box-shadow: 0 2px 8px rgba(47, 111, 224, .35) !important;
+    font: 700 14px/40px "Segoe UI", Tahoma, sans-serif !important;
+}
+.group-retouch > .btn-primary em {
+    font-style: normal;
+    font-weight: 500;
+    opacity: .75;
+}
+.group-retouch .tool-icon {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.group-retouch > .btn-primary .tool-icon { width: 26px; height: 26px; }
+.group-retouch .action-grid { gap: 6px; }
+.group-retouch .action-grid > button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 64px !important;
+    padding: 0 2px !important;
+    border-radius: 8px !important;
+    font: 500 11px/13px "Segoe UI", Tahoma, sans-serif !important;
+}
+.group-retouch .action-grid > button {
+    position: relative;
+    transition: transform 160ms cubic-bezier(.2, .8, .2, 1), background 160ms, box-shadow 160ms, color 160ms !important;
+}
+.group-retouch .tool-icon { transition: transform 200ms cubic-bezier(.3, 1.4, .5, 1), color 160ms; }
+.group-retouch .action-grid > button:hover {
+    background: linear-gradient(to bottom, #3d3d3d, #2f2f2f) !important;
+    box-shadow: inset 0 0 0 1px rgba(21, 198, 113, .7), 0 4px 10px rgba(0, 0, 0, .45), 0 0 10px rgba(21, 198, 113, .18) !important;
+    color: #fff !important;
+}
+.group-retouch .action-grid > button:hover .tool-icon {
+    color: var(--green);
+    transform: scale(1.15) translateY(-1px);
+}
+.group-retouch .action-grid > button:active {
+    transform: translateY(0) scale(.96);
+    background: #262626 !important;
+    box-shadow: inset 0 0 0 1px var(--green) !important;
+}
+.group-retouch > .btn-primary:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(47, 111, 224, .55) !important;
+}
+.group-retouch > .btn-primary:hover .tool-icon { transform: rotate(-8deg) scale(1.12); }
+.group-retouch > .btn-primary:active { transform: translateY(0) scale(.98); filter: brightness(.92); }
+
 /* Preset names run longer than tool labels, so these rows get two wider columns */
 .group .action-grid.one-col { grid-template-columns: minmax(0, 1fr); }
 .group .action-grid.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .group .action-grid.preset-grid,
 .group .action-grid.shortcut-row { margin-top: var(--panel-gap); }
 
-/* Setup Brush đã chạy: vẫn hiện (khác nút chết bị ẩn ở trên) nhưng mờ, không bấm được */
-.group .action-grid > button.brush-setup-run[disabled] {
-    display: block;
-    cursor: default;
-    background: rgba(21, 198, 113, .1) !important;
-    box-shadow: inset 0 0 0 1px var(--green) !important;
-    color: #fff !important;
-}
-.group .action-grid > button.brush-setup-run[disabled]:hover {
-    background: rgba(21, 198, 113, .1) !important;
-    box-shadow: inset 0 0 0 1px var(--green) !important;
-    color: #fff !important;
-}
 .group .action-grid > button[hidden] { display: none; }
 
-/* Ô chọn Action cần gán phím: cùng khung với nút trong nhóm */
-.group .action-grid > select.shortcut-action {
-    width: 100%;
+/* Nhóm Action: hàng nút nạp bộ Action (.atn) + hàng chọn Action / gán phím */
+.group .action-grid.atn-grid { display: flex; flex-wrap: wrap; }
+.group .atn-grid > button { flex: 3 1 45%; }
+.group .atn-grid > button.atn-import { flex: 2 1 30%; }
+.atn-import-icon {
+    width: 14px;
+    height: 14px;
+    margin: -3px 6px 0 0;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.group .atn-grid > button {
+    height: 36px !important;
+    border-radius: 10px !important;
+    font: 600 12px/36px "Segoe UI", Tahoma, sans-serif !important;
+}
+.shortcut-line {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: var(--panel-gap);
+}
+.group .shortcut-line > select.shortcut-action {
+    flex: 1;
+    width: auto;
     min-width: 0;
-    height: 28px;
+    height: 36px;
     margin: 0;
-    padding: 0 6px;
+    padding: 0 34px 0 14px;
     border: 0;
-    border-radius: 8px;
-    background: var(--btn-bg);
+    border-radius: 10px;
+    background: var(--btn-bg) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bdbdbd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") right 12px center / 16px 16px no-repeat;
+    -webkit-appearance: none;
     box-shadow: inset 0 0 0 1px var(--btn-line);
     color: #e6e6e6;
-    font: 400 10.5px "Segoe UI", Tahoma, sans-serif;
+    font: 600 12px/36px "Segoe UI", Tahoma, sans-serif;
+    text-overflow: ellipsis;
     outline: none;
     cursor: pointer;
+    transition: background 140ms, box-shadow 140ms;
 }
-.group .action-grid > select.shortcut-action optgroup { color: #9a9a9a; font-style: normal; }
-.group .action-grid > select.shortcut-action option { color: #e6e6e6; background: #2f2f2f; }
-
-/* Nút phím tắt: nền tối; khi đang nghe phím thì đổ đầy + nhấp nháy viền */
-.group .action-grid > button.shortcut-capture {
-    background: #2f2f2f !important;
-    font-weight: 400 !important;
+.group .shortcut-line > select.shortcut-action:hover { background-color: #3a3a3a; box-shadow: inset 0 0 0 1px #6a6a6a; }
+.group .shortcut-line > select.shortcut-action:focus { box-shadow: inset 0 0 0 1px var(--green); }
+.group .shortcut-line > select.shortcut-action optgroup { color: #9a9a9a; font-style: normal; }
+.group .shortcut-line > select.shortcut-action option { color: #e6e6e6; background: #2f2f2f; }
+.group .shortcut-line > button.shortcut-capture {
+    display: inline-flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    float: none;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #cfcfcf;
+    cursor: pointer;
+    transition: color 140ms, background 140ms;
 }
-.group .action-grid > button.shortcut-capture.listening {
-    background: var(--rose) !important;
-    color: #fff !important;
+.shortcut-capture svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.group .shortcut-line > button.shortcut-capture:hover { color: #fff; background: rgba(255, 255, 255, .08); }
+.group .shortcut-line > button.shortcut-capture:focus { outline: none; }
+.group .shortcut-line > button.shortcut-capture.listening {
+    color: #fff;
+    background: var(--rose);
     animation: dr7-listening 1s ease-in-out infinite;
 }
+.shortcut-badge {
+    flex: none;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: rgba(21, 198, 113, .12);
+    box-shadow: inset 0 0 0 1px var(--green);
+    color: var(--green);
+    font: 700 12px/36px "Segoe UI", Tahoma, sans-serif;
+    text-align: center;
+    white-space: nowrap;
+}
+.shortcut-badge[hidden] { display: none; }
+.shortcut-badge.is-hint {
+    background: rgba(245, 0, 8, .12);
+    box-shadow: inset 0 0 0 1px var(--rose);
+    color: #fff;
+}
 @keyframes dr7-listening {
-    50% { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .6) !important; }
+    50% { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .6); }
+}
 }
 .group .action-grid.preset-grid:empty { display: none; }
 
@@ -406,60 +534,76 @@ button:focus-visible {
 /* --- Thanh tab: Retouch / Artboard / Khám phá / Ủng Hộ --- */
 .tab-bar {
     display: flex;
-    gap: 2px;
-    margin: 8px 0 0;
-    padding: 0 2px;
-    border-bottom: 1px solid #3a3a3a;
+    gap: 4px;
+    margin: 8px 2px 0;
+    padding: 4px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #1f1f1f;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .45);
 }
 .tab-bar .tab-button {
     position: relative;
     display: inline-flex;
-    flex: 1 1 auto;
+    flex: 1 1 0;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
     min-width: 0;
-    height: 30px;
+    height: 52px;
     margin: 0;
-    padding: 0 6px;
-    border: 0;
-    border-radius: 6px 6px 0 0;
+    padding: 6px 4px 10px;
+    border: 1px solid transparent;
+    border-radius: 9px;
     background: transparent;
-    color: #8f8f8f;
-    font: 600 11.5px/30px "Segoe UI", Tahoma, sans-serif;
-    letter-spacing: .2px;
+    color: #8a8a8a;
+    font: 600 11px/13px "Segoe UI", Tahoma, sans-serif;
+    letter-spacing: .3px;
+    text-transform: capitalize;
     white-space: nowrap;
     cursor: pointer;
-    transition: color 140ms, background 140ms;
+    transition: color 160ms, background 160ms, border-color 160ms, box-shadow 160ms;
 }
-/* Gạch chân đỏ bo tròn, trượt ra từ giữa khi chọn tab */
+.tab-bar .tab-icon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 180ms ease, color 160ms;
+}
+/* Chấm xanh dưới tab đang chọn */
 .tab-bar .tab-button::after {
     content: "";
     position: absolute;
     left: 50%;
-    bottom: -1px;
-    width: 0;
-    height: 2px;
-    border-radius: 2px 2px 0 0;
-    background: var(--rose);
-    transform: translateX(-50%);
-    transition: width 180ms ease;
+    bottom: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    transform: translateX(-50%) scale(0);
+    transition: transform 200ms ease;
 }
-.tab-bar .tab-button:hover { color: var(--white); background: rgba(255, 255, 255, .06); }
+.tab-bar .tab-button:hover {
+    color: #e6e6e6;
+    background: rgba(255, 255, 255, .06);
+}
+.tab-bar .tab-button:hover .tab-icon { transform: translateY(-1px); }
 .tab-bar .tab-button:focus { outline: none; }
 .tab-bar .tab-button.is-active {
     color: var(--white);
-    background: linear-gradient(to top, rgba(245, 0, 8, .16), rgba(245, 0, 8, 0) 85%);
+    border-color: rgba(21, 198, 113, .35);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .10), rgba(255, 255, 255, .04));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .08);
 }
-.tab-bar .tab-button.is-active::after { width: calc(100% - 8px); }
-.tab-support svg { transition: transform 160ms; }
-.tab-support:hover svg { transform: scale(1.25); }
-.tab-support svg {
-    width: 11px;
-    height: 11px;
-    fill: var(--rose);
-    stroke: none;
-}
+.tab-bar .tab-button.is-active .tab-icon { color: var(--green); }
+.tab-bar .tab-button.is-active::after { transform: translateX(-50%) scale(1); }
+.tab-support:hover .tab-icon { transform: scale(1.15); }
 .tab-empty {
     margin: 14px 4px;
     color: #7d7d7d;
@@ -501,9 +645,6 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) { .support-mug * { animation: none !important; } }
 
 /* --- Cọ vẽ: nút Phím tắt (phím hiện màu đỏ), khung xem trước nét cọ, thanh trượt --- */
-.group .action-grid > button.shortcut-capture .shortcut-key { color: var(--rose); font-weight: 700; }
-.group .action-grid > button.shortcut-capture.listening .shortcut-key { color: #fff; }
-.group .action-grid.brush-actions > button { height: 34px !important; font-size: 12px !important; line-height: 34px !important; }
 .brush-preview {
     display: block;
     width: 100%;
@@ -521,7 +662,56 @@ button:focus-visible {
     color: #cfcfcf;
     font: 11.5px/16px "Segoe UI", Tahoma, sans-serif;
 }
-.slider-row > span { flex: 0 0 56px; }
+.slider-row > span { flex: 0 0 34px; }
+.slider-icon {
+    flex: 0 0 18px;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+}
+.slider-icon-soft circle:last-child { stroke-width: 1.4; }
+/* Tiêu đề Brush Lab: chấm trạng thái + nút bánh răng thiết lập cọ */
+.brush-status {
+    width: 8px;
+    height: 8px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+}
+.brush-status[hidden] { display: none; }
+.brush-gear {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin: 0 0 0 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #bdbdbd;
+    cursor: pointer;
+    transition: color 140ms, background 140ms, transform 240ms;
+}
+.brush-status[hidden] + .brush-gear { margin-left: auto; }
+.brush-gear svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.brush-gear:hover { color: #fff; background: rgba(255, 255, 255, .1); transform: rotate(45deg); }
+.brush-gear:focus { outline: none; }
+.brush-gear.is-done { color: var(--green); }
 .slider-row > output { flex: 0 0 42px; text-align: right; color: #e6e6e6; }
 .slider-row > input[type="range"] {
     --fill: 50%;
@@ -537,7 +727,7 @@ button:focus-visible {
 .slider-row > input[type="range"]::-webkit-slider-runnable-track {
     height: 4px;
     border-radius: 2px;
-    background: linear-gradient(to right, var(--rose) var(--fill), #4a4a4a var(--fill));
+    background: linear-gradient(to right, var(--green) var(--fill), #3a3a3a var(--fill));
 }
 .slider-row > input[type="range"]::-webkit-slider-thumb {
     width: 14px;
@@ -552,17 +742,19 @@ button:focus-visible {
 /* --- Rim Light: ô màu tròn, mã hex, hút màu, màu mẫu --- */
 .rim-top { display: flex; align-items: center; gap: 10px; }
 .group .rim-top > input[type="color"].rim-color-input {
-    flex: 0 0 64px;
-    width: 64px;
-    height: 64px;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
     margin: 0;
     padding: 0;
     border: 0;
     border-radius: 50%;
     background: transparent;
-    box-shadow: 0 0 0 2px #3a3a3a;
+    box-shadow: 0 0 0 2px #3a3a3a, 0 2px 8px rgba(0, 0, 0, .4);
     cursor: pointer;
+    transition: box-shadow 140ms;
 }
+.rim-color-input:hover { box-shadow: 0 0 0 2px var(--green), 0 2px 8px rgba(0, 0, 0, .4) !important; }
 .rim-color-input:focus { outline: none; }
 .rim-color-input::-webkit-color-swatch-wrapper { padding: 0; }
 .rim-color-input::-webkit-color-swatch { border: 0; border-radius: 50%; }
@@ -571,11 +763,11 @@ button:focus-visible {
 .group .rim-hex {
     flex: 1;
     min-width: 0;
-    height: 28px;
+    height: 34px;
     margin: 0;
-    padding: 0 8px;
+    padding: 0 12px;
     border: 1px solid var(--btn-line);
-    border-radius: 8px;
+    border-radius: 10px;
     background: #1f1f1f;
     color: #e6e6e6;
     font: 600 12px "Segoe UI", Tahoma, sans-serif;
@@ -585,25 +777,25 @@ button:focus-visible {
 .group .rim-hex.is-invalid { border-color: var(--rose); }
 .group .rim-eyedropper {
     float: none;
-    flex: 0 0 34px;
-    width: 34px;
-    height: 28px;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 34px;
     margin: 0;
     padding: 0;
     border: 1px solid var(--btn-line);
-    border-radius: 8px;
+    border-radius: 10px;
     background: var(--btn-bg);
     color: #e6e6e6;
     cursor: pointer;
 }
 .group .rim-eyedropper:hover { background: #3a3a3a; border-color: #6a6a6a; color: #fff; }
 .rim-eyedropper svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.rim-swatches { display: flex; justify-content: space-between; margin-top: 8px; }
+.rim-swatches { display: flex; justify-content: space-between; margin-top: 12px; }
 .group .rim-swatch {
     float: none;
-    flex: 0 0 18px;
-    width: 18px;
-    height: 18px;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
     margin: 0;
     padding: 0;
     border: 2px solid transparent;
@@ -612,4 +804,35 @@ button:focus-visible {
     transition: transform 120ms, border-color 120ms;
 }
 .group .rim-swatch:hover { transform: scale(1.18); border-color: rgba(255, 255, 255, .55); }
+.group .rim-swatch:focus { outline: none; }
+.slider-row > .slider-label { flex: 0 0 52px; }
+.rim-reset {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #bdbdbd;
+    cursor: pointer;
+    transition: color 140ms, background 140ms;
+}
+.rim-reset svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 240ms;
+}
+.rim-reset:hover { color: #fff; background: rgba(255, 255, 255, .1); }
+.rim-reset:hover svg { transform: rotate(-90deg); }
+.rim-reset:focus { outline: none; }
 .group[hidden] { display: none; }

@@ -1,9 +1,9 @@
 /*
- * Nhóm Brush Lab: nút "Thiết lập cọ" (BPP) + "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
+ * Nhóm Brush Lab: nút bánh răng ở tiêu đề bật "Thiết lập cọ" (BPP) hoặc trả "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
  *
  * Trạng thái lấy thẳng từ cọ hiện tại trong Photoshop ($._ext_BPP.state()), không lưu ở panel:
- *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → nút thành "Cọ đã bật" (khoá), hiện nút Về mặc định cùng hàng
- *   - còn lại  : Thiết lập cọ bấm được, ẩn Về mặc định
+ *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → hiện chấm xanh, bấm bánh răng để về mặc định
+ *   - còn lại  : ẩn chấm xanh, bấm bánh răng để thiết lập cọ
  * Đọc lại khi mở panel, khi quay lại panel (focus) và sau mỗi lần bấm, vì đổi cọ/công cụ trong
  * Photoshop cũng làm đổi trạng thái.
  */
@@ -13,18 +13,16 @@
     var STATUS_MS = 3000;                               // thời gian hiện thông báo thành công
 
     var cs = new CSInterface();
-    var grid = null, setupButton = null, resetButton = null;
+    var gear = null, dot = null, isSetup = false;
     var statusTimer = 0;
 
     function render(state) {
-        var done = state === 'setup';
-        setupButton.disabled = done;
-        setupButton.textContent = done ? 'Cọ đã bật' : 'Thiết lập cọ';
-        setupButton.classList.toggle('is-done', done);
-        resetButton.hidden = !done;
-        grid.classList.toggle('two-col', done);
-        grid.classList.toggle('one-col', !done);
-        if (window.dr7FitHeight) window.dr7FitHeight();
+        isSetup = state === 'setup';
+        dot.hidden = !isSetup;
+        gear.classList.toggle('is-done', isSetup);
+        gear.title = isSetup
+            ? 'Cọ đã bật Pen Pressure · bấm để trả cọ về mặc định'
+            : 'Thiết lập cọ: Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure';
     }
 
     function refresh() {
@@ -56,15 +54,12 @@
     }
 
     window.dr7InitBrushSetup = function () {
-        setupButton = document.querySelector('.brush-setup-run');
-        resetButton = document.querySelector('.brush-setup-reset');
-        if (!setupButton || !resetButton) return;
-        grid = setupButton.parentNode;
-        setupButton.addEventListener('click', function () {
-            runCommand('BPP', '✓ Đã thiết lập cọ: Shape Dynamics + Pen Pressure');
-        });
-        resetButton.addEventListener('click', function () {
-            runCommand('BPPRESET', '✓ Đã trả cọ về mặc định');
+        gear = document.querySelector('.brush-gear');
+        dot = document.querySelector('.brush-status');
+        if (!gear || !dot) return;
+        gear.addEventListener('click', function () {
+            if (isSetup) runCommand('BPPRESET', '✓ Đã trả cọ về mặc định');
+            else runCommand('BPP', '✓ Đã thiết lập cọ: Shape Dynamics + Pen Pressure');
         });
         window.addEventListener('focus', refresh);
         refresh();

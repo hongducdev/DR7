@@ -101,6 +101,13 @@
                 else console.warn('DR7: không đọc được màu Foreground', res);
             });
         });
+        var reset = document.querySelector('.rim-reset');
+        if (reset) reset.addEventListener('click', function () {   // về trắng + độ sáng 100%
+            slider.value = 100;
+            paintTrack();
+            writeOpacity();
+            pickColor('#ffffff');
+        });
         slider.addEventListener('input', function () {
             paintTrack();
             clearTimeout(opacityTimer);

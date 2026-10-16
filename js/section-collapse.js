@@ -17,12 +17,12 @@
 
     document.addEventListener('click', function (event) {
         var title = titleOf(event);
-        if (title) toggle(title);
+        if (title && !event.target.closest('button')) toggle(title);
     });
     document.addEventListener('keydown', function (event) {
         if (event.key !== 'Enter' && event.key !== ' ') return;
         var title = titleOf(event);
-        if (!title) return;
+        if (!title || event.target.closest('button')) return;
         event.preventDefault();
         toggle(title);
     });

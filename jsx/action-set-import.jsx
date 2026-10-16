@@ -28,6 +28,19 @@
         }
     }
 
+    // Nhập nhanh: chọn 1 file .atn bất kỳ rồi nạp thẳng vào bảng Actions (bỏ qua Load Actions của Photoshop)
+    $.dr7ImportAtnDialog = function () {
+        var file = File.openDialog('Select an Actions file (.atn)', 'Photoshop Actions:*.atn');
+        if (!file) {
+            var cancel = new Error('cancel');
+            cancel.number = 8007;                               // run() trong js/panel.js coi 8007 là người dùng huỷ
+            throw cancel;
+        }
+        if ($.dr7ShortcutSetup.exists(actionSetName(file), null)) return 'DR7_EXISTS';
+        app.load(file);
+        return 'DR7_OK';
+    };
+
     $.dr7ImportBundledAtn = function (fileName) {
         if (!BUNDLED_ATN.test(String(fileName))) throw new Error('Invalid action file name: ' + fileName);
         var file = new File($.dr7Base + '/presets/' + fileName);
