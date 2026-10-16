@@ -1,0 +1,107 @@
+/* --- Tab Artboard --- */
+.artboard { font-family: "Segoe UI", Tahoma, sans-serif; color: #e8e8e8; }
+/* Đặt lại luật `button` toàn cục của style.css; :where() giữ độ ưu tiên thấp để class bên dưới luôn thắng */
+:where(.artboard) button, :where(.artboard) button:hover, :where(.artboard) button:active {
+    float: none; width: auto; height: auto; margin: 0; padding: 0; overflow: visible;
+    border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit;
+    cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.artboard button:focus-visible, .artboard input:focus-visible, .artboard select:focus-visible { outline: 2px solid rgba(21, 198, 113, .6) !important; outline-offset: 1px; }
+.artboard .artboard-title { margin: 6px 0 0; color: var(--white); font: 700 18px/22px "Segoe UI", Tahoma, sans-serif; }
+.artboard .artboard-sub { margin: 2px 0 8px; color: #8f8f8f; font-size: 11px; }
+
+.artboard input, .artboard select { box-sizing: border-box; margin: 0; font-family: inherit; }
+.ab-search-wrap { position: relative; }
+.ab-search-wrap svg { position: absolute; left: 9px; top: 7px; width: 14px; height: 14px; fill: none; stroke: #8f8f8f; stroke-width: 1.6; stroke-linecap: round; pointer-events: none; }
+.artboard .ab-search {
+    display: block; width: 100%; height: 28px; padding: 0 8px 0 29px; border: 1px solid #484848; border-radius: 8px;
+    background: #1f1f1f; color: #e8e8e8; font-size: 11px; transition: border-color 140ms;
+}
+.artboard .ab-search:hover { border-color: #6a6a6a; }
+.artboard .ab-search:focus { border-color: var(--green); outline: none; }
+
+.ab-chips { display: flex; gap: 4px; margin-top: 6px; }
+.artboard .ab-chip {
+    flex: 1 1 auto; height: 24px; padding: 0 6px; border: 1px solid #444; border-radius: 12px; background: #232323;
+    color: #bdbdbd; font-size: 10.5px; line-height: 22px; transition: background 140ms, border-color 140ms, color 140ms;
+}
+.artboard .ab-chip:hover { border-color: rgba(245, 0, 8, .6); background: rgba(245, 0, 8, .1); color: #ff9a9e; }
+.artboard .ab-chip.is-active, .artboard .ab-chip.is-active:hover { border-color: var(--rose); background: var(--rose); color: #fff; box-shadow: 0 2px 6px rgba(245, 0, 8, .3); }
+
+.ab-star { flex: 0 0 12px; width: 12px; height: 12px; fill: none; stroke: #f7c948; stroke-width: 1.4; stroke-linejoin: round; }
+.ab-empty { margin: 14px 0 6px; color: #8f8f8f; font-size: 11px; text-align: center; }
+.ab-empty[hidden] { display: none; }
+
+/* Thẻ khổ: hình thu nhỏ, tên, kích thước; đang chọn = viền + dấu tích xanh */
+.ab-grid { display: grid; gap: 6px; }
+.ab-grid.ab-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ab-grid.ab-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.artboard .ab-card {
+    position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; padding: 8px 4px 7px;
+    border: 1px solid #3c3c3c; border-radius: 10px; background: #2c2c2c; text-align: center;
+    transition: background 140ms, border-color 140ms, transform 120ms;
+}
+.artboard .ab-card:hover { border-color: #6a6a6a; background: #343434; }
+.artboard .ab-card:active { transform: translateY(1px); }
+.artboard .ab-card.is-selected, .artboard .ab-card.is-selected:hover { border-color: var(--green); background: rgba(21, 198, 113, .12); box-shadow: 0 0 0 1px rgba(21, 198, 113, .35); }
+.artboard .ab-card.is-selected::after {
+    content: "✓"; position: absolute; top: 4px; right: 4px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--green); color: #0b2a19; font: 700 9px/14px "Segoe UI", Tahoma, sans-serif;
+}
+.ab-card-art { display: flex; align-items: center; justify-content: center; width: 100%; height: 38px; margin-bottom: 4px; }
+.ab-shape { position: relative; display: block; }
+.ab-shape i { position: absolute; box-sizing: border-box; border: 1.5px solid #e8e8e8; border-radius: 1px; }
+.ab-card.is-selected .ab-shape i { border-color: #fff; }
+.ab-card-art.is-dashed { width: 46px; height: 30px; margin: 0 auto 5px; border: 1.5px dashed #c8c8c8; border-radius: 5px; color: #e8e8e8; font: 300 22px/26px "Segoe UI", Tahoma, sans-serif; }
+.ab-card strong { display: block; max-width: 100%; overflow: hidden; color: #f2f2f2; font: 600 11px/15px "Segoe UI", Tahoma, sans-serif; text-overflow: ellipsis; }
+.ab-card em { display: block; max-width: 100%; overflow: hidden; color: #8f8f8f; font: normal 9.5px/13px "Segoe UI", Tahoma, sans-serif; text-overflow: ellipsis; }
+
+/* Kích thước tùy chỉnh và Thiết lập */
+.ab-custom-row { display: flex; align-items: center; gap: 6px; color: #bdbdbd; font-size: 11px; }
+.artboard .ab-custom-row input, .artboard .ab-field input, .artboard .ab-field select {
+    height: 28px; padding: 0 8px; border: 1px solid var(--btn-line); border-radius: 8px; background: #1f1f1f;
+    color: #e6e6e6; font-size: 11.5px; font-weight: 600;
+}
+.artboard .ab-custom-row input { flex: 1; min-width: 0; }
+.artboard input:focus, .artboard select:focus { border-color: #8a8a8a; outline: none; }
+.artboard input[type="number"]::-webkit-inner-spin-button { opacity: .5; }
+
+.ab-segment { display: flex; padding: 2px; border-radius: 9px; background: #1f1f1f; }
+.artboard .ab-mode { flex: 1; height: 26px; border-radius: 7px; color: #9a9a9a; font: 600 11px/26px "Segoe UI", Tahoma, sans-serif; transition: background 140ms, color 140ms; }
+.artboard .ab-mode:hover { color: #fff; }
+.artboard .ab-mode.is-active, .artboard .ab-mode.is-active:hover { background: #3a3a3a; color: #fff; box-shadow: inset 0 0 0 1px #555; }
+
+.ab-field { display: flex; align-items: center; gap: 6px; margin-top: 8px; color: #cfcfcf; font-size: 11px; }
+.ab-field > span { flex: 0 0 auto; min-width: 0; }
+.artboard .ab-field > input[type="text"] { flex: 1; min-width: 0; }
+.ab-field-row { display: flex; gap: 8px; }
+.ab-field-gap { flex: 1 1 52%; }
+.ab-field-bg { flex: 1 1 48%; }
+.artboard .ab-field-gap input { flex: 1; width: 0; min-width: 0; padding-right: 2px; }
+.ab-field-gap em { color: #8f8f8f; font-style: normal; font-size: 10.5px; }
+.artboard .ab-field-bg select { flex: 1; width: 0; min-width: 0; padding: 0 4px; cursor: pointer; }
+.ab-field select option { background: #2f2f2f; color: #e6e6e6; }
+
+.ab-switch { position: relative; display: flex; align-items: center; justify-content: space-between; margin-top: 10px; color: #cfcfcf; font-size: 11.5px; cursor: pointer; }
+.artboard .ab-switch input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ab-switch i { position: relative; flex: 0 0 34px; width: 34px; height: 20px; border-radius: 10px; background: #4a4a4a; transition: background 140ms; }
+.ab-switch i::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .5); transition: transform 140ms; }
+.ab-switch input:checked + i { background: var(--green); }
+.ab-switch input:checked + i::after { transform: translateX(14px); }
+.ab-switch input:focus-visible + i { outline: 2px solid rgba(21, 198, 113, .6); outline-offset: 1px; }
+
+/* Chân: tóm tắt lựa chọn + nút tạo */
+.ab-footer { margin-top: 8px; padding-top: 8px; border-top: 1px solid #3a3a3a; }
+.ab-summary-row { display: flex; align-items: center; gap: 6px; color: #e6e6e6; font-size: 11px; }
+.ab-summary-icon { flex: 0 0 16px; width: 16px; height: 16px; fill: var(--green); stroke: none; }
+.ab-summary-icon path { fill: none; stroke: #0b2a19; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ab-summary-icon.is-empty { fill: #4a4a4a; }
+.artboard .ab-create {
+    display: block; width: 100%; height: 34px; margin-top: 8px; border-radius: 8px; background: var(--rose);
+    box-shadow: 0 2px 8px rgba(245, 0, 8, .28); color: #fff; font: 700 13px/34px "Segoe UI", Tahoma, sans-serif;
+    transition: filter 120ms, transform 120ms;
+}
+.artboard .ab-create:hover { filter: brightness(1.12); }
+.artboard .ab-create:active { transform: translateY(1px); filter: brightness(.9); }
+.artboard .ab-create[disabled] { background: #3a3a3a; box-shadow: none; color: #8f8f8f; cursor: default; filter: none; transform: none; }
+.ab-note { margin: 8px 0 2px; color: #7d7d7d; font-size: 9.5px; text-align: center; }

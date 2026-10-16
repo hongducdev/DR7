@@ -1,5 +1,5 @@
 /*
- * Nhóm Cọ vẽ: khung xem trước nét cọ + thanh Kích thước / Độ cứng của cọ hiện tại trong Photoshop
+ * Nhóm Brush Lab: khung xem trước nét cọ + thanh Kích thước / Độ cứng của cọ hiện tại trong Photoshop
  * ($._ext_BRUSH.get / set, xem jsx/brush-size-hardness.jsx).
  *
  * Giá trị đọc lại khi mở panel và khi quay lại panel (focus), vì đổi cọ trong Photoshop làm đổi giá trị.

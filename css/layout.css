@@ -253,7 +253,6 @@ button:focus-visible {
     color: #f2f2f2;
     font: 700 11.5px/16px "Segoe UI", Tahoma, sans-serif;
     letter-spacing: .6px;
-    text-transform: uppercase;
     cursor: pointer;
     user-select: none;
 }

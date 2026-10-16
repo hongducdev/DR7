@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/layout.css" type="text/css">
     <link rel="stylesheet" href="css/explore.css" type="text/css">
     <link rel="stylesheet" href="css/button-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/artboard.css" type="text/css">
     <script type="text/javascript" src="./js/CSInterface.js"></script>
 
     <!-- Bảng màu nút: layout.css là bản chính, khối này chỉ để dự phòng. -->
@@ -83,8 +84,8 @@
 				<button onclick="doa('sfb')" title="Hoa văn chấm">Chấm</button>
 			</div>
 		</section>
-		<section class="group group-brush" aria-label="Cọ vẽ">
-			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Cọ vẽ</div>
+		<section class="group group-brush" aria-label="Brush Lab">
+			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Brush Lab</div>
 			<div class="action-grid one-col brush-actions">
 				<button class="brush-setup-run icon-btn" title="Bật Shape Dynamics, Size / Angle / Roundness Jitter: Control = Pen Pressure">Thiết lập cọ</button>
 				<button class="brush-setup-reset icon-btn" hidden title="Trả cọ về mặc định: mọi Control = Off, tắt Shape Dynamics">Về mặc định</button>
@@ -127,7 +128,49 @@
 		</section>
 	</div>
 	<div class="tab-pane" role="tabpanel" data-tab="artboard" hidden>
-		<p class="tab-empty">Artboard — sắp có.</p>
+			<div class="artboard">
+				<h2 class="artboard-title">Tạo artboard</h2>
+				<p class="artboard-sub">Chọn khổ. Tạo nhanh. Bắt đầu thiết kế.</p>
+				<div class="ab-search-wrap">
+					<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+					<input class="ab-search" type="search" placeholder="Tìm kích thước..." aria-label="Tìm kích thước">
+				</div>
+				<div class="ab-chips" role="group" aria-label="Lọc khổ">
+					<button class="ab-chip is-active" data-filter="all">Tất cả</button>
+					<button class="ab-chip" data-filter="facebook">Facebook</button>
+					<button class="ab-chip" data-filter="youtube">YouTube</button>
+					<button class="ab-chip" data-filter="custom">Tùy chỉnh</button>
+				</div>
+				<div class="ab-sections"></div>
+				<p class="ab-empty" hidden>Không có khổ nào khớp.</p>
+				<section class="group ab-group ab-custom-group" hidden>
+					<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Kích thước tùy chỉnh</div>
+					<div class="ab-custom-row">
+						<input class="ab-custom-w" type="number" min="1" max="20000" value="1080" aria-label="Rộng (px)">
+						<span>×</span>
+						<input class="ab-custom-h" type="number" min="1" max="20000" value="1080" aria-label="Cao (px)">
+						<span>px</span>
+					</div>
+				</section>
+				<section class="group ab-group ab-setup" aria-label="Thiết lập">
+					<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Thiết lập</div>
+					<div class="ab-segment" role="group" aria-label="Nơi tạo artboard">
+						<button class="ab-mode is-active" data-mode="new" aria-pressed="true" title="Mở tài liệu mới chứa các artboard">Tài liệu mới</button>
+						<button class="ab-mode" data-mode="current" aria-pressed="false" title="Thêm artboard vào bên phải tài liệu đang mở">File hiện tại</button>
+					</div>
+					<label class="ab-field"><span>Tên bộ</span><input class="ab-name" type="text" value="SCCTLM_Social" maxlength="60" spellcheck="false"></label>
+					<div class="ab-field-row">
+						<label class="ab-field ab-field-gap"><span>Khoảng cách</span><input class="ab-gap" type="number" min="0" max="1000" value="40"><em>px</em></label>
+						<label class="ab-field ab-field-bg"><span>Nền</span><select class="ab-background"><option value="white">Trắng</option><option value="black">Đen</option><option value="transparent">Trong suốt</option></select></label>
+					</div>
+					<label class="ab-switch"><span>Guide vùng an toàn</span><input class="ab-guides" type="checkbox"><i aria-hidden="true"></i></label>
+				</section>
+				<div class="ab-footer">
+					<div class="ab-summary-row"><svg class="ab-summary-icon" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7"/><path d="M4.8 8.2l2.2 2.2 4.2-4.6"/></svg><span class="ab-summary"></span></div>
+					<button class="ab-create">Tạo artboard</button>
+					<p class="ab-note">RGB · sRGB · Đơn vị px</p>
+				</div>
+			</div>
 	</div>
 	<div class="tab-pane" role="tabpanel" data-tab="explore" hidden>
 		<div class="explore">
@@ -250,7 +293,9 @@
 <script type="text/javascript" src="./js/brush-setup-controls.js"></script>
 <script type="text/javascript" src="./js/brush-controls.js"></script>
 <script type="text/javascript" src="./js/rim-color-controls.js"></script>
-<script type="text/javascript" src="./js/explore-feed.js"></script>
+<script type="text/javascript" src="./js/artboard-layout.js"></script>
+	<script type="text/javascript" src="./js/artboard-tab.js"></script>
+	<script type="text/javascript" src="./js/explore-feed.js"></script>
 <script type="text/javascript" src="./js/explore-tab.js"></script>
 <script type="text/javascript" src="./js/tab-switcher.js"></script>
 <script type="text/javascript" src="./js/section-collapse.js"></script>

@@ -1,6 +1,17 @@
 # Changelog
 
-## Chưa phát hành — Tab Khám phá
+## v0.1.3 — Tab Artboard và Brush Lab
+
+- Nhóm **Cọ vẽ** đổi tên thành **Brush Lab**; tiêu đề nhóm không còn in hoa toàn bộ.
+- Tab **Artboard** ("Tạo artboard"): tìm khổ, chip lọc Tất cả/Facebook/YouTube/Tùy chỉnh, chọn nhiều thẻ khổ (Hay dùng, Facebook,
+  YouTube, Bộ nhiều ảnh, khổ tùy chỉnh), thiết lập Tài liệu mới / File hiện tại, tên bộ, khoảng cách, nền, guide vùng an toàn
+  (lề 5%). Nút "Tạo N artboard" xếp các mẫu chồng dọc, mỗi mẫu xếp ngang theo hàng, cách nhau `gap` px.
+- File hiện tại: nếu chưa có artboard thì nội dung cũ được gói vào artboard "Tài liệu gốc", artboard mới nối bên phải; cả lệnh là một bước History.
+- Nền trắng/đen là lớp màu "Nền" nằm trong artboard (Photoshop không cho đặt nền artboard qua script); "Trong suốt" không thêm lớp.
+- File: `js/artboard-layout.js` (dữ liệu + xếp + kiểm tra spec), `js/artboard-tab.js` (giao diện), `css/artboard.css`,
+  `jsx/artboard-create.jsx` (lệnh `$._ext_ARTBOARD`); kiểm tra bằng `tests/check-artboard-layout.js`.
+
+## v0.1.3 — Tab Khám phá
 
 - Tab **Khám phá**: thẻ cộng đồng Facebook (liên kết tĩnh), thẻ kênh YouTube `@scctlm`, playlist "300 bài FX Typography
   thiếu nhi" và danh sách video (ảnh bìa, tìm kiếm, chip lọc Tất cả/Typography/Photoshop/Illustrator). Link mở bằng trình duyệt mặc định.

@@ -40,7 +40,7 @@
     // arg: tuỳ chọn, màu "#rrggbb" truyền cho lệnh $._ext_<name>.run
     function run(kind, name, done, arg) {
         var valid = kind === 'preset' ? PRESET_FILE : kind === 'atn' ? ATN_FILE : kind === 'shortcut' ? SHORTCUT_LIST :
-            /^[A-Za-z_][A-Za-z0-9_]*$/;
+            kind === 'artboard' ? window.dr7Artboard.spec : /^[A-Za-z_][A-Za-z0-9_]*$/;
         if (!valid.test(name) || (arg !== undefined && !HEX_COLOR.test(arg))) { if (done) done('DR7_INVALID'); return; }
         if (!ready) {
             alert('Lõi Photoshop chưa sẵn sàng. Hãy đóng và mở lại panel.');
@@ -51,16 +51,16 @@
         busy = true;
         var target = kind === 'doa' ? '$.dr7Commands[' + JSON.stringify(name) + ']' :
             kind === 'preset' ? '$.dr7ApplyBundledXmp' : kind === 'atn' ? '$.dr7ImportBundledAtn' :
-            kind === 'shortcut' ? '$.dr7ShortcutSetup.install' : '$._ext_' + name + '.run';
-        var args = kind === 'preset' || kind === 'atn' || kind === 'shortcut' ? JSON.stringify(name) :
+            kind === 'shortcut' ? '$.dr7ShortcutSetup.install' : kind === 'artboard' ? '$._ext_ARTBOARD.run' : '$._ext_' + name + '.run';
+        var args = kind === 'preset' || kind === 'atn' || kind === 'shortcut' || kind === 'artboard' ? JSON.stringify(name) :
             arg !== undefined ? JSON.stringify(arg) : '';
         // name đã qua kiểm tra; riêng danh sách phím tắt (nhiều dòng, tên Action tuỳ ý) không được
         // chèn thô vào mã ExtendScript hay thông báo → dùng nhãn cố định
-        var label = kind === 'shortcut' ? 'Phím tắt Action' : name;
+        var label = kind === 'shortcut' ? 'Phím tắt Action' : kind === 'artboard' ? 'Artboard' : name;
         // Only WM (its own batch dialog), BPP/BPPRESET (brush setup) and BUGFIX run without an open image;
         // BA processes every open document, so it needs at least one.
         var code = '(function(){var d=app.displayDialogs,u=app.preferences.rulerUnits;' +
-            'try{' + (kind !== 'shortcut' && kind !== 'atn' && !/^(WM|BPP|BPPRESET|BUGFIX)$/.test(name) ?
+            'try{' + (kind !== 'shortcut' && kind !== 'atn' && kind !== 'artboard' && !/^(WM|BPP|BPPRESET|BUGFIX)$/.test(name) ?
                 'if(!app.documents.length)return "DR7_NO_DOCUMENT";' : '') +
             'if(typeof ' + target + '!=="function")throw new Error("Missing command: ' + label + '");' +
             'var r=' + target + '(' + args + ');return r==="DR7_EXISTS"?r:"DR7_OK";}catch(e){if(e.number===8007)return "DR7_CANCEL";' +
@@ -91,6 +91,8 @@
     window.dr7ImportActions = function (fileName, done) { run('atn', fileName, done); };
     // Gọi từ js/shortcut-key-capture.js sau khi người dùng ấn phím
     window.dr7SetupShortcut = function (list, done) { run('shortcut', list, done); };
+    // spec đã qua window.dr7Artboard.spec; tạo artboard bằng jsx/artboard-create.jsx
+    window.dr7RunArtboard = function (spec, done) { run('artboard', spec, done); };
     // Cho module khác (js/brush-setup-controls.js, js/rim-color-controls.js) chạy lệnh $._ext_<name> và nhận kết quả
     window.dr7RunCommand = function (name, done, arg) { run('ext', name, done, arg); };
 
@@ -215,6 +217,7 @@
     window.onLoaded = function () {
         if (window.dr7InitTabs) window.dr7InitTabs();
         if (window.dr7InitExplore) window.dr7InitExplore();
+        if (window.dr7InitArtboard) window.dr7InitArtboard();
         renderPresets();
         renderActionFiles();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();

@@ -1,5 +1,5 @@
 /*
- * Nhóm Cọ vẽ: nút "Thiết lập cọ" (BPP) + "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
+ * Nhóm Brush Lab: nút "Thiết lập cọ" (BPP) + "Về mặc định" (BPPRESET), xem jsx/brush-pen-pressure.jsx.
  *
  * Trạng thái lấy thẳng từ cọ hiện tại trong Photoshop ($._ext_BPP.state()), không lưu ở panel:
  *   - "setup"  : Shape Dynamics bật, mọi Control = Pen Pressure → nút thành "Cọ đã bật" (khoá), hiện nút Về mặc định cùng hàng
