@@ -1,5 +1,27 @@
 :root {
     --panel-gap: 4px;
+    /* Nền xám theo giao diện tối của Adobe (Photoshop): panel #323232, ô nhập #262626; màu thương hiệu SCCTLM giữ nguyên cho điểm nhấn */
+    --panel: #323232;
+    --background: #262626;
+    --card: #383838;
+    --muted: #444444;
+    --muted-2: #505050;
+    --muted-foreground: #a8a8a8;
+    --foreground: #e6e6e6;
+    --border: #4a4a4a;
+    --edge: #5a5a5a;
+    --ring: #15c671;
+    --primary: #15c671;
+    --primary-foreground: #000000;
+    --secondary: #d3d3d7;
+    --secondary-foreground: #000000;
+    --destructive: #f50008;
+    --ink: #ffffff;
+    --on-ink: #000000;
+    --radius: 12px;
+    --r-pill: 999px;
+    --r-card: 16px;
+    --t-micro: 120ms;
     --green: #15c671;
     --blue: #139bd3;
     --rose: #f50008;
@@ -22,10 +44,10 @@ body {
     align-items: center;
     gap: 8px;
     margin-bottom: 4px;
-    padding: 6px 8px;
-    border: 1px solid #3c3c3c;
-    border-radius: 8px;
-    background: #2f2f2f;
+    padding: 8px 10px;
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    background: var(--card);
 }
 .panel-logo {
     flex: 0 0 34px;
@@ -41,35 +63,35 @@ body {
 }
 .panel-title {
     overflow: hidden;
-    color: #f2f2f2;
-    font: 700 13px/17px "Segoe UI", Tahoma, sans-serif;
+    color: #ffffff;
+    font: 600 13px/17px "Segoe UI", Tahoma, sans-serif;
     text-overflow: ellipsis;
 }
 .panel-tagline {
     overflow: hidden;
-    color: #9a9a9a;
+    color: var(--muted-foreground);
     font: 400 10px/14px "Segoe UI", Tahoma, sans-serif;
     text-overflow: ellipsis;
 }
 .panel-version {
     margin-left: 6px;
-    color: #8a8a8a;
+    color: var(--muted-foreground);
     font-weight: 400;
     font-size: 11px;
 }
 .icon-button {
     position: relative;
     display: inline-flex;
-    flex: 0 0 30px;
+    flex: 0 0 32px;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     margin: 0;
     padding: 0;
-    border: 1px solid #484848;
-    border-radius: 8px;
-    background: #262626;
+    border: 1px solid var(--edge);
+    border-radius: 999px;
+    background: var(--background);
     color: #a8a8a8;
     cursor: pointer;
     transition: color 120ms, background 120ms, border-color 120ms;
@@ -83,11 +105,11 @@ body {
     stroke-linecap: round;
     stroke-linejoin: round;
 }
-.icon-button:hover { color: #fff; background: #383838; border-color: #555; }
+.icon-button:hover { color: var(--foreground); background: var(--muted); border-color: var(--muted-2); }
 .icon-button:active { transform: translateY(1px); }
 .icon-button[disabled] { opacity: .45; cursor: default; }
 /* Có bản phát hành mới: viền + chấm xanh lá */
-.update-button.has-update { color: var(--green); border-color: rgba(21, 198, 113, .6); }
+.update-button.has-update { color: var(--green); border-color: var(--edge); }
 .update-button.has-update::after {
     content: "";
     position: absolute;
@@ -95,7 +117,7 @@ body {
     right: -3px;
     width: 7px;
     height: 7px;
-    border: 1px solid #262626;
+    border: 1px solid var(--panel);
     border-radius: 50%;
     background: var(--green);
 }
@@ -103,15 +125,15 @@ body {
 @keyframes dr7-pulse { 50% { opacity: .3; } }
 .panel-status {
     margin: 5px 1px 0;
-    padding: 4px 6px;
-    border-radius: 6px;
-    background: #2f2f2f;
-    color: #bdbdbd;
+    padding: 5px 8px;
+    border-radius: 12px;
+    background: var(--background);
+    color: var(--muted-foreground);
     font: 10.5px/14px "Segoe UI", Tahoma, sans-serif;
     white-space: pre-line;
 }
 .panel-status[hidden] { display: none; }
-.panel-status.is-error { color: #ffb3bf; background: rgba(245, 0, 8, .14); }
+.panel-status.is-error { color: #fca5a5; background: rgba(239, 68, 68, .14); }
 
 .panel {
     display: block;
@@ -126,14 +148,14 @@ body {
 
 .brand,
 .logo {
-    display: flex !important;
+    display: flex  !important;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
 .logo {
-    margin: 0 0 3px !important;
+    margin: 0 0 3px  !important;
 }
 
 .logo img {
@@ -142,19 +164,19 @@ body {
 }
 
 .tools {
-    display: flex !important;
+    display: flex  !important;
     justify-content: center;
     align-items: center;
     gap: 7px;
     box-sizing: border-box;
     width: 100%;
-    margin: 0 0 2px !important;
-    padding: 0 !important;
+    margin: 0 0 2px  !important;
+    padding: 0  !important;
 }
 
 .tools > .tool {
     flex: 0 0 25px;
-    margin: 0 !important;
+    margin: 0  !important;
 }
 
 .action-grid {
@@ -168,21 +190,21 @@ button,
 button:focus,
 button:active,
 button:focus-visible {
-    outline: none !important;
+    outline: none  !important;
 }
 
 .row > button,
 .action-grid > button {
-    width: 100% !important;
+    width: 100%  !important;
     min-width: 0;
-    height: 23px !important;
-    margin: 0 !important;
-    padding: 0 3px !important;
-    border: 0 !important;
-    border-radius: 6px !important;
-    box-shadow: inset 0 1px rgba(255, 255, 255, 0.15), inset 0 -1px rgba(0, 0, 0, 0.16) !important;
-    color: #fff !important;
-    font: 600 11px/23px "Segoe UI", Tahoma, sans-serif !important;
+    height: 23px  !important;
+    margin: 0  !important;
+    padding: 0 3px  !important;
+    border: 0  !important;
+    border-radius: 6px  !important;
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.15), inset 0 -1px rgba(0, 0, 0, 0.16)  !important;
+    color: #fff  !important;
+    font: 500 11px/23px "Segoe UI", Tahoma, sans-serif  !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -191,17 +213,17 @@ button:focus-visible {
 }
 
 .row > button.ba1,
-.action-grid > button.ba1 { background: var(--green) !important; }
+.action-grid > button.ba1 { background: var(--green)  !important; }
 .row > button.ba2,
 .row > button.ba8,
 .action-grid > button.ba2,
-.action-grid > button.ba8 { background: var(--blue) !important; }
+.action-grid > button.ba8 { background: var(--blue)  !important; }
 .row > button.ba7,
-.action-grid > button.ba7 { background: var(--rose) !important; }
+.action-grid > button.ba7 { background: var(--rose)  !important; }
 .row > button.ba9,
 .row > button.ba11,
 .action-grid > button.ba9,
-.action-grid > button.ba11 { background: var(--amber) !important; }
+.action-grid > button.ba11 { background: var(--amber)  !important; }
 
 .row > button:hover,
 .action-grid > button:hover {
@@ -218,7 +240,7 @@ button:focus-visible {
 .action-grid > button:focus,
 .row > button:focus-visible,
 .action-grid > button:focus-visible {
-    outline: none !important;
+    outline: none  !important;
 }
 
 .row > button[disabled],
@@ -232,26 +254,25 @@ button:focus-visible {
 
 /* --- Nhóm chức năng: card tối, tiêu đề có mũi tên thu gọn; nút trung tính, chỉ nút chính màu đỏ --- */
 .group {
-    --accent: var(--rose);
-    --btn-bg: #2f2f2f;
-    --btn-line: #4a4a4a;
+    --btn-bg: transparent;
+    --btn-line: var(--edge);
     margin-top: 8px;
-    padding: 8px 8px 9px;
-    border: 1px solid #3a3a3a;
-    border-radius: 10px;
-    background: #262626;
+    padding: 10px 10px 11px;
+    border: 1px solid var(--edge);
+    border-radius: 16px;
+    background: var(--card);
 }
 .tab-pane > .group:first-child { margin-top: 6px; }
 .group.is-collapsed { padding-bottom: 8px; }
-.group.is-collapsed > :not(.section-title) { display: none !important; }
+.group.is-collapsed > :not(.section-title) { display: none  !important; }
 
 .section-title {
     display: flex;
     align-items: center;
     gap: 6px;
     margin: 0 0 8px;
-    color: #f2f2f2;
-    font: 700 11.5px/16px "Segoe UI", Tahoma, sans-serif;
+    color: #ffffff;
+    font: 600 11.5px/16px "Segoe UI", Tahoma, sans-serif;
     letter-spacing: .6px;
     cursor: pointer;
     user-select: none;
@@ -279,42 +300,42 @@ button:focus-visible {
 
 /* Nút trong nhóm: nền xám tối, viền mảnh, sáng lên khi rê chuột */
 .group .action-grid > button {
-    height: 28px !important;
-    padding: 0 2px !important;
-    border-radius: 8px !important;
-    background: var(--btn-bg) !important;
-    box-shadow: inset 0 0 0 1px var(--btn-line) !important;
-    color: #e6e6e6 !important;
-    font: 600 11px/28px "Segoe UI", Tahoma, sans-serif !important;
+    height: 28px  !important;
+    padding: 0 2px  !important;
+    border-radius: 999px !important;
+    background: var(--btn-bg)  !important;
+    box-shadow: inset 0 0 0 1px var(--btn-line)  !important;
+    color: #ffffff  !important;
+    font: 500 11px/28px "Segoe UI", Tahoma, sans-serif  !important;
 }
 .group .action-grid > button:hover {
-    background: #3a3a3a !important;
-    box-shadow: inset 0 0 0 1px #6a6a6a !important;
-    color: #fff !important;
+    background: var(--muted)  !important;
+    box-shadow: inset 0 0 0 1px var(--muted-2)  !important;
+    color: #fff  !important;
     filter: none;
 }
-.group .action-grid > button:active { background: #262626 !important; filter: none; }
+.group .action-grid > button:active { background: var(--background)  !important; filter: none; }
 
 /* Nút chính của nhóm (Làm Da V5.0): đỏ đổ đầy, rộng cả hàng */
 .group > .btn-primary {
     display: block;
     float: none;
-    width: 100% !important;
-    height: 34px !important;
-    margin: 0 0 8px !important;
-    border: 0 !important;
-    border-radius: 8px !important;
-    background: var(--accent) !important;
-    box-shadow: 0 2px 8px rgba(245, 0, 8, .28) !important;
-    color: #fff !important;
-    font: 700 13px/34px "Segoe UI", Tahoma, sans-serif !important;
+    width: 100%  !important;
+    height: 34px  !important;
+    margin: 0 0 8px  !important;
+    border: 0  !important;
+    border-radius: 999px !important;
+    background: var(--primary)  !important;
+    box-shadow: none  !important;
+    color: var(--primary-foreground)  !important;
+    font: 600 13px/34px "Segoe UI", Tahoma, sans-serif  !important;
     cursor: pointer;
     transition: filter 120ms, transform 120ms;
 }
-.group > .btn-primary:hover { filter: brightness(1.12); }
-.group > .btn-primary:active { transform: translateY(1px); filter: brightness(.9); }
+.group > .btn-primary:hover { filter: none; opacity: .9; }
+.group > .btn-primary:active { transform: translateY(1px); opacity: .8; }
 .group > .btn-primary:focus,
-.group > .btn-primary:focus-visible { outline: none !important; }
+.group > .btn-primary:focus-visible { outline: none  !important; }
 
 /* --- Nhóm Retouch: nút chính xanh dương + lưới 3x3 icon trên chữ --- */
 .group-retouch > .btn-primary {
@@ -322,11 +343,10 @@ button:focus-visible {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    height: 40px !important;
-    margin-bottom: 10px !important;
-    background: #2f6fe0 !important;
-    box-shadow: 0 2px 8px rgba(47, 111, 224, .35) !important;
-    font: 700 14px/40px "Segoe UI", Tahoma, sans-serif !important;
+    height: 40px  !important;
+    margin-bottom: 10px  !important;
+    box-shadow: none  !important;
+    font: 600 14px/40px "Segoe UI", Tahoma, sans-serif  !important;
 }
 .group-retouch > .btn-primary em {
     font-style: normal;
@@ -351,37 +371,24 @@ button:focus-visible {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    height: 64px !important;
-    padding: 0 2px !important;
-    border-radius: 8px !important;
-    font: 500 11px/13px "Segoe UI", Tahoma, sans-serif !important;
+    height: 64px  !important;
+    padding: 0 2px  !important;
+    border-radius: 12px !important;
+    font: 500 11px/13px "Segoe UI", Tahoma, sans-serif  !important;
 }
 .group-retouch .action-grid > button {
     position: relative;
-    transition: transform 160ms cubic-bezier(.2, .8, .2, 1), background 160ms, box-shadow 160ms, color 160ms !important;
+    transition: transform 160ms cubic-bezier(.2, .8, .2, 1), background 160ms, box-shadow 160ms, color 160ms  !important;
 }
 .group-retouch .tool-icon { transition: transform 200ms cubic-bezier(.3, 1.4, .5, 1), color 160ms; }
 .group-retouch .action-grid > button:hover {
-    background: linear-gradient(to bottom, #3d3d3d, #2f2f2f) !important;
-    box-shadow: inset 0 0 0 1px rgba(21, 198, 113, .7), 0 4px 10px rgba(0, 0, 0, .45), 0 0 10px rgba(21, 198, 113, .18) !important;
-    color: #fff !important;
+    background: var(--muted)  !important;
+    box-shadow: inset 0 0 0 1px var(--muted-2)  !important;
+    color: var(--foreground)  !important;
 }
-.group-retouch .action-grid > button:hover .tool-icon {
-    color: var(--green);
-    transform: scale(1.15) translateY(-1px);
-}
-.group-retouch .action-grid > button:active {
-    transform: translateY(0) scale(.96);
-    background: #262626 !important;
-    box-shadow: inset 0 0 0 1px var(--green) !important;
-}
-.group-retouch > .btn-primary:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(47, 111, 224, .55) !important;
-}
-.group-retouch > .btn-primary:hover .tool-icon { transform: rotate(-8deg) scale(1.12); }
-.group-retouch > .btn-primary:active { transform: translateY(0) scale(.98); filter: brightness(.92); }
+.group-retouch .action-grid > button:hover .tool-icon { transform: scale(1.1); }
+.group-retouch .action-grid > button:active { transform: scale(.98); }
+.group-retouch > .btn-primary:active { transform: translateY(1px); }
 
 /* Preset names run longer than tool labels, so these rows get two wider columns */
 .group .action-grid.one-col { grid-template-columns: minmax(0, 1fr); }
@@ -407,9 +414,9 @@ button:focus-visible {
     stroke-linejoin: round;
 }
 .group .atn-grid > button {
-    height: 36px !important;
-    border-radius: 10px !important;
-    font: 600 12px/36px "Segoe UI", Tahoma, sans-serif !important;
+    height: 36px  !important;
+    border-radius: 999px  !important;
+    font: 500 12px/36px "Segoe UI", Tahoma, sans-serif  !important;
 }
 .shortcut-line {
     display: flex;
@@ -425,21 +432,21 @@ button:focus-visible {
     margin: 0;
     padding: 0 34px 0 14px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 999px;
     background: var(--btn-bg) url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bdbdbd' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m6 9 6 6 6-6'/></svg>") right 12px center / 16px 16px no-repeat;
     -webkit-appearance: none;
     box-shadow: inset 0 0 0 1px var(--btn-line);
-    color: #e6e6e6;
-    font: 600 12px/36px "Segoe UI", Tahoma, sans-serif;
+    color: #ffffff;
+    font: 500 12px/36px "Segoe UI", Tahoma, sans-serif;
     text-overflow: ellipsis;
     outline: none;
     cursor: pointer;
     transition: background 140ms, box-shadow 140ms;
 }
-.group .shortcut-line > select.shortcut-action:hover { background-color: #3a3a3a; box-shadow: inset 0 0 0 1px #6a6a6a; }
-.group .shortcut-line > select.shortcut-action:focus { box-shadow: inset 0 0 0 1px var(--green); }
-.group .shortcut-line > select.shortcut-action optgroup { color: #9a9a9a; font-style: normal; }
-.group .shortcut-line > select.shortcut-action option { color: #e6e6e6; background: #2f2f2f; }
+.group .shortcut-line > select.shortcut-action:hover { background-color: var(--edge); box-shadow: inset 0 0 0 1px var(--muted-2); }
+.group .shortcut-line > select.shortcut-action:focus { box-shadow: inset 0 0 0 1px var(--ring); }
+.group .shortcut-line > select.shortcut-action optgroup { color: var(--muted-foreground); font-style: normal; }
+.group .shortcut-line > select.shortcut-action option { color: #ffffff; background: var(--card); }
 .group .shortcut-line > button.shortcut-capture {
     display: inline-flex;
     flex: 0 0 36px;
@@ -451,9 +458,9 @@ button:focus-visible {
     margin: 0;
     padding: 0;
     border: 0;
-    border-radius: 10px;
+    border-radius: 999px;
     background: transparent;
-    color: #cfcfcf;
+    color: #d3d3d7;
     cursor: pointer;
     transition: color 140ms, background 140ms;
 }
@@ -470,7 +477,7 @@ button:focus-visible {
 .group .shortcut-line > button.shortcut-capture:focus { outline: none; }
 .group .shortcut-line > button.shortcut-capture.listening {
     color: #fff;
-    background: var(--rose);
+    background: var(--destructive);
     animation: dr7-listening 1s ease-in-out infinite;
 }
 .shortcut-badge {
@@ -479,37 +486,36 @@ button:focus-visible {
     height: 36px;
     padding: 0 8px;
     box-sizing: border-box;
-    border-radius: 10px;
-    background: rgba(21, 198, 113, .12);
-    box-shadow: inset 0 0 0 1px var(--green);
-    color: var(--green);
-    font: 700 12px/36px "Segoe UI", Tahoma, sans-serif;
+    border-radius: 999px;
+    background: var(--secondary);
+    box-shadow: none;
+    color: var(--secondary-foreground);
+    font: 600 12px/36px "Segoe UI", Tahoma, sans-serif;
     text-align: center;
     white-space: nowrap;
 }
 .shortcut-badge[hidden] { display: none; }
 .shortcut-badge.is-hint {
-    background: rgba(245, 0, 8, .12);
-    box-shadow: inset 0 0 0 1px var(--rose);
+    background: rgba(239, 68, 68, .12);
+    box-shadow: inset 0 0 0 1px var(--destructive);
     color: #fff;
 }
 @keyframes dr7-listening {
     50% { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .6); }
 }
-}
 .group .action-grid.preset-grid:empty { display: none; }
 
-/* Preset áp nhanh: đổ đầy tím, chấm màu phía trước */
+/* Preset áp nhanh: nút outline, chấm nhỏ phía trước */
 .group .action-grid > button.ba-preset {
-    background: var(--btn-bg) !important;
-    box-shadow: inset 0 0 0 1px var(--btn-line) !important;
-    color: #e6e6e6 !important;
-    font-size: 11px !important;
+    background: var(--btn-bg)  !important;
+    box-shadow: inset 0 0 0 1px var(--btn-line)  !important;
+    color: #ffffff  !important;
+    font-size: 11px  !important;
     text-align: left;
-    padding-left: 18px !important;
+    padding-left: 18px  !important;
     position: relative;
 }
-.group .action-grid > button.ba-preset:hover { background: #3a3a3a !important; box-shadow: inset 0 0 0 1px #6a6a6a !important; }
+.group .action-grid > button.ba-preset:hover { background: var(--edge)  !important; box-shadow: inset 0 0 0 1px var(--muted-2) !important; }
 .group .action-grid > button.ba-preset::before {
     content: "";
     position: absolute;
@@ -518,29 +524,26 @@ button:focus-visible {
     width: 6px;
     height: 6px;
     margin-top: -3px;
-    border-radius: 50%;
-    background: var(--rose);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .25);
+    border-radius: 999px;
+    background: var(--muted-foreground);
 }
 
 .row > button.ba11,
 .action-grid > button.ba11 {
     grid-column: 1 / -1;
-    height: 25px !important;
-    font-weight: 600 !important;
-    line-height: 25px !important;
+    height: 25px  !important;
+    font-weight: 600  !important;
+    line-height: 25px  !important;
 }
 
 /* --- Thanh tab: Retouch / Artboard / Khám phá / Ủng Hộ --- */
 .tab-bar {
     display: flex;
-    gap: 4px;
-    margin: 8px 2px 0;
-    padding: 4px;
-    border: 1px solid #333;
-    border-radius: 12px;
-    background: #1f1f1f;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .45);
+    gap: 2px;
+    margin: 8px 0 0;
+    padding: 3px;
+    border-radius: 16px;
+    background: var(--muted);
 }
 .tab-bar .tab-button {
     position: relative;
@@ -551,19 +554,18 @@ button:focus-visible {
     justify-content: center;
     gap: 4px;
     min-width: 0;
-    height: 52px;
+    height: 50px;
     margin: 0;
     padding: 6px 4px 10px;
-    border: 1px solid transparent;
-    border-radius: 9px;
+    border: 0;
+    border-radius: 12px;
     background: transparent;
-    color: #8a8a8a;
-    font: 600 11px/13px "Segoe UI", Tahoma, sans-serif;
-    letter-spacing: .3px;
+    color: var(--muted-foreground);
+    font: 500 11px/13px "Segoe UI", Tahoma, sans-serif;
     text-transform: capitalize;
     white-space: nowrap;
     cursor: pointer;
-    transition: color 160ms, background 160ms, border-color 160ms, box-shadow 160ms;
+    transition: color 150ms, background 150ms, box-shadow 150ms;
 }
 .tab-bar .tab-icon {
     width: 20px;
@@ -573,9 +575,8 @@ button:focus-visible {
     stroke-width: 1.75;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: transform 180ms ease, color 160ms;
 }
-/* Chấm xanh dưới tab đang chọn */
+/* Chấm nhỏ dưới tab đang chọn */
 .tab-bar .tab-button::after {
     content: "";
     position: absolute;
@@ -583,30 +584,22 @@ button:focus-visible {
     bottom: 4px;
     width: 4px;
     height: 4px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
+    border-radius: 12px;
+    background: var(--on-ink);
     transform: translateX(-50%) scale(0);
-    transition: transform 200ms ease;
+    transition: transform 150ms ease;
 }
-.tab-bar .tab-button:hover {
-    color: #e6e6e6;
-    background: rgba(255, 255, 255, .06);
-}
-.tab-bar .tab-button:hover .tab-icon { transform: translateY(-1px); }
+.tab-bar .tab-button:not(.is-active):hover { color: var(--foreground); background: var(--muted-2); }
 .tab-bar .tab-button:focus { outline: none; }
+.tab-bar .tab-button:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
 .tab-bar .tab-button.is-active {
-    color: var(--white);
-    border-color: rgba(21, 198, 113, .35);
-    background: linear-gradient(to bottom, rgba(255, 255, 255, .10), rgba(255, 255, 255, .04));
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .4), inset 0 1px 0 rgba(255, 255, 255, .08);
+    color: var(--on-ink);
+    background: var(--ink);
 }
-.tab-bar .tab-button.is-active .tab-icon { color: var(--green); }
 .tab-bar .tab-button.is-active::after { transform: translateX(-50%) scale(1); }
-.tab-support:hover .tab-icon { transform: scale(1.15); }
 .tab-empty {
     margin: 14px 4px;
-    color: #7d7d7d;
+    color: var(--muted-foreground);
     font: 11px/16px "Segoe UI", Tahoma, sans-serif;
     text-align: center;
 }
@@ -614,21 +607,21 @@ button:focus-visible {
 /* --- Tab Ủng Hộ --- */
 .support-card { padding: 10px 4px 2px; text-align: center; font-family: "Segoe UI", Tahoma, sans-serif; }
 .support-mug { display: block; width: 76px; height: 76px; margin: 0 auto 4px; }
-.support-title { margin: 0; color: var(--white); font: 700 17px/20px "Segoe UI", Tahoma, sans-serif; }
+.support-title { margin: 0; color: var(--white); font: 600 17px/20px "Segoe UI", Tahoma, sans-serif; }
 .support-text { margin: 6px 4px 10px; color: #9aa0ac; font-size: 11px; line-height: 15px; }
 .support-qr {
     width: 118px;
     margin: 0 auto;
     padding: 10px 6px 8px;
-    border-radius: 8px;
+    border-radius: 16px;
     background: #fbf8f2;
     box-shadow: 3px 3px 0 var(--black);
-    color: #2a2a2a;
+    color: var(--background);
 }
 .support-qr svg { display: block; width: 52px; height: 52px; margin: 0 auto 4px; }
 .support-qr strong { display: block; font-size: 12px; line-height: 15px; }
-.support-qr span { display: block; color: #777; font-size: 9px; line-height: 12px; }
-.support-thanks { margin: 14px 0 0; padding-top: 8px; border-top: 1px solid #333; color: #8a8a8a; font-size: 10px; }
+.support-qr span { display: block; color: var(--muted-foreground); font-size: 9px; line-height: 12px; }
+.support-thanks { margin: 14px 0 0; padding-top: 8px; border-top: 1px solid var(--edge); color: var(--muted-foreground); font-size: 10px; }
 
 /* Cốc cà phê: khói bay, tia sáng nhấp nháy, trái tim đập nhẹ */
 .support-mug .steam { animation: dr7-steam 2.6s ease-in-out infinite; }
@@ -642,7 +635,7 @@ button:focus-visible {
 }
 @keyframes dr7-twinkle { 0%, 100% { opacity: .35; transform: scale(.6) rotate(0); } 50% { opacity: 1; transform: scale(1.15) rotate(45deg); } }
 @keyframes dr7-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.12); } 30% { transform: scale(1); } 45% { transform: scale(1.07); } }
-@media (prefers-reduced-motion: reduce) { .support-mug * { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .support-mug * { animation: none  !important; } }
 
 /* --- Cọ vẽ: nút Phím tắt (phím hiện màu đỏ), khung xem trước nét cọ, thanh trượt --- */
 .brush-preview {
@@ -650,16 +643,16 @@ button:focus-visible {
     width: 100%;
     height: 76px;
     margin-top: 8px;
-    border: 1px solid #3a3a3a;
-    border-radius: 8px;
-    background: #1b1b1b;
+    border: 1px solid var(--edge);
+    border-radius: 12px;
+    background: var(--background);
 }
 .slider-row {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-top: 8px;
-    color: #cfcfcf;
+    color: #d3d3d7;
     font: 11.5px/16px "Segoe UI", Tahoma, sans-serif;
 }
 .slider-row > span { flex: 0 0 34px; }
@@ -668,7 +661,7 @@ button:focus-visible {
     width: 18px;
     height: 18px;
     fill: none;
-    stroke: #e6e6e6;
+    stroke: #ffffff;
     stroke-width: 1.75;
     stroke-linecap: round;
 }
@@ -680,7 +673,6 @@ button:focus-visible {
     margin-left: auto;
     border-radius: 50%;
     background: var(--green);
-    box-shadow: 0 0 6px var(--green);
 }
 .brush-status[hidden] { display: none; }
 .brush-gear {
@@ -693,9 +685,9 @@ button:focus-visible {
     margin: 0 0 0 6px;
     padding: 0;
     border: 0;
-    border-radius: 6px;
+    border-radius: 999px;
     background: transparent;
-    color: #bdbdbd;
+    color: var(--muted-foreground);
     cursor: pointer;
     transition: color 140ms, background 140ms, transform 240ms;
 }
@@ -711,8 +703,8 @@ button:focus-visible {
 }
 .brush-gear:hover { color: #fff; background: rgba(255, 255, 255, .1); transform: rotate(45deg); }
 .brush-gear:focus { outline: none; }
-.brush-gear.is-done { color: var(--green); }
-.slider-row > output { flex: 0 0 42px; text-align: right; color: #e6e6e6; }
+.brush-gear.is-done { color: var(--foreground); }
+.slider-row > output { flex: 0 0 42px; text-align: right; color: #ffffff; }
 .slider-row > input[type="range"] {
     --fill: 50%;
     flex: 1;
@@ -727,15 +719,15 @@ button:focus-visible {
 .slider-row > input[type="range"]::-webkit-slider-runnable-track {
     height: 4px;
     border-radius: 2px;
-    background: linear-gradient(to right, var(--green) var(--fill), #3a3a3a var(--fill));
+    background: linear-gradient(to right, var(--primary) var(--fill), var(--muted) var(--fill));
 }
 .slider-row > input[type="range"]::-webkit-slider-thumb {
     width: 14px;
     height: 14px;
     margin-top: -5px;
     border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+    background: var(--ink);
+    box-shadow: 0 0 0 2px var(--card);
     -webkit-appearance: none;
 }
 
@@ -750,11 +742,11 @@ button:focus-visible {
     border: 0;
     border-radius: 50%;
     background: transparent;
-    box-shadow: 0 0 0 2px #3a3a3a, 0 2px 8px rgba(0, 0, 0, .4);
+    box-shadow: 0 0 0 2px var(--edge), 0 2px 8px rgba(0, 0, 0, .4);
     cursor: pointer;
     transition: box-shadow 140ms;
 }
-.rim-color-input:hover { box-shadow: 0 0 0 2px var(--green), 0 2px 8px rgba(0, 0, 0, .4) !important; }
+.rim-color-input:hover { box-shadow: 0 0 0 2px var(--ring)  !important; }
 .rim-color-input:focus { outline: none; }
 .rim-color-input::-webkit-color-swatch-wrapper { padding: 0; }
 .rim-color-input::-webkit-color-swatch { border: 0; border-radius: 50%; }
@@ -767,14 +759,14 @@ button:focus-visible {
     margin: 0;
     padding: 0 12px;
     border: 1px solid var(--btn-line);
-    border-radius: 10px;
-    background: #1f1f1f;
-    color: #e6e6e6;
-    font: 600 12px "Segoe UI", Tahoma, sans-serif;
+    border-radius: 999px;
+    background: var(--card);
+    color: #ffffff;
+    font: 500 12px "Segoe UI", Tahoma, sans-serif;
     box-sizing: border-box;
 }
-.group .rim-hex:focus { outline: none; border-color: #8a8a8a; }
-.group .rim-hex.is-invalid { border-color: var(--rose); }
+.group .rim-hex:focus { outline: none; border-color: var(--muted-foreground); }
+.group .rim-hex.is-invalid { border-color: var(--destructive); }
 .group .rim-eyedropper {
     float: none;
     flex: 0 0 42px;
@@ -783,12 +775,12 @@ button:focus-visible {
     margin: 0;
     padding: 0;
     border: 1px solid var(--btn-line);
-    border-radius: 10px;
+    border-radius: 999px;
     background: var(--btn-bg);
-    color: #e6e6e6;
+    color: #ffffff;
     cursor: pointer;
 }
-.group .rim-eyedropper:hover { background: #3a3a3a; border-color: #6a6a6a; color: #fff; }
+.group .rim-eyedropper:hover { background: var(--edge); border-color: var(--muted-2); color: #fff; }
 .rim-eyedropper svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .rim-swatches { display: flex; justify-content: space-between; margin-top: 12px; }
 .group .rim-swatch {
@@ -799,7 +791,7 @@ button:focus-visible {
     margin: 0;
     padding: 0;
     border: 2px solid transparent;
-    border-radius: 50%;
+    border-radius: 999px;
     cursor: pointer;
     transition: transform 120ms, border-color 120ms;
 }
@@ -816,9 +808,9 @@ button:focus-visible {
     margin: 0 0 0 auto;
     padding: 0;
     border: 0;
-    border-radius: 6px;
+    border-radius: 999px;
     background: transparent;
-    color: #bdbdbd;
+    color: var(--muted-foreground);
     cursor: pointer;
     transition: color 140ms, background 140ms;
 }

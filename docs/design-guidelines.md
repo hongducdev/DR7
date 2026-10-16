@@ -1,23 +1,37 @@
 # Design guidelines
 
-## Brand palette
+Style: flat, soft, pill-shaped controls in the spirit of the cojeev UI kit (https://cojeev.com/ui/docs/), dark mode only, on Adobe (Photoshop) dark-gray surfaces with the SCCTLM brand palette as accents.
 
-Defined as CSS variables in `css/layout.css` (`:root`).
+## Brand palette and tokens
 
-| Token | Hex | Use |
+Defined as CSS variables in `css/layout.css` (`:root`). Brand colours: green `#15c671`, gray `#d3d3d7`, white `#ffffff`, red `#f50008`, black `#000000`.
+
+| Token | Value | Use |
 | --- | --- | --- |
-| `--green` | `#15c671` | Done state, update badge |
-| `--gray` | `#d3d3d7` | Neutral light |
-| `--white` | `#ffffff` | Text on dark, cards |
-| `--rose` | `#f50008` | Active tab underline, heart, primary button |
-| `--black` | `#000000` | Shadows, outlines |
+| `--panel` | `#323232` | Panel body (Photoshop default gray) |
+| `--background` | `#262626` | Control wells (inputs, selects, chips, rows) |
+| `--card` | `#383838` | Group cards, header, explore cards |
+| `--muted` / `--muted-2` | `#444444` / `#505050` | Tab list, segment, slider track, hover fills |
+| `--border` / `--edge` | `#4a4a4a` / `#5a5a5a` | Card hairlines / control outline (1px inset ring) |
+| `--foreground` / `--muted-foreground` | `#e6e6e6` / `#a8a8a8` | Text |
+| `--primary` (= `--ring`) | `#15c671` | Primary button, slider fill, focus ring, check marks |
+| `--ink` / `--on-ink` | `#ffffff` / `#000000` | Selected tab, chip, segment, switch, slider thumb |
+| `--secondary` | `#d3d3d7` | Light badges and buttons (black text) |
+| `--destructive` | `#f50008` | Errors, listening state, invalid input |
+| `--green` | `#15c671` | Status only: done, update available, Brush Lab dot |
 
-## Retouch action grid
+## Shape and motion
+
+- Controls (buttons, inputs, selects, chips, badges, icon buttons) are pills (`border-radius: 999px`); retouch tiles, artboard cards and list rows use 12px; groups and the header use 16px.
+- Outline controls have a transparent fill and a 1px inset `--edge` ring; hover fills with `--muted`; press moves 1px down. Transitions are 120–150ms.
+- Focus: 2px `--ring` outline with 2px offset.
+- Selected state is an ink (white) lozenge, never a coloured underline. Green is the accent for the primary action and slider fill.
+
+## Layout
 
 - Panel width: 300px default and minimum (manifest + `PANEL_MIN_WIDTH` in `js/panel.js`); three equal columns with 4px gaps.
-- Groups are dark cards (`#262626`, 10px radius) whose uppercase title has a chevron; clicking it collapses the group (`js/section-collapse.js`).
-- Action buttons: 28px high, 8px radius, 11px semibold label, neutral dark fill with a thin border; the only filled button is the rose primary (`Làm Da V5.0`, 34px).
-- A finished state (e.g. brush already set up) uses a green border and tint.
+- Groups are dark cards whose title has a chevron; clicking it collapses the group (`js/section-collapse.js`).
+- The tab bar is a muted pill with icon-over-label triggers; icons come from the SCCTLM icon pack (`svg/navigation`, `svg/retouch`, `svg/controls`) inlined as thin-stroke SVG.
 - Keep full command meaning in `title` when the visible label is shortened.
 - Hide unavailable commands instead of leaving dead controls in the main workflow.
-- Button icons are thin-stroke SVG masks in `css/button-icons.css` (class `icon-btn` + `--icon`), so they follow the label colour; never put emoji or symbol characters in button text.
+- Button icons that are not inline SVG use masks in `css/button-icons.css` (class `icon-btn` + `--icon`), so they follow the label colour; never put emoji or symbol characters in button text.
