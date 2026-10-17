@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/explore.css" type="text/css">
     <link rel="stylesheet" href="css/button-icons.css" type="text/css">
     <link rel="stylesheet" href="css/artboard.css" type="text/css">
+    <link rel="stylesheet" href="css/color-presets.css" type="text/css">
     <script type="text/javascript" src="./js/CSInterface.js"></script>
 
     <!-- Bảng màu nút: layout.css là bản chính, khối này chỉ để dự phòng. -->
@@ -105,12 +106,8 @@
 		</section>
 		<section class="group group-color" aria-label="Màu và Preset">
 			<div class="section-title" role="button" tabindex="0" aria-expanded="true"><svg class="section-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>Màu &amp; Preset</div>
-			<div class="action-grid two-col">
-				<button onclick="doa('DKACR')" title="Mở bộ lọc Camera Raw">Camera Raw</button>
-				<button onclick="doa('APPLY_PRESET_XMP')" title="Chọn file Preset Camera Raw (.xmp) bất kỳ">Preset XMP…</button>
-			</div>
-			<!-- panel.js thêm 1 nút cho mỗi file .xmp trong thư mục presets/ -->
-			<div class="action-grid two-col preset-grid"></div>
+			<!-- js/color-presets.js dựng 6 bộ màu và giỏ Mix từ presets/colors/manifest.json -->
+			<div class="color-presets"></div>
 		</section>
 	</div>
 	<div class="tab-pane" role="tabpanel" data-tab="artboard" hidden>
@@ -165,7 +162,7 @@
 				<section class="explore-card explore-community" aria-label="Cộng đồng">
 					<div class="explore-card-head">
 						<svg class="explore-fb" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877f2"/><path d="M13.3 19v-6.2h2.1l.3-2.5h-2.4V8.800c0-.7.2-1.200 1.200-1.200h1.300V5.400c-.2 0-1-.1-1.900-.1-1.900 0-3.200 1.200-3.200 3.300v1.700H8.600v2.500h2.100V19z" fill="#fff"/></svg>
-						<span>MỚI TỪ CỘNG ĐỒNG</span><em class="explore-badge">Mới</em>
+						<span>Mới từ cộng đồng</span><em class="explore-badge">Mới</em>
 					</div>
 					<div class="explore-community-body">
 						<img class="explore-community-art" src="img/logo.svg" alt="">
@@ -179,7 +176,7 @@
 				<section class="explore-learn" aria-label="Học cùng SCCTLM">
 					<button class="explore-learn-head" aria-expanded="true">
 						<svg class="explore-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg>
-						<span class="explore-yt">▶</span><span>HỌC CÙNG SCCTLM</span>
+						<span class="explore-yt">▶</span><span>Học cùng SCCTLM</span>
 					</button>
 					<div class="explore-learn-body">
 						<div class="explore-channel">
@@ -283,6 +280,7 @@
 	<script type="text/javascript" src="./js/artboard-tab.js"></script>
 	<script type="text/javascript" src="./js/explore-feed.js"></script>
 <script type="text/javascript" src="./js/explore-tab.js"></script>
+<script type="text/javascript" src="./js/color-presets.js"></script>
 <script type="text/javascript" src="./js/tab-switcher.js"></script>
 <script type="text/javascript" src="./js/section-collapse.js"></script>
 <script type="text/javascript" src="./js/panel.js"></script>

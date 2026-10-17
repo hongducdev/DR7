@@ -42,6 +42,7 @@
 | 💡 | **Rim Light** | Tự hiện khi ảnh có nhóm `Rim Light` > lớp `Color`: chọn màu (ô tròn, hex, hút Foreground, 7 màu mẫu) và Cường độ. |
 | ⌨️ | **Phím tắt Action** | Gán F2–F12 (kèm Shift/Ctrl) để Play bất kỳ Action nào. |
 | 🖌️ | **Cọ vẽ** | Bật Shape Dynamics + Pen Pressure bằng một nút; xem trước nét cọ, chỉnh Kích thước / Độ cứng ngay trên panel. |
+| 🎨 | **Bộ màu & Mix màu** | 6 bộ màu MHK (165 màu): bấm 1 màu để áp ngay, hoặc bật Mix để chọn tối đa 4 màu, chỉnh độ mờ từng layer và pha thành màu mới. |
 | 🎞️ | **Preset & kết cấu** | Preset Camera Raw `.xmp` tự thành nút; bộ hoa văn Hạt phim / Hạt thô / Chấm có sẵn. |
 | 🔒 | **Chạy cục bộ** | Adobe CEP + ExtendScript, không gửi dữ liệu qua mạng. |
 | 🔁 | **Cập nhật từ GitHub** | Nút ⤓ trên panel tải bản phát hành mới nhất, không cần cài lại. |

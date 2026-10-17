@@ -22,6 +22,8 @@
     // Bundled preset file names: plain characters only, so a name can never
     // climb out of /presets or break out of the generated JS string.
     var PRESET_FILE = /^[A-Za-z0-9 _()-]+(\.[A-Za-z0-9 _()-]+)*\.xmp$/i;
+    // Colour mix: "group/NNN:opacity" entries (max 4), see jsx/color-mix.jsx.
+    var COLOR_MIX = /^[a-z]+\/\d{3}:\d{1,3}(,[a-z]+\/\d{3}:\d{1,3}){0,3}$/;
     var HEX_COLOR = /^#[0-9a-f]{6}$/i;
     var ATN_FILE = /^[A-Za-z0-9 _()-]+(\.[A-Za-z0-9 _()-]+)*\.atn$/i;
     // Danh sách phím tắt Play Action: mỗi dòng "phím\tbộ\tAction" (xem jsx/action-shortcut-setup.jsx).
@@ -39,7 +41,7 @@
     // done(res): tuỳ chọn, gọi sau khi Photoshop chạy xong (res = "DR7_OK" / "DR7_CANCEL" / lỗi)
     // arg: tuỳ chọn, màu "#rrggbb" truyền cho lệnh $._ext_<name>.run
     function run(kind, name, done, arg) {
-        var valid = kind === 'preset' ? PRESET_FILE : kind === 'atn' ? ATN_FILE : kind === 'shortcut' ? SHORTCUT_LIST :
+        var valid = kind === 'preset' ? PRESET_FILE : kind === 'atn' ? ATN_FILE : kind === 'colormix' ? COLOR_MIX : kind === 'shortcut' ? SHORTCUT_LIST :
             kind === 'artboard' ? window.dr7Artboard.spec : kind === 'atnpick' ? /^pick$/ : /^[A-Za-z_][A-Za-z0-9_]*$/;
         if (!valid.test(name) || (arg !== undefined && !HEX_COLOR.test(arg))) { if (done) done('DR7_INVALID'); return; }
         if (!ready) {
@@ -50,9 +52,9 @@
         if (busy) { if (done) done('DR7_BUSY'); return; }
         busy = true;
         var target = kind === 'doa' ? '$.dr7Commands[' + JSON.stringify(name) + ']' :
-            kind === 'preset' ? '$.dr7ApplyBundledXmp' : kind === 'atn' ? '$.dr7ImportBundledAtn' : kind === 'atnpick' ? '$.dr7ImportAtnDialog' :
+            kind === 'preset' ? '$.dr7ApplyBundledXmp' : kind === 'colormix' ? '$.dr7ApplyColorMix' : kind === 'atn' ? '$.dr7ImportBundledAtn' : kind === 'atnpick' ? '$.dr7ImportAtnDialog' :
             kind === 'shortcut' ? '$.dr7ShortcutSetup.install' : kind === 'artboard' ? '$._ext_ARTBOARD.run' : '$._ext_' + name + '.run';
-        var args = kind === 'atnpick' ? '' : kind === 'preset' || kind === 'atn' || kind === 'shortcut' || kind === 'artboard' ? JSON.stringify(name) :
+        var args = kind === 'atnpick' ? '' : kind === 'preset' || kind === 'atn' || kind === 'colormix' || kind === 'shortcut' || kind === 'artboard' ? JSON.stringify(name) :
             arg !== undefined ? JSON.stringify(arg) : '';
         // name đã qua kiểm tra; riêng danh sách phím tắt (nhiều dòng, tên Action tuỳ ý) không được
         // chèn thô vào mã ExtendScript hay thông báo → dùng nhãn cố định
@@ -87,6 +89,8 @@
     window.doa = function (name) { run('doa', name); };
     window.onClickButton = function (name) { run('ext', name); };
     window.dr7ApplyPreset = function (fileName) { run('preset', fileName); };
+    // spec "fuji/001:60,dazz/003:40": mỗi màu 1 layer, độ mờ theo %, xem js/color-presets.js
+    window.dr7ApplyColorMix = function (spec, done) { run('colormix', spec, done); };
     // done(res): "DR7_OK" = đã nạp bộ Action, "DR7_EXISTS" = Photoshop đã có bộ cùng tên
     window.dr7ImportActions = function (fileName, done) { run('atn', fileName, done); };
     // Chọn 1 file .atn bất kỳ và nạp thẳng vào bảng Actions
@@ -229,6 +233,7 @@
         if (window.dr7InitTabs) window.dr7InitTabs();
         if (window.dr7InitExplore) window.dr7InitExplore();
         if (window.dr7InitArtboard) window.dr7InitArtboard();
+        if (window.dr7InitColorPresets) window.dr7InitColorPresets(base);
         renderPresets();
         renderActionFiles();
         if (window.dr7InitShortcutCapture) window.dr7InitShortcutCapture();

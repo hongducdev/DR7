@@ -607,15 +607,15 @@ button:focus-visible {
 /* --- Tab Ủng Hộ --- */
 .support-card { padding: 10px 4px 2px; text-align: center; font-family: "Segoe UI", Tahoma, sans-serif; }
 .support-mug { display: block; width: 76px; height: 76px; margin: 0 auto 4px; }
-.support-title { margin: 0; color: var(--white); font: 600 17px/20px "Segoe UI", Tahoma, sans-serif; }
+.support-title { margin: 0; color: var(--white); font: 600 18px/22px "Segoe UI", Tahoma, sans-serif; }
 .support-text { margin: 6px 4px 10px; color: #9aa0ac; font-size: 11px; line-height: 15px; }
 .support-qr {
     width: 118px;
     margin: 0 auto;
     padding: 10px 6px 8px;
     border-radius: 16px;
+    border: 1px solid var(--edge);
     background: #fbf8f2;
-    box-shadow: 3px 3px 0 var(--black);
     color: var(--background);
 }
 .support-qr svg { display: block; width: 52px; height: 52px; margin: 0 auto 4px; }

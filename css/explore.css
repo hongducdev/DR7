@@ -14,11 +14,11 @@
 .explore .explore-card, .explore .explore-learn {
     margin-top: 6px;
     padding: 8px;
-    border: 1px solid var(--border);
+    border: 1px solid var(--edge);
     border-radius: 16px;
     background: var(--card);
 }
-.explore .explore-card-head { display: flex; align-items: center; gap: 6px; font: 600 11px/16px "Segoe UI", Tahoma, sans-serif; letter-spacing: .4px; }
+.explore .explore-card-head { display: flex; align-items: center; gap: 6px; font: 600 11.5px/16px "Segoe UI", Tahoma, sans-serif; letter-spacing: .6px; }
 .explore .explore-fb { width: 18px; height: 18px; }
 .explore .explore-badge { padding: 0 6px; border-radius: 999px; background: var(--primary); color: var(--primary-foreground); font: 500 9px/14px "Segoe UI", Tahoma, sans-serif; }
 .explore .explore-community-body { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
@@ -33,7 +33,7 @@
 
 .explore .explore-learn-head {
     display: flex; align-items: center; gap: 6px; width: 100%; padding: 0; border: 0;
-    background: none; color: var(--white); font: 600 11px/18px "Segoe UI", Tahoma, sans-serif; letter-spacing: .4px;
+    background: none; color: var(--white); font: 600 11.5px/18px "Segoe UI", Tahoma, sans-serif; letter-spacing: .6px;
 }
 .explore .explore-chevron { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; transition: transform 140ms; }
 .explore .explore-learn-head[aria-expanded="false"] .explore-chevron { transform: rotate(-90deg); }
@@ -51,7 +51,7 @@
 .explore .explore-red-outline { display: block; box-sizing: border-box; width: 100%; margin-top: 6px; }
 .explore .explore-red { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 8px 12px; border: 0; border-radius: 999px; background: var(--primary); color: var(--primary-foreground); font-size: 11px; font-weight: 500; line-height: 16px; }
 
-.explore .explore-featured { margin-top: 8px; padding: 8px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+.explore .explore-featured { margin-top: 8px; padding: 8px; border: 1px solid var(--edge); border-radius: 12px; background: var(--card); }
 .explore .explore-featured-main { display: flex; align-items: center; gap: 10px; }
 .explore .explore-featured-art { position: relative; flex: 0 0 96px; }
 .explore .explore-featured-art .explore-thumb { display: block; width: 96px; height: 54px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, .45); }

@@ -160,6 +160,7 @@
     };
 
     $.dr7ApplyPresetXMP = applyPresetXMP;
+    $.dr7StampVisible = stamp;
     $.dr7ApplyBundledXmp = applyBundledXmp;
     $.dr7SanitizeAcrXmp = sanitizeAcrXmp;
 }());

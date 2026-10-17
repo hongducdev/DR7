@@ -1,0 +1,52 @@
+/* Nhóm Màu & Preset: thẻ bộ màu (icon + tên), danh sách màu nhỏ và giỏ Mix */
+.color-presets { margin-bottom: var(--panel-gap); font-family: "Segoe UI", Tahoma, sans-serif; }
+.color-presets:empty { display: none; }
+.cp-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.cp-group {
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    width: 100%; min-width: 0; height: auto; margin: 0; padding: 8px 2px 6px; border: 1px solid var(--edge); border-radius: 12px;
+    background: var(--background); color: #ffffff; font: 500 10.5px/14px "Segoe UI", Tahoma, sans-serif; cursor: pointer;
+    transition: border-color 120ms, background 120ms;
+}
+.cp-group img { display: block; width: 40px; height: 40px; }
+.cp-group:hover { border-color: var(--muted-foreground); background: var(--muted); }
+.cp-group.is-selected, .cp-group.is-selected:hover { border-color: var(--primary); background: var(--background); }
+.cp-check {
+    position: absolute; top: 4px; right: 4px; display: none; align-items: center; justify-content: center;
+    width: 14px; height: 14px; border-radius: 50%; background: var(--primary);
+}
+.cp-check svg { width: 10px; height: 10px; fill: none; stroke: var(--primary-foreground); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.cp-group.is-selected .cp-check { display: flex; }
+
+.cp-list {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; max-height: 168px; margin-top: 6px; padding-right: 2px; overflow-y: auto;
+}
+.cp-list[hidden] { display: none; }
+.cp-list::-webkit-scrollbar { width: 6px; }
+.cp-list::-webkit-scrollbar-thumb { border-radius: 3px; background: var(--edge); }
+.cp-chip {
+    width: 100%; min-width: 0; height: 24px; margin: 0; padding: 0 8px; overflow: hidden; border: 1px solid var(--edge); border-radius: 999px;
+    background: var(--background); color: #d3d3d7; font: 400 10px/22px "Segoe UI", Tahoma, sans-serif;
+    text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; transition: border-color 120ms, background 120ms, color 120ms;
+}
+.cp-chip:hover { border-color: var(--muted-foreground); background: var(--muted); color: #ffffff; }
+.cp-chip.is-unsupported { opacity: .35; cursor: not-allowed; }
+.cp-chip.is-unsupported:hover { border-color: var(--border); background: inherit; color: inherit; }
+.cp-chip.is-mixed { border-color: var(--primary); color: #ffffff; }
+
+.cp-mix-toggle { margin-top: 8px; }
+.cp-mix[hidden] { display: none; }
+.cp-mix-hint { margin: 6px 0 4px; color: var(--muted-foreground); font-size: 10px; line-height: 14px; }
+.cp-mix-row { margin-top: 4px; padding: 5px 8px 4px; border: 1px solid var(--edge); border-radius: 12px; background: var(--background); }
+.cp-mix-head { display: flex; align-items: center; gap: 4px; }
+.cp-mix-name { flex: 1; min-width: 0; overflow: hidden; color: #ffffff; font-size: 10.5px; text-overflow: ellipsis; white-space: nowrap; }
+.cp-mix-remove { flex: 0 0 18px; width: 18px; height: 18px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted-foreground); font-size: 14px; line-height: 18px; cursor: pointer; }
+.cp-mix-remove:hover { background: var(--muted); color: #ffffff; }
+.cp-mix-row .slider-row { margin-top: 2px; }
+.cp-mix-apply {
+    display: block; width: 100%; height: 30px; margin: 8px 0 0; padding: 0; border: 0; border-radius: 999px;
+    background: var(--primary); color: var(--primary-foreground); font: 600 12px/30px "Segoe UI", Tahoma, sans-serif; cursor: pointer;
+}
+.cp-mix-apply:hover { opacity: .9; }
+.cp-mix-apply[disabled] { background: var(--edge); color: var(--muted-foreground); cursor: default; opacity: 1; }
+.cp-mix-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }

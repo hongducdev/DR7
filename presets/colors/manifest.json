@@ -1,0 +1,706 @@
+{
+ "groups": [
+  {
+   "id": "fuji",
+   "name": "Fuji",
+   "icon": "img/colors/fuji.svg",
+   "items": [
+    {
+     "id": "fuji/001",
+     "name": "160C"
+    },
+    {
+     "id": "fuji/002",
+     "name": "400HH"
+    },
+    {
+     "id": "fuji/003",
+     "name": "400HS"
+    },
+    {
+     "id": "fuji/004",
+     "name": "C200"
+    },
+    {
+     "id": "fuji/005",
+     "name": "Camera Canon BLEACH BYPASS (bỏ tẩy bạc)"
+    },
+    {
+     "id": "fuji/006",
+     "name": "Camera Canon CLASSIC Neg (âm bản cổ điển)"
+    },
+    {
+     "id": "fuji/007",
+     "name": "Camera Canon NOSTALGIC Neg (âm bản hoài niệm)"
+    },
+    {
+     "id": "fuji/008",
+     "name": "Camera Fuji BLEACH BYPASS (bỏ tẩy bạc)"
+    },
+    {
+     "id": "fuji/009",
+     "name": "Camera Fuji CLASSIC Neg (âm bản cổ điển)"
+    },
+    {
+     "id": "fuji/010",
+     "name": "Camera Fuji NOSTALGIC Neg (âm bản hoài niệm)"
+    },
+    {
+     "id": "fuji/011",
+     "name": "Camera Fuji Sepia (nâu cổ điển)"
+    },
+    {
+     "id": "fuji/012",
+     "name": "Camera Pentax BLEACH BYPASS (bỏ tẩy bạc)"
+    },
+    {
+     "id": "fuji/013",
+     "name": "Camera Pentax CLASSIC Neg (âm bản cổ điển)"
+    },
+    {
+     "id": "fuji/014",
+     "name": "Camera Pentax NOSTALGIC Neg (âm bản hoài niệm)"
+    },
+    {
+     "id": "fuji/015",
+     "name": "Chân dung - Pro Neg.Hi"
+    },
+    {
+     "id": "fuji/016",
+     "name": "Chân dung dịu - Pro Neg.Std - Bản 2"
+    },
+    {
+     "id": "fuji/017",
+     "name": "Chân dung dịu - Pro Neg.Std"
+    },
+    {
+     "id": "fuji/018",
+     "name": "Chân dung tiêu chuẩn - Pro Neg.Hi"
+    },
+    {
+     "id": "fuji/019",
+     "name": "Đảo Đông Sơn Film R5"
+    },
+    {
+     "id": "fuji/020",
+     "name": "Đen trắng tiêu chuẩn - Monochrome"
+    },
+    {
+     "id": "fuji/021",
+     "name": "Đen trắng tiêu chuẩn - Monochrome.Std"
+    },
+    {
+     "id": "fuji/022",
+     "name": "Đen trắng tiêu chuẩn+Đỏ - Mono+Red"
+    },
+    {
+     "id": "fuji/023",
+     "name": "Đen trắng tiêu chuẩn+Vàng - Mono+Yellow"
+    },
+    {
+     "id": "fuji/024",
+     "name": "Đen trắng tiêu chuẩn+Xanh lá - Mono+Green"
+    },
+    {
+     "id": "fuji/025",
+     "name": "Đen trắng+Đỏ - Mono+Red"
+    },
+    {
+     "id": "fuji/026",
+     "name": "Đen trắng+Vàng - Mono+Yellow"
+    },
+    {
+     "id": "fuji/027",
+     "name": "Đen trắng+Xanh lá - Mono+Green"
+    },
+    {
+     "id": "fuji/028",
+     "name": "Film tiêu chuẩn"
+    },
+    {
+     "id": "fuji/029",
+     "name": "Fortia SP"
+    },
+    {
+     "id": "fuji/030",
+     "name": "Fortia SP Balance Cool (cân bằng lạnh)"
+    },
+    {
+     "id": "fuji/031",
+     "name": "Hải Nam Homestay Xanh ngọc"
+    },
+    {
+     "id": "fuji/032",
+     "name": "Hiệu ứng bỏ tẩy bạc - Eterna (Bleach)"
+    },
+    {
+     "id": "fuji/033",
+     "name": "Lục Gia Chủy CC Trời âm"
+    },
+    {
+     "id": "fuji/034",
+     "name": "Màu bỏ tẩy bạc - Eterna (Bleach)"
+    },
+    {
+     "id": "fuji/035",
+     "name": "Màu dịu - Astia"
+    },
+    {
+     "id": "fuji/036",
+     "name": "Màu điện ảnh - Eterna (Cinema)"
+    },
+    {
+     "id": "fuji/037",
+     "name": "Màu rực rỡ - Velvia"
+    },
+    {
+     "id": "fuji/038",
+     "name": "Màu tiêu chuẩn - Provia"
+    },
+    {
+     "id": "fuji/039",
+     "name": "Màu tiêu chuẩn - Provia.Std"
+    },
+    {
+     "id": "fuji/040",
+     "name": "Nâu cổ điển - Sepia (nâu cổ điển) - Bản 2"
+    },
+    {
+     "id": "fuji/041",
+     "name": "Nâu cổ điển - Sepia (nâu cổ điển)"
+    },
+    {
+     "id": "fuji/042",
+     "name": "Phim âm bản cổ điển - Classic Neg - Bản 2"
+    },
+    {
+     "id": "fuji/043",
+     "name": "Phim âm bản cổ điển - Classic Neg"
+    },
+    {
+     "id": "fuji/044",
+     "name": "Phim âm bản hoài niệm - Nostalgic Neg - Bản 2"
+    },
+    {
+     "id": "fuji/045",
+     "name": "Phim âm bản hoài niệm - Nostalgic Neg"
+    },
+    {
+     "id": "fuji/046",
+     "name": "Phim dương bản cổ điển - Classic Chrome - Bản 2"
+    },
+    {
+     "id": "fuji/047",
+     "name": "Phim dương bản cổ điển - Classic Chrome"
+    },
+    {
+     "id": "fuji/048",
+     "name": "Phim đen trắng - Acros"
+    },
+    {
+     "id": "fuji/049",
+     "name": "Phim đen trắng - Acros.Std"
+    },
+    {
+     "id": "fuji/050",
+     "name": "Phim đen trắng+Đỏ - Acros+Red - Bản 2"
+    },
+    {
+     "id": "fuji/051",
+     "name": "Phim đen trắng+Đỏ - Acros+Red"
+    },
+    {
+     "id": "fuji/052",
+     "name": "Phim đen trắng+Vàng - Acros+Yellow - Bản 2"
+    },
+    {
+     "id": "fuji/053",
+     "name": "Phim đen trắng+Vàng - Acros+Yellow"
+    },
+    {
+     "id": "fuji/054",
+     "name": "Phim đen trắng+Xanh lá - Acros+Green - Bản 2"
+    },
+    {
+     "id": "fuji/055",
+     "name": "Phim đen trắng+Xanh lá - Acros+Green"
+    },
+    {
+     "id": "fuji/056",
+     "name": "Phong cách dịu - Astia"
+    },
+    {
+     "id": "fuji/057",
+     "name": "Phong cách điện ảnh - Eterna (Cinema)"
+    },
+    {
+     "id": "fuji/058",
+     "name": "Phong cách điện ảnh - Eterna (LUTs+)"
+    },
+    {
+     "id": "fuji/059",
+     "name": "Phong cách rực rỡ - Velvia"
+    },
+    {
+     "id": "fuji/060",
+     "name": "PRO Neg"
+    },
+    {
+     "id": "fuji/061",
+     "name": "Provia 400X"
+    },
+    {
+     "id": "fuji/062",
+     "name": "Provia Vibrant (rực rỡ)"
+    },
+    {
+     "id": "fuji/063",
+     "name": "Quét phim đa dụng"
+    },
+    {
+     "id": "fuji/064",
+     "name": "Superia 100"
+    },
+    {
+     "id": "fuji/065",
+     "name": "Superia 400"
+    },
+    {
+     "id": "fuji/066",
+     "name": "Superia X-TRA 400"
+    },
+    {
+     "id": "fuji/067",
+     "name": "Tông điện ảnh - Eterna (LUTs+)"
+    },
+    {
+     "id": "fuji/068",
+     "name": "Tông máy ảnh khổ lớn - Fuji GFX 100"
+    },
+    {
+     "id": "fuji/069",
+     "name": "Tông máy ảnh khổ lớn - Fuji GFX 100 (Profile)"
+    },
+    {
+     "id": "fuji/070",
+     "name": "Trời xanh Đồi cỏ"
+    },
+    {
+     "id": "fuji/071",
+     "name": "Velvia 100"
+    }
+   ]
+  },
+  {
+   "id": "dazz",
+   "name": "Dazz",
+   "icon": "img/colors/dazz.svg",
+   "items": [
+    {
+     "id": "dazz/001",
+     "name": "135"
+    },
+    {
+     "id": "dazz/002",
+     "name": "135 SR"
+    },
+    {
+     "id": "dazz/003",
+     "name": "Class U"
+    },
+    {
+     "id": "dazz/004",
+     "name": "Cổ điển"
+    },
+    {
+     "id": "dazz/005",
+     "name": "Cpm35"
+    },
+    {
+     "id": "dazz/006",
+     "name": "CT2F"
+    },
+    {
+     "id": "dazz/007",
+     "name": "D Exp - CCF400"
+    },
+    {
+     "id": "dazz/008",
+     "name": "D Exp - KD400"
+    },
+    {
+     "id": "dazz/009",
+     "name": "D Exp - KG100"
+    },
+    {
+     "id": "dazz/010",
+     "name": "D FunS"
+    },
+    {
+     "id": "dazz/011",
+     "name": "D Half-FNT16"
+    },
+    {
+     "id": "dazz/012",
+     "name": "D Half-NP100"
+    },
+    {
+     "id": "dazz/013",
+     "name": "D Half-PT16"
+    },
+    {
+     "id": "dazz/014",
+     "name": "DClassic"
+    },
+    {
+     "id": "dazz/015",
+     "name": "DQS"
+    },
+    {
+     "id": "dazz/016",
+     "name": "DSIDE"
+    },
+    {
+     "id": "dazz/017",
+     "name": "HOGA"
+    },
+    {
+     "id": "dazz/018",
+     "name": "Inst c"
+    },
+    {
+     "id": "dazz/019",
+     "name": "Inst SQ"
+    },
+    {
+     "id": "dazz/020",
+     "name": "Inst SQC"
+    },
+    {
+     "id": "dazz/021",
+     "name": "IR-100"
+    },
+    {
+     "id": "dazz/022",
+     "name": "IR-400"
+    },
+    {
+     "id": "dazz/023",
+     "name": "NT16-FP1.0"
+    },
+    {
+     "id": "dazz/024",
+     "name": "NT16-FP1.0-1"
+    },
+    {
+     "id": "dazz/025",
+     "name": "NT16-FP2.0"
+    },
+    {
+     "id": "dazz/026",
+     "name": "Olympus"
+    },
+    {
+     "id": "dazz/027",
+     "name": "Pentax"
+    },
+    {
+     "id": "dazz/028",
+     "name": "S 67"
+    },
+    {
+     "id": "dazz/029",
+     "name": "S 67-Phim thương mại"
+    },
+    {
+     "id": "dazz/030",
+     "name": "S 67-REA100"
+    },
+    {
+     "id": "dazz/031",
+     "name": "S 67-TX400"
+    },
+    {
+     "id": "dazz/032",
+     "name": "S Classic-_REA100"
+    },
+    {
+     "id": "dazz/033",
+     "name": "S Classic-AZZTHO"
+    },
+    {
+     "id": "dazz/034",
+     "name": "S Classic-KG200"
+    }
+   ]
+  },
+  {
+   "id": "kodak",
+   "name": "Kodak",
+   "icon": "img/colors/kodak.svg",
+   "items": [
+    {
+     "id": "kodak/001",
+     "name": "Agfa"
+    },
+    {
+     "id": "kodak/002",
+     "name": "Agfa Vista 800"
+    },
+    {
+     "id": "kodak/003",
+     "name": "Âm bản cổ điển"
+    },
+    {
+     "id": "kodak/004",
+     "name": "Đôn Hoàng Vàng trầm"
+    },
+    {
+     "id": "kodak/005",
+     "name": "Gold"
+    },
+    {
+     "id": "kodak/006",
+     "name": "Hải Nam Nắng biển"
+    },
+    {
+     "id": "kodak/007",
+     "name": "Hải Nam Quán bar Nâu ấm"
+    },
+    {
+     "id": "kodak/008",
+     "name": "Hasselblad Portra 160"
+    },
+    {
+     "id": "kodak/009",
+     "name": "Hasselblad Portra 400"
+    },
+    {
+     "id": "kodak/010",
+     "name": "Showa 06 Portra400"
+    },
+    {
+     "id": "kodak/011",
+     "name": "Showa 07 SP3000+5207"
+    },
+    {
+     "id": "kodak/012",
+     "name": "Tông ấm"
+    }
+   ]
+  },
+  {
+   "id": "leica",
+   "name": "Leica",
+   "icon": "img/colors/leica.svg",
+   "items": [
+    {
+     "id": "leica/001",
+     "name": "Bóng mượt"
+    },
+    {
+     "id": "leica/002",
+     "name": "Classic"
+    },
+    {
+     "id": "leica/003",
+     "name": "Hasselblad 01"
+    },
+    {
+     "id": "leica/004",
+     "name": "Hasselblad 02"
+    },
+    {
+     "id": "leica/005",
+     "name": "Hasselblad 03"
+    },
+    {
+     "id": "leica/006",
+     "name": "Hasselblad 04"
+    },
+    {
+     "id": "leica/007",
+     "name": "Hasselblad Classic"
+    }
+   ]
+  },
+  {
+   "id": "ricoh",
+   "name": "Ricoh",
+   "icon": "img/colors/ricoh.svg",
+   "items": [
+    {
+     "id": "ricoh/001",
+     "name": "Classic"
+    },
+    {
+     "id": "ricoh/002",
+     "name": "GR F-ACRO"
+    },
+    {
+     "id": "ricoh/003",
+     "name": "GR F-TX400"
+    },
+    {
+     "id": "ricoh/004",
+     "name": "GR F-Velvia"
+    },
+    {
+     "id": "ricoh/005",
+     "name": "Hải Nam Hải đăng Xanh trầm"
+    },
+    {
+     "id": "ricoh/006",
+     "name": "HP5 Đen trắng"
+    },
+    {
+     "id": "ricoh/007",
+     "name": "Minolta Phố mát"
+    }
+   ]
+  },
+  {
+   "id": "hongkong",
+   "name": "Hồng Kông",
+   "icon": "img/colors/hongkong.svg",
+   "items": [
+    {
+     "id": "hongkong/001",
+     "name": "Đêm Tím trầm"
+    },
+    {
+     "id": "hongkong/002",
+     "name": "Lục Gia Chủy Bến phà đêm"
+    },
+    {
+     "id": "hongkong/003",
+     "name": "Lục Gia Chủy Hoàng hôn trầm"
+    },
+    {
+     "id": "hongkong/004",
+     "name": "Nàng thơ Film 01"
+    },
+    {
+     "id": "hongkong/005",
+     "name": "Nàng thơ Film 02"
+    },
+    {
+     "id": "hongkong/006",
+     "name": "Nàng thơ Film 03"
+    },
+    {
+     "id": "hongkong/007",
+     "name": "Nàng thơ Film 04"
+    },
+    {
+     "id": "hongkong/008",
+     "name": "Nàng thơ Film 05"
+    },
+    {
+     "id": "hongkong/009",
+     "name": "Nàng thơ Film 06"
+    },
+    {
+     "id": "hongkong/010",
+     "name": "Nàng thơ Film 07"
+    },
+    {
+     "id": "hongkong/011",
+     "name": "Nàng thơ Film 08"
+    },
+    {
+     "id": "hongkong/012",
+     "name": "Nàng thơ Film 09"
+    },
+    {
+     "id": "hongkong/013",
+     "name": "Nàng thơ Film 10"
+    },
+    {
+     "id": "hongkong/014",
+     "name": "Nàng thơ Film 11"
+    },
+    {
+     "id": "hongkong/015",
+     "name": "Nàng thơ Film 12"
+    },
+    {
+     "id": "hongkong/016",
+     "name": "Nàng thơ Film 13"
+    },
+    {
+     "id": "hongkong/017",
+     "name": "Nàng thơ Film 14"
+    },
+    {
+     "id": "hongkong/018",
+     "name": "Nàng thơ Film 15"
+    },
+    {
+     "id": "hongkong/019",
+     "name": "Nàng thơ Film 16"
+    },
+    {
+     "id": "hongkong/020",
+     "name": "Nàng thơ Film 17"
+    },
+    {
+     "id": "hongkong/021",
+     "name": "Nàng thơ Film 18"
+    },
+    {
+     "id": "hongkong/022",
+     "name": "Nàng thơ Film 19"
+    },
+    {
+     "id": "hongkong/023",
+     "name": "Sân thượng Cam xanh ban đêm"
+    },
+    {
+     "id": "hongkong/024",
+     "name": "Sân thượng Vàng xanh trời âm"
+    },
+    {
+     "id": "hongkong/025",
+     "name": "Showa 01 Xanh hoa phi yến"
+    },
+    {
+     "id": "hongkong/026",
+     "name": "Showa 02 Hồng be"
+    },
+    {
+     "id": "hongkong/027",
+     "name": "Showa 03 Xanh lá sen"
+    },
+    {
+     "id": "hongkong/028",
+     "name": "Showa 04 Tím hoa baby"
+    },
+    {
+     "id": "hongkong/029",
+     "name": "Showa 05 Sương chiều"
+    },
+    {
+     "id": "hongkong/030",
+     "name": "Showa 08 Giả lập phim (hơi đỏ)"
+    },
+    {
+     "id": "hongkong/031",
+     "name": "Showa 09 Vàng xanh"
+    },
+    {
+     "id": "hongkong/032",
+     "name": "Showa 10 Chân dung cổ điển"
+    },
+    {
+     "id": "hongkong/033",
+     "name": "Showa 11 Chân dung cổ điển"
+    },
+    {
+     "id": "hongkong/034",
+     "name": "Showa 12 Chân dung cổ điển"
+    }
+   ]
+  }
+ ]
+}
